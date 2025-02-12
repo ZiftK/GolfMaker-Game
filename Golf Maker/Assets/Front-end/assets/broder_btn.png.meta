@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      broder_btn_0: -5231753772443732520
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
