@@ -1,16 +1,14 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PantallaInicio : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    UIDocument menu;
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable() 
     {
-        
+        menu = GetComponent<UIDocument>();
+        VisualElement root = menu.rootVisualElement;
     }
 }
