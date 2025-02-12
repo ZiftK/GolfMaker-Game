@@ -3703,6 +3703,7 @@ Received Import Request.
 Start importing Packages/com.unity.test-framework.performance/package.json using Guid(b030b7e8a4c531241b496403efc884ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'f20f6cc984cc3a6e1881e95b02280606') in 0.035051 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
 
+<<<<<<< HEAD
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
@@ -7413,3 +7414,5 @@ Received Import Request.
 Start importing Assets/Front-end/assets/plus_btn.png using Guid(3d3b9cd8b88de9f4a9696e4c6a3684c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'e4262b67d2b93333ffa03fa9c203318d') in 0.0120414 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
+=======
+>>>>>>> feature/front/pantalla-inicio
