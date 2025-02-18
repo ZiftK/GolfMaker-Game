@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Tilemaps;
 
-// [RequireComponent(typeof(Grid))]
+[RequireComponent(typeof(Grid))]
 public class Grid2D : MonoBehaviour
 {
 
