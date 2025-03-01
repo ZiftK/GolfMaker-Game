@@ -18,6 +18,8 @@ public class Grid2D : MonoBehaviour
     [Range(10,300)]
     private int mapHeight = 30;
 
+    private int [,] mapIds;
+
     #endregion
 
     #region //hd: visuals
@@ -34,29 +36,45 @@ public class Grid2D : MonoBehaviour
     private Grid gridComponent;
 
     [SerializeField]
+    float tileBaseWidth = 0.5f;
+
+    [SerializeField]
     private TileBase[] tileBases;
 
     /** Un tile map por cada tile base*/
     private Dictionary<int, GameObject> tileMapsByTileBase;
+    
 
     #endregion 
-
-    #region //hd: TileBase draw control
-
-    #endregion
     private void Awake() {
-        tileMapsByTileBase = new Dictionary<int, GameObject>();
-
+        
+        InitVariables();
         SuscribeEvents();
         InitVisualGrid();
         InitGrid();
         // TestInitTileMaps();
     }
 
+    private void InitVariables(){
+        tileMapsByTileBase = new Dictionary<int, GameObject>();
+
+        mapWidth = mapWidth%2 == 0 ? mapWidth : mapWidth + 1;
+        mapHeight = mapHeight%2 == 0 ? mapHeight : mapHeight + 1;
+
+        mapIds = new int [mapWidth, mapHeight];
+
+        for (int i = 0; i < mapIds.GetLength(0); i++){
+            for (int j = 0; j < mapIds.GetLength(1); j++){
+                mapIds[i,j] = -1;
+            }
+        }
+    }
 
     private void SuscribeEvents(){
         PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
+
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
+        // pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
     }
 
     private void InitVisualGrid(){
@@ -76,16 +94,16 @@ public class Grid2D : MonoBehaviour
         gridComponent = gameObject.AddComponent<Grid>();
     }
 
-    /**
-        Create a new game object of a tile map by tileBaseId and add it to the record
-    */
+
+    private Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth/2, position.y + mapHeight/2);
     private GameObject NewTileMapObj(int tileBaseId){
         // create tile map object
             GameObject newTileMapObject = new GameObject($"Tile map - {tileBaseId}");
             // relative position
             newTileMapObject.transform.SetParent(transform);
+
             newTileMapObject.transform.SetLocalPositionAndRotation(
-                Vector3.zero,
+                new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
                 Quaternion.identity
             );
             
@@ -103,7 +121,7 @@ public class Grid2D : MonoBehaviour
 
             return newTileMapObject;
     }
-
+    
     private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
         
         if (!tileMapsByTileBase.TryGetValue(args.tileBaseId, out GameObject tileMapObject)){
@@ -113,9 +131,23 @@ public class Grid2D : MonoBehaviour
         Tilemap tileMapComponent = tileMapObject.GetComponent<Tilemap>();
 
         foreach (Vector3Int position in args.positions){
+            
+            Debug.Log("Puesto en posición: " + ConvertTileMapPositionToMapIndex(position));
             tileMapComponent.SetTile(position, tileBases[args.tileBaseId]);
         }
     }
 
+    // private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args){
+    //     if (!tileMapsByTileBase.TryGetValue(args.tileBaseId, out GameObject tileMapObject)){
+    //         tileMapObject = NewTileMapObj(args.tileBaseId);
+    //     }
+
+    //     Tilemap tileMapComponent = tileMapObject.GetComponent<Tilemap>();
+
+    //     foreach (Vector3Int position in args.positions){
+            
+    //         tileMapComponent.RefreshTile(position);
+    //     }
+    // }
 
 }
