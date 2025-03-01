@@ -45,7 +45,8 @@ public class Grid2D : MonoBehaviour
 
     #endregion
     private void Awake() {
-        
+        tileMapsByTileBase = new Dictionary<int, GameObject>();
+
         SuscribeEvents();
         InitVisualGrid();
         InitGrid();
@@ -109,7 +110,7 @@ public class Grid2D : MonoBehaviour
             tileMapObject = NewTileMapObj(args.tileBaseId);
         }
 
-        Tilemap tileMapComponent = tileMapObject.AddComponent<Tilemap>();
+        Tilemap tileMapComponent = tileMapObject.GetComponent<Tilemap>();
 
         foreach (Vector3Int position in args.positions){
             tileMapComponent.SetTile(position, tileBases[args.tileBaseId]);
