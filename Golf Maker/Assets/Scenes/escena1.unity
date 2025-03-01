@@ -485,7 +485,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.311333, y: 0.16498935, z: -0.0063463673}
-  m_LocalScale: {x: 3, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -503,6 +503,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSprite: {fileID: 5931842347579807508, guid: 797e2ef51b3013043bb9d0983f94ce71, type: 3}
+  gridScale: {x: 1, y: 1}
+  tileOffset: {x: -0.5, y: -0.5}
   layerMaskFilter:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -591,8 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250b03d20ced0fc4ead4760f9294789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 30
-  mapHeight: 30
+  mapWidth: 10
+  mapHeight: 10
   visualGrid: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
   tileBases:
   - {fileID: 11400000, guid: 7900d07e6fd71db46ac1f92882d495a3, type: 2}

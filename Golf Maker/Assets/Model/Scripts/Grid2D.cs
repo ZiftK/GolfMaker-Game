@@ -24,6 +24,8 @@ public class Grid2D : MonoBehaviour
     [SerializeField]
     private GameObject visualGrid;
 
+    private int globalTilingId;
+
     #endregion
 
     #region //hd: tilemap values
@@ -40,6 +42,7 @@ public class Grid2D : MonoBehaviour
     #endregion 
 
     private void Awake() {
+        
         InitVisualGrid();
         InitGrid();
         // TestInitTileMaps();
@@ -54,6 +57,10 @@ public class Grid2D : MonoBehaviour
         visualGrid.transform.SetLocalPositionAndRotation(
             Vector3.zero, Quaternion.Euler(0,0,0)
         );
+        
+        globalTilingId = Shader.PropertyToID("_GlobalTiling");
+        Material shaderMaterial = visualGrid.GetComponent<Renderer>().material;
+        shaderMaterial.SetVector(globalTilingId, new Vector2(mapWidth, mapHeight));
     }
 
     private void InitGrid(){
