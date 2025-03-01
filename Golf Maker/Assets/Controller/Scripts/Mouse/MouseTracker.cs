@@ -6,8 +6,6 @@ using UnityEngine;
 public class MouseTracker : MonoBehaviour
 {
 
-    private Vector3 _worldPosition;
-
     [SerializeField]
     private Sprite currentSprite;
 
@@ -46,8 +44,4 @@ public class MouseTracker : MonoBehaviour
     }
 
 
-
-    public Vector3 worldPosition{
-        get {return _worldPosition;}
-    }
 }

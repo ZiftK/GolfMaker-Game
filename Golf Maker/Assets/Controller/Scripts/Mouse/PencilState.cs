@@ -20,9 +20,13 @@ public abstract class PencilState
 
     protected static PencilState instance;
 
-    public abstract void OnClick(PencilContext context);
+    public abstract void Update(PencilContext context);
 
-    public abstract void OnUnClick(PencilContext context);
+    public abstract void OnLeftClick();
 
-    
+    public abstract void OnLeftUnClikc();
+
+    public abstract void OnRightClick();
+
+    public abstract void OnRightUnClick();
 }

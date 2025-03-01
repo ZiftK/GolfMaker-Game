@@ -11,18 +11,29 @@ public class Pencil : MonoBehaviour
         currentState = PointPencilState.GetInstance();
     }
 
-    public void OnClick(InputAction.CallbackContext context){
+    void Update()
+    {
+
+        currentState.Update(new PencilContext(Vector3Int.RoundToInt(transform.position)));
+    }
+    public void OnLeftClick(InputAction.CallbackContext context){
 
         if (context.started){
-            PencilContext pencilContext = new PencilContext(Vector3Int.RoundToInt(transform.position));
-            currentState.OnClick(pencilContext);
-        }
-        if (context.performed){
-            Debug.Log("Manteniendo el click");
+            currentState.OnLeftClick();
         }
 
         if (context.canceled){
-            Debug.Log("Dejando el click");
+            currentState.OnLeftUnClikc();
+        }
+    }
+
+    public void OnRightClick(InputAction.CallbackContext context){
+        if (context.started){
+            currentState.OnRightClick();
+        }
+
+        if (context.canceled){
+            currentState.OnRightUnClick();
         }
     }
 }

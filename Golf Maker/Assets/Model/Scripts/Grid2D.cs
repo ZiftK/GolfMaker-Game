@@ -74,7 +74,7 @@ public class Grid2D : MonoBehaviour
         PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
 
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
-        // pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
+        pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
     }
 
     private void InitVisualGrid(){
@@ -96,6 +96,12 @@ public class Grid2D : MonoBehaviour
 
 
     private Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth/2, position.y + mapHeight/2);
+    private void SetIdAtPosition(Vector2Int idPosition, int newId){
+        mapIds[idPosition.x, idPosition.y] = newId;
+    }
+
+    private int GetIdAtPosition(Vector2Int idPosition) => mapIds[idPosition.x, idPosition.y];
+
     private GameObject NewTileMapObj(int tileBaseId){
         // create tile map object
             GameObject newTileMapObject = new GameObject($"Tile map - {tileBaseId}");
@@ -132,22 +138,30 @@ public class Grid2D : MonoBehaviour
 
         foreach (Vector3Int position in args.positions){
             
-            Debug.Log("Puesto en posición: " + ConvertTileMapPositionToMapIndex(position));
+            Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
+            mapIds[idPosition.x,idPosition.y] = args.tileBaseId;
             tileMapComponent.SetTile(position, tileBases[args.tileBaseId]);
         }
     }
 
-    // private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args){
-    //     if (!tileMapsByTileBase.TryGetValue(args.tileBaseId, out GameObject tileMapObject)){
-    //         tileMapObject = NewTileMapObj(args.tileBaseId);
-    //     }
+    private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args){
 
-    //     Tilemap tileMapComponent = tileMapObject.GetComponent<Tilemap>();
+        foreach (Vector3Int position in args.positions){
 
-    //     foreach (Vector3Int position in args.positions){
-            
-    //         tileMapComponent.RefreshTile(position);
-    //     }
-    // }
+            Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
+            int id = GetIdAtPosition(idPosition);
+            Debug.Log("Borrando item de id:  " + id);
+            if ( id == -1){
+                continue;
+            }
+
+            // recovery id tile map
+            tileMapsByTileBase.TryGetValue(id, out GameObject tileMap);
+            Tilemap tileMapComponent = tileMap.GetComponent<Tilemap>();
+
+            tileMapComponent.SetTile(position, null);
+            SetIdAtPosition(idPosition, -1);
+        }
+    }
 
 }
