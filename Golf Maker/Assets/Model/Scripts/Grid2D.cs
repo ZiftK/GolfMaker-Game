@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -32,23 +33,30 @@ public class Grid2D : MonoBehaviour
 
     private Grid gridComponent;
 
-
-
     [SerializeField]
     private TileBase[] tileBases;
 
-    private GameObject[] tileMapObjects;
+    /** Un tile map por cada tile base*/
+    private Dictionary<int, GameObject> tileMapsByTileBase;
 
     #endregion 
 
+    #region //hd: TileBase draw control
+
+    #endregion
     private void Awake() {
         
+        SuscribeEvents();
         InitVisualGrid();
         InitGrid();
         // TestInitTileMaps();
     }
 
 
+    private void SuscribeEvents(){
+        PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
+        pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
+    }
 
     private void InitVisualGrid(){
         visualGrid  = Instantiate(visualGrid);
@@ -67,39 +75,44 @@ public class Grid2D : MonoBehaviour
         gridComponent = gameObject.AddComponent<Grid>();
     }
 
-    private void TestInitTileMaps(){
-
-        tileMapObjects = new GameObject[tileBases.Length];
-
-        for (int i = 0; i < tileBases.Length; i++){
-
-            // instantiate new object
-            GameObject newTileMapObject = new GameObject($"TileMapID-{i}");
-            newTileMapObject.transform.SetParent(gameObject.transform); // link to this object
-            newTileMapObject.transform.SetLocalPositionAndRotation( // set in the center of the map
-                Vector3.zero, Quaternion.Euler(0,0,0));
-            newTileMapObject.transform.localScale = new Vector3(3,3);// tune scale
-
-            // add tile map base components
+    /**
+        Create a new game object of a tile map by tileBaseId and add it to the record
+    */
+    private GameObject NewTileMapObj(int tileBaseId){
+        // create tile map object
+            GameObject newTileMapObject = new GameObject($"Tile map - {tileBaseId}");
+            // relative position
+            newTileMapObject.transform.SetParent(transform);
+            newTileMapObject.transform.SetLocalPositionAndRotation(
+                Vector3.zero,
+                Quaternion.identity
+            );
+            
+            // add components
             newTileMapObject.AddComponent<Tilemap>();
             newTileMapObject.AddComponent<TilemapRenderer>();
-
-            // add rgb
-            Rigidbody2D tileRb = newTileMapObject.AddComponent<Rigidbody2D>();
-            tileRb.bodyType = RigidbodyType2D.Static;
-
-            // add colliders
+            // physics
+            Rigidbody2D tileMapRgb = newTileMapObject.AddComponent<Rigidbody2D>();
+            tileMapRgb.bodyType = RigidbodyType2D.Static;
             TilemapCollider2D tileMapCollider = newTileMapObject.AddComponent<TilemapCollider2D>();
             newTileMapObject.AddComponent<CompositeCollider2D>();
-
-            
             tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
 
-            Debug.Log($"i: {i}");
-            newTileMapObject.GetComponent<Tilemap>().SetTile(new Vector3Int(i,0), tileBases[i]);
-            newTileMapObject.GetComponent<Tilemap>().SetTile(new Vector3Int(i,1), tileBases[i]);
+            this.tileMapsByTileBase.Add(tileBaseId, newTileMapObject);
 
-            tileMapObjects[i] = newTileMapObject;
+            return newTileMapObject;
+    }
+
+    private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
+        
+        if (!tileMapsByTileBase.TryGetValue(args.tileBaseId, out GameObject tileMapObject)){
+            tileMapObject = NewTileMapObj(args.tileBaseId);
+        }
+
+        Tilemap tileMapComponent = tileMapObject.AddComponent<Tilemap>();
+
+        foreach (Vector3Int position in args.positions){
+            tileMapComponent.SetTile(position, tileBases[args.tileBaseId]);
         }
     }
 

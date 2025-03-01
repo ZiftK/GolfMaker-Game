@@ -1124,6 +1124,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Pencil",
+            "id": "0057ef4b-2e19-4c4e-80f8-4691bfa4c479",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "1bae660a-29c4-4882-bdbf-86fd0d570a71",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "76251c65-c93d-46e6-9862-866d0b9a04bd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
