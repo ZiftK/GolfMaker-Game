@@ -101,7 +101,7 @@ public class Grid2D : MonoBehaviour
         
 
         Tilemap tileMapComponent = tileMapsFactory.GetTileMap(args.tileBaseId, tileBaseWidth, out TileBase tile);
-
+        Debug.Log("Estamos pasandooooooo");
         foreach (Vector3Int position in args.positions){
             
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
