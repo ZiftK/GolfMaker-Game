@@ -38,25 +38,20 @@ public class Grid2D : MonoBehaviour
     [SerializeField]
     float tileBaseWidth = 0.5f;
 
-    [SerializeField]
-    private TileBase[] tileBases;
-
-    /** Un tile map por cada tile base*/
-    private Dictionary<int, GameObject> tileMapsByTileBase;
+    private TileMapsFactory tileMapsFactory;
     
 
     #endregion 
     private void Awake() {
         
+        GetComponents();
         InitVariables();
         SuscribeEvents();
         InitVisualGrid();
-        InitGrid();
         // TestInitTileMaps();
     }
 
     private void InitVariables(){
-        tileMapsByTileBase = new Dictionary<int, GameObject>();
 
         mapWidth = mapWidth%2 == 0 ? mapWidth : mapWidth + 1;
         mapHeight = mapHeight%2 == 0 ? mapHeight : mapHeight + 1;
@@ -70,6 +65,9 @@ public class Grid2D : MonoBehaviour
         }
     }
 
+    private void GetComponents(){
+        tileMapsFactory = gameObject.GetComponent<TileMapsFactory>();
+    }
     private void SuscribeEvents(){
         PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
 
@@ -90,10 +88,6 @@ public class Grid2D : MonoBehaviour
         shaderMaterial.SetVector(globalTilingId, new Vector2(mapWidth, mapHeight));
     }
 
-    private void InitGrid(){
-        gridComponent = gameObject.AddComponent<Grid>();
-    }
-
 
     private Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth/2, position.y + mapHeight/2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId){
@@ -102,63 +96,33 @@ public class Grid2D : MonoBehaviour
 
     private int GetIdAtPosition(Vector2Int idPosition) => mapIds[idPosition.x, idPosition.y];
 
-    private GameObject NewTileMapObj(int tileBaseId){
-        // create tile map object
-            GameObject newTileMapObject = new GameObject($"Tile map - {tileBaseId}");
-            // relative position
-            newTileMapObject.transform.SetParent(transform);
 
-            newTileMapObject.transform.SetLocalPositionAndRotation(
-                new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
-                Quaternion.identity
-            );
-            
-            // add components
-            newTileMapObject.AddComponent<Tilemap>();
-            newTileMapObject.AddComponent<TilemapRenderer>();
-            // physics
-            Rigidbody2D tileMapRgb = newTileMapObject.AddComponent<Rigidbody2D>();
-            tileMapRgb.bodyType = RigidbodyType2D.Static;
-            TilemapCollider2D tileMapCollider = newTileMapObject.AddComponent<TilemapCollider2D>();
-            newTileMapObject.AddComponent<CompositeCollider2D>();
-            tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
-
-            this.tileMapsByTileBase.Add(tileBaseId, newTileMapObject);
-
-            return newTileMapObject;
-    }
-    
     private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
         
-        if (!tileMapsByTileBase.TryGetValue(args.tileBaseId, out GameObject tileMapObject)){
-            tileMapObject = NewTileMapObj(args.tileBaseId);
-        }
 
-        Tilemap tileMapComponent = tileMapObject.GetComponent<Tilemap>();
+        Tilemap tileMapComponent = tileMapsFactory.GetTileMap(args.tileBaseId, tileBaseWidth, out TileBase tile);
 
         foreach (Vector3Int position in args.positions){
             
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
-            mapIds[idPosition.x,idPosition.y] = args.tileBaseId;
-            tileMapComponent.SetTile(position, tileBases[args.tileBaseId]);
+            SetIdAtPosition(idPosition, args.tileBaseId);
+            tileMapComponent.SetTile(position, tile);
         }
     }
 
     private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args){
 
         foreach (Vector3Int position in args.positions){
-
+            
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             int id = GetIdAtPosition(idPosition);
-            Debug.Log("Borrando item de id:  " + id);
             if ( id == -1){
                 continue;
             }
 
             // recovery id tile map
-            tileMapsByTileBase.TryGetValue(id, out GameObject tileMap);
-            Tilemap tileMapComponent = tileMap.GetComponent<Tilemap>();
-
+            Tilemap tileMapComponent = tileMapsFactory.GetTileMap(id, tileBaseWidth);
+            
             tileMapComponent.SetTile(position, null);
             SetIdAtPosition(idPosition, -1);
         }
