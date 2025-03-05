@@ -1,0 +1,40 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Pencil : MonoBehaviour
+{
+    
+    private PencilState currentState;
+
+    void Awake()
+    {
+        // currentState = PointPencilState.GetInstance();
+        currentState = LinePencilState.GetInstance();
+    }
+
+    void Update()
+    {
+
+        currentState.Update(new PencilContext(Vector3Int.RoundToInt(transform.position), 0));
+    }
+    public void OnLeftClick(InputAction.CallbackContext context){
+
+        if (context.started){
+            currentState.OnLeftClick(new PencilContext(Vector3Int.RoundToInt(transform.position), 0));
+        }
+
+        if (context.canceled){
+            currentState.OnLeftUnClikc(new PencilContext(Vector3Int.RoundToInt(transform.position), 0));
+        }
+    }
+
+    public void OnRightClick(InputAction.CallbackContext context){
+        if (context.started){
+            currentState.OnRightClick(new PencilContext(Vector3Int.RoundToInt(transform.position), 0));
+        }
+
+        if (context.canceled){
+            currentState.OnRightUnClick(new PencilContext(Vector3Int.RoundToInt(transform.position), 0));
+        }
+    }
+}

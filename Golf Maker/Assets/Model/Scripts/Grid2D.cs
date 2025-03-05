@@ -101,9 +101,8 @@ public class Grid2D : MonoBehaviour
         
 
         Tilemap tileMapComponent = tileMapsFactory.GetTileMap(args.tileBaseId, tileBaseWidth, out TileBase tile);
-
+        
         foreach (Vector3Int position in args.positions){
-            
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
             tileMapComponent.SetTile(position, tile);
@@ -111,7 +110,7 @@ public class Grid2D : MonoBehaviour
     }
 
     private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args){
-
+        
         foreach (Vector3Int position in args.positions){
             
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
@@ -119,13 +118,13 @@ public class Grid2D : MonoBehaviour
             if ( id == -1){
                 continue;
             }
-
             // recovery id tile map
             Tilemap tileMapComponent = tileMapsFactory.GetTileMap(id, tileBaseWidth);
             
             tileMapComponent.SetTile(position, null);
             SetIdAtPosition(idPosition, -1);
         }
+        
     }
 
 }

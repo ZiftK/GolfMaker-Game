@@ -1,4 +1,7 @@
 
+using System;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OnlyReadVector3{
@@ -32,5 +35,33 @@ public class OnlyReadVector3{
 
     public static Vector3 GetNewUsingXY(Vector3 onlyReadVector, Vector2 xy){
         return new Vector3(xy.x, xy.y, onlyReadVector.z);
+    }
+}
+
+
+public static class Vector3IntOperations{
+
+    public static double Module(Vector3Int vector) => Math.Sqrt(vector.x*vector.x + vector.y*vector.y + vector.z*vector.z);
+
+
+    public static Vector3Int[] InterpolateVectors(Vector3Int initial, Vector3Int final){
+
+        
+        Vector3Int diff = final - initial;
+        int mod = (int) Module(diff);
+
+        Vector3Int[] vectorList = new Vector3Int[mod+1];
+        vectorList[0] = initial;
+        vectorList[vectorList.Length-1] = final;
+
+        Vector3 unitDiff = Vector3.Normalize(diff);
+        
+        Vector3Int addVector;
+        for (int i = 1; i < mod; i++){
+            addVector = initial + Vector3Int.RoundToInt(i*unitDiff);
+            vectorList[i] = addVector;
+        }
+
+        return vectorList;
     }
 }

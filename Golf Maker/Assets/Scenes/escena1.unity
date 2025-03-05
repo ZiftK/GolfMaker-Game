@@ -673,6 +673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1893831420}
   - component: {fileID: 1893831418}
+  - component: {fileID: 1893831422}
   - component: {fileID: 1893831421}
   m_Layer: 0
   m_Name: Gird2D
@@ -697,11 +698,6 @@ MonoBehaviour:
   mapHeight: 13
   visualGrid: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
   tileBaseWidth: 0.5
-  tileBases:
-  - {fileID: 11400000, guid: 7900d07e6fd71db46ac1f92882d495a3, type: 2}
-  - {fileID: 11400000, guid: 5cf879158a4211f4b9b2fa6d5fbc97ac, type: 2}
-  - {fileID: 11400000, guid: 7bf146da80dbfb34eb6c4a67a8ae2b15, type: 2}
-  - {fileID: 11400000, guid: ab5549568746f264684466cd2015689f, type: 2}
 --- !u!4 &1893831420
 Transform:
   m_ObjectHideFlags: 0
@@ -729,6 +725,19 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &1893831422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893831417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a274f0ce889787c4eb2f11343ce327bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMapStorage: {fileID: 11400000, guid: 23fa8080d7fa0cc4bbc2aeb181435a23, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
