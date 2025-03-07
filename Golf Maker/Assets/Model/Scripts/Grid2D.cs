@@ -101,6 +101,7 @@ public class Grid2D : MonoBehaviour
                 Quaternion.identity
             );
         temporalTileMap = temporalTileMapObj.AddComponent<Tilemap>();
+        temporalTileMapObj.AddComponent<TilemapRenderer>();
     }
 
 
@@ -120,7 +121,7 @@ public class Grid2D : MonoBehaviour
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
 
-            Debug.Log(temporalTileMap);
+            Debug.Log(tile);
             temporalTileMap.SetTile(position, tile);
 
         }

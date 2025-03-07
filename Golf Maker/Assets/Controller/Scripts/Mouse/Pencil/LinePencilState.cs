@@ -1,9 +1,5 @@
-using JetBrains.Annotations;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Analytics;
-using UnityEngine.Rendering;
 
+using UnityEngine;
 public class LinePencilState : PencilState
 {
     Vector3Int initialPoint, finalPoint;
@@ -18,6 +14,7 @@ public class LinePencilState : PencilState
     }
     
     bool drawing = false;
+    Vector3 lastPosition;
 
     public override void OnLeftClick(PencilContext context)
     {
@@ -30,6 +27,7 @@ public class LinePencilState : PencilState
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
         DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
+        pencilEventsHandler.OnClearTemporalTiles();
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
         drawing = false;
@@ -50,11 +48,17 @@ public class LinePencilState : PencilState
 
     public override void Update(PencilContext context)
     {
-        if (drawing){
+
+
+        if (drawing && lastPosition != context.position){
+            pencilEventsHandler.OnClearTemporalTiles();
+
             Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, context.position);
             DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
             pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
-            // pencilEventsHandler.OnClearTemporalTiles();
+            
         }
+
+        lastPosition = context.position;
     }
 }
