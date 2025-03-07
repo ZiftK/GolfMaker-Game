@@ -16,10 +16,13 @@ public class LinePencilState : PencilState
         }
         return instance;
     }
+    
+    bool drawing = false;
 
     public override void OnLeftClick(PencilContext context)
     {
         initialPoint = context.position;
+        drawing = true;
     }
 
     public override void OnLeftUnClikc(PencilContext context)
@@ -29,7 +32,7 @@ public class LinePencilState : PencilState
         DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
-        
+        drawing = false;
     }
 
     public override void OnRightClick(PencilContext context)
@@ -47,6 +50,11 @@ public class LinePencilState : PencilState
 
     public override void Update(PencilContext context)
     {
-        
+        if (drawing){
+            Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, context.position);
+            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
+            pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
+            // pencilEventsHandler.OnClearTemporalTiles();
+        }
     }
 }

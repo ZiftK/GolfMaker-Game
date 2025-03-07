@@ -4,6 +4,7 @@ using UnityEngine;
 
 public struct PencilContext{
 
+    
     public PencilContext(Vector3Int position, int tileId){
         this.position = position;
         this.tileId = tileId;
