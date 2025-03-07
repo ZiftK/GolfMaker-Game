@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(Grid))]
+[RequireComponent(typeof(Grid), typeof(Tilemap))]
 public class Grid2D : MonoBehaviour
 {
 
@@ -28,6 +29,9 @@ public class Grid2D : MonoBehaviour
     private GameObject visualGrid;
 
     private int globalTilingId;
+
+    [SerializeField]
+    private Tilemap temporalTileMap;
 
     #endregion
 
@@ -73,6 +77,8 @@ public class Grid2D : MonoBehaviour
 
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
         pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
+        pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
+        pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
     }
 
     private void InitVisualGrid(){
@@ -86,6 +92,15 @@ public class Grid2D : MonoBehaviour
         globalTilingId = Shader.PropertyToID("_GlobalTiling");
         Material shaderMaterial = visualGrid.GetComponent<Renderer>().material;
         shaderMaterial.SetVector(globalTilingId, new Vector2(mapWidth, mapHeight));
+
+        // temporal tile map
+        GameObject temporalTileMapObj = new GameObject("Temporal tile map");
+        temporalTileMapObj.transform.SetParent(transform);
+        temporalTileMapObj.transform.SetPositionAndRotation(
+                new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
+                Quaternion.identity
+            );
+        temporalTileMap = temporalTileMapObj.AddComponent<Tilemap>();
     }
 
 
@@ -97,15 +112,37 @@ public class Grid2D : MonoBehaviour
     private int GetIdAtPosition(Vector2Int idPosition) => mapIds[idPosition.x, idPosition.y];
 
 
-    private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
-        
-
-        Tilemap tileMapComponent = tileMapsFactory.GetTileMap(args.tileBaseId, tileBaseWidth, out TileBase tile);
+    private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
+        TileMapComponent tileMapComponent = tileMapsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
+        TileBase tile = tileMapComponent.config.temporalTileBase;
         
         foreach (Vector3Int position in args.positions){
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
-            tileMapComponent.SetTile(position, tile);
+
+            Debug.Log(temporalTileMap);
+            temporalTileMap.SetTile(position, tile);
+
+        }
+    }
+
+    private void ClearTemporalTiles(object sender, EventArgs e){
+        temporalTileMap.ClearAllTiles();
+    }
+
+    private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
+        
+
+        TileMapComponent tileMapComponent = tileMapsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
+        TileBase tile = tileMapComponent.config.tileBase;
+        Tilemap tilemap = tileMapComponent.obj.GetComponent<Tilemap>();
+        
+        foreach (Vector3Int position in args.positions){
+            Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
+            SetIdAtPosition(idPosition, args.tileBaseId);
+
+            tilemap.SetTile(position, tile);
+
         }
     }
 
@@ -119,9 +156,11 @@ public class Grid2D : MonoBehaviour
                 continue;
             }
             // recovery id tile map
-            Tilemap tileMapComponent = tileMapsFactory.GetTileMap(id, tileBaseWidth);
+            TileMapComponent tileMapComponent = tileMapsFactory.GetTileMapComponent(id, tileBaseWidth);
+            TileBase tile = tileMapComponent.config.tileBase;
+            Tilemap tilemap = tileMapComponent.obj.GetComponent<Tilemap>();
             
-            tileMapComponent.SetTile(position, null);
+            tilemap.SetTile(position, null);
             SetIdAtPosition(idPosition, -1);
         }
         
