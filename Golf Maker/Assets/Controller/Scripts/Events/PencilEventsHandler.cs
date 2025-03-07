@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -16,7 +17,9 @@ public class DrawTileBaseAtPositionsArgs: EventArgs{
         this.positions = new Vector3Int[] {position};
         this.tileBaseId = tileBaseId;
     }
+
 }
+
 
 public class BorrowTileBaseAtPositionArgs: EventArgs{
     public Vector3Int[] positions {get;}
@@ -30,11 +33,16 @@ public class BorrowTileBaseAtPositionArgs: EventArgs{
     }
 }
 
+
 public class PencilEventsHandler{
 
     static PencilEventsHandler instance;
 
     public event EventHandler<DrawTileBaseAtPositionsArgs> DrawTileBaseAtPosition;
+
+    public event EventHandler<DrawTileBaseAtPositionsArgs> TemporalDrawTileBaseAtPositions;
+
+    public event EventHandler ClearTemporalTiles;
 
     public event EventHandler<BorrowTileBaseAtPositionArgs> BorrowTileBaseAtPosition;
 
@@ -54,6 +62,14 @@ public class PencilEventsHandler{
     public void OnBorrowTileBaseAtPosition(BorrowTileBaseAtPositionArgs e){
         
         BorrowTileBaseAtPosition?.Invoke(this, e);
+    }
+
+    public void OnTemporalDrawTileBaseAtPosition(DrawTileBaseAtPositionsArgs e){
+        TemporalDrawTileBaseAtPositions?.Invoke(this, e);
+    }
+
+    public void OnClearTemporalTiles(){
+        ClearTemporalTiles?.Invoke(this, new EventArgs());
     }
 
 }
