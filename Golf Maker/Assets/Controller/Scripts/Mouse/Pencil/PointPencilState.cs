@@ -15,13 +15,13 @@ public class PointPencilState : PencilState
     private bool drawing;
     private bool borrowing;
 
-    public override void OnLeftClick()
+    public override void OnLeftClick(PencilContext context)
     {
         drawing = true;
         borrowing = false;
     }
 
-    public override void OnLeftUnClikc()
+    public override void OnLeftUnClikc(PencilContext context)
     {
         drawing = false;
     }
@@ -29,7 +29,7 @@ public class PointPencilState : PencilState
     public override void Update(PencilContext context)
     {
         if (drawing){
-            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(0, context.position);
+            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, context.position);
             pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         }
         if (borrowing){
@@ -39,15 +39,16 @@ public class PointPencilState : PencilState
         }
     }
 
-    public override void OnRightClick()
+    public override void OnRightClick(PencilContext context)
     {
         
         borrowing = true;
         drawing = false;
     }
 
-    public override void OnRightUnClick()
+    public override void OnRightUnClick(PencilContext context)
     {
         borrowing = false;
     }
+
 }
