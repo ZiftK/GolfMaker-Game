@@ -1,7 +1,6 @@
 
 using System;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class OnlyReadVector3{
@@ -44,6 +43,7 @@ public static class Vector3IntOperations{
     public static double Module(Vector3Int vector) => Math.Sqrt(vector.x*vector.x + vector.y*vector.y + vector.z*vector.z);
 
 
+
     public static Vector3Int[] InterpolateVectors(Vector3Int initial, Vector3Int final){
 
         
@@ -60,6 +60,40 @@ public static class Vector3IntOperations{
         for (int i = 1; i < mod; i++){
             addVector = initial + Vector3Int.RoundToInt(i*unitDiff);
             vectorList[i] = addVector;
+        }
+
+        return vectorList;
+    }
+
+    public static Vector3Int[] InterpolateVectorsAsSquare(Vector3Int initial, Vector3Int final){
+
+        int width = final.x-initial.x, height = final.y-initial.y, signWidth = Math.Sign(width), signHeight = Math.Sign(height);
+
+        int size = Math.Max(1, width*2 + height*2 - 4);//TODO: corregir, el problema está aquí
+
+        if (size == 1){
+            return new Vector3Int[] {initial};
+        }
+
+        Vector3Int[] vectorList = new Vector3Int[size];
+
+        int index = 0;
+
+
+        Vector3Int buttom = new Vector3Int(initial.x, final.y, 0);
+        Vector3Int top = initial;
+
+        for (int i = 0; i < Math.Abs(width); i++){
+            vectorList[index++] = top + signWidth*i*Vector3Int.right;
+            vectorList[index++] = buttom + signWidth*i*Vector3Int.right;
+        }
+
+        Vector3Int left = initial;
+        Vector3Int right = new Vector3Int(final.x, initial.y,0);
+
+        for (int j = 1; j <= Math.Abs(height); j++){
+            vectorList[index++] = left +signHeight*j*Vector3Int.up;
+            vectorList[index++] = right + signHeight*j*Vector3Int.up;
         }
 
         return vectorList;

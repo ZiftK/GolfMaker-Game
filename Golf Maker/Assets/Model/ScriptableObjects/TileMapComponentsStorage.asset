@@ -16,9 +16,12 @@ MonoBehaviour:
   - name: grass
     id: 0
     tileBase: {fileID: 11400000, guid: 560339ff167799a40b0f40318a2d5929, type: 2}
+    temporalTileBase: {fileID: 11400000, guid: 742f8a4d089009f46a993c529d95b9ac, type: 2}
   - name: water
     id: 1
     tileBase: {fileID: 11400000, guid: 00902ebdcd3432243b813baa7573e00c, type: 2}
+    temporalTileBase: {fileID: 0}
   - name: lava
     id: 2
     tileBase: {fileID: 11400000, guid: a7f58b784de93ec458dfc509068dfda0, type: 2}
+    temporalTileBase: {fileID: 0}

@@ -11,7 +11,7 @@ public class Pencil : MonoBehaviour
     void Awake()
     {
         // currentState = PointPencilState.GetInstance();
-        currentState = LinePencilState.GetInstance();
+        currentState = SquarePencilState.GetInstance();
     }
 
     void Update()

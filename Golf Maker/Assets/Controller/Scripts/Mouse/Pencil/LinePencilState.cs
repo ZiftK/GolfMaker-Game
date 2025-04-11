@@ -14,7 +14,7 @@ public class LinePencilState : PencilState
     }
     
     bool drawing = false;
-    Vector3 lastPosition;
+    Vector3Int lastPosition;
 
     public override void OnLeftClick(PencilContext context)
     {
