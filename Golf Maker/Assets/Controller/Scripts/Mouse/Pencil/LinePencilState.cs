@@ -13,44 +13,56 @@ public class LinePencilState : PencilState
         return instance;
     }
     
-    bool drawing = false;
     Vector3Int lastPosition;
 
     public override void OnLeftClick(PencilContext context)
     {
+        this.IsDrawing = true;
+        if (!this.IsDrawing) return;
+
         initialPoint = context.position;
-        drawing = true;
     }
 
     public override void OnLeftUnClikc(PencilContext context)
     {
+        // check if the pencil is drawing
+        if (!this.IsDrawing) return;
+        
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
         DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
         pencilEventsHandler.OnClearTemporalTiles();
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
-        drawing = false;
+        this.IsDrawing = false;
     }
 
     public override void OnRightClick(PencilContext context)
     {
+        this.IsBorrowing = true;
+        if (!this.IsBorrowing) return;
+
         initialPoint = context.position;
     }
 
     public override void OnRightUnClick(PencilContext context)
     {
+        // check if the pencil is borrowing
+        if (!this.IsBorrowing) return;
+
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
         BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(lineCoords);
         pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+
+        this.IsBorrowing = false;
     }
 
     public override void Update(PencilContext context)
     {
 
 
-        if (drawing && lastPosition != context.position){
+        if (this.IsDrawing && lastPosition != context.position){
             pencilEventsHandler.OnClearTemporalTiles();
 
             Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, context.position);
