@@ -119,7 +119,7 @@ public class Grid2D : MonoBehaviour
     }
 
 
-    private Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth / 2, position.y + mapHeight / 2);
+    public Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth / 2, position.y + mapHeight / 2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
         mapIds[idPosition.x, idPosition.y] = newId;
