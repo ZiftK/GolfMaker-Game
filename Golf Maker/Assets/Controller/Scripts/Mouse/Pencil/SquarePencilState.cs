@@ -8,41 +8,51 @@ public class SquarePencilState : PencilState
         if (instance == null){
             instance = new SquarePencilState();
         }
-        Debug.Log("Construyendo instancia");
         return instance;
     }
-    
-    private bool drawing;
+
+
     private Vector3Int lastPosition, initialPoint, finalPoint;
 
     public override void OnLeftClick(PencilContext context)
     {
-        drawing = true;
+        setIsDrawing(true);
         initialPoint = context.position;
-        Debug.Log("Click");
     }
 
     public override void OnLeftUnClikc(PencilContext context)
     {
         finalPoint = context.position;
+
+        // get positions between initial and final point
         Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, finalPoint);
+        // draw tile base at positions
         DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, squareCoords);
-        pencilEventsHandler.OnClearTemporalTiles();
+        pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
-        drawing = false;
-
-        Debug.Log("Unclick");
+        setIsDrawing(false);
     }
 
     public override void OnRightClick(PencilContext context)
     {
-        throw new System.NotImplementedException();
+        setIsBorrowing(true);
+        initialPoint = context.position;
     }
 
     public override void OnRightUnClick(PencilContext context)
     {
-        throw new System.NotImplementedException();
+        finalPoint = context.position;
+
+        // get positions between initial and final point
+        Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, finalPoint);
+        // borrow tile base at positions
+        BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(squareCoords);
+        pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
+        pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+        
+        setIsBorrowing(false);
+        
     }
 
     public override void Update(PencilContext context)
