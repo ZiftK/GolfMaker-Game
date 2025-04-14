@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Grid), typeof(Tilemap))]
 public class Grid2D : MonoBehaviour
 {
+    public static Grid2D Instance { get; private set; }
 
     #region //hd: map values
     [Header("Map values")]
@@ -45,6 +46,15 @@ public class Grid2D : MonoBehaviour
     #endregion
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Evita duplicados
+            return;
+        }
 
         GetComponents();
         InitVariables();
@@ -177,6 +187,11 @@ public class Grid2D : MonoBehaviour
             SetIdAtPosition(idPosition, -1);
         }
 
+    }
+
+    public int[,] GetMapIds()
+    {
+        return mapIds;
     }
 
 }
