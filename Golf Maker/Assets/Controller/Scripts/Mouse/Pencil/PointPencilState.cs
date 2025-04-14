@@ -12,27 +12,24 @@ public class PointPencilState : PencilState
         return instance;
     }
 
-    private bool drawing;
-    private bool borrowing;
 
     public override void OnLeftClick(PencilContext context)
     {
-        drawing = true;
-        borrowing = false;
+        this.IsDrawing = true;
     }
 
     public override void OnLeftUnClikc(PencilContext context)
     {
-        drawing = false;
+        this.IsDrawing = false;
     }
 
     public override void Update(PencilContext context)
     {
-        if (drawing){
+        if (this.IsDrawing){
             DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, context.position);
             pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         }
-        if (borrowing){
+        if (this.IsBorrowing){
             
             BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(context.position);
             pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
@@ -42,13 +39,12 @@ public class PointPencilState : PencilState
     public override void OnRightClick(PencilContext context)
     {
         
-        borrowing = true;
-        drawing = false;
+        this.IsBorrowing = true;
     }
 
     public override void OnRightUnClick(PencilContext context)
     {
-        borrowing = false;
+        this.IsBorrowing = false;
     }
 
 }
