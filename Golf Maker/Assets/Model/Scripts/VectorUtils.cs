@@ -1,4 +1,3 @@
-
 using System;
 using Unity.Mathematics;
 using UnityEngine;
@@ -69,16 +68,15 @@ public static class Vector3IntOperations{
 
         int width = final.x-initial.x, height = final.y-initial.y, signWidth = Math.Sign(width), signHeight = Math.Sign(height);
 
-        int size = Math.Max(1, width*2 + height*2 - 4);//TODO: corregir, el problema está aquí
+        int size = 2 * (Math.Abs(width) + Math.Abs(height)) + 1; // Corrección del cálculo del tamaño
 
-        if (size == 1){
+        if (size == 0){
             return new Vector3Int[] {initial};
         }
 
         Vector3Int[] vectorList = new Vector3Int[size];
 
         int index = 0;
-
 
         Vector3Int buttom = new Vector3Int(initial.x, final.y, 0);
         Vector3Int top = initial;
@@ -87,14 +85,16 @@ public static class Vector3IntOperations{
             vectorList[index++] = top + signWidth*i*Vector3Int.right;
             vectorList[index++] = buttom + signWidth*i*Vector3Int.right;
         }
+        vectorList[index++] = top + signWidth*Math.Abs(width)*Vector3Int.right;
 
         Vector3Int left = initial;
         Vector3Int right = new Vector3Int(final.x, initial.y,0);
 
         for (int j = 1; j <= Math.Abs(height); j++){
-            vectorList[index++] = left +signHeight*j*Vector3Int.up;
+            vectorList[index++] = left + signHeight*j*Vector3Int.up;
             vectorList[index++] = right + signHeight*j*Vector3Int.up;
         }
+
 
         return vectorList;
     }
