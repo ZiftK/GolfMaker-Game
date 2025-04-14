@@ -62,6 +62,15 @@ public class SquarePencilState : PencilState
 
     public override void Update(PencilContext context)
     {
-        
+        if (this.IsDrawing && lastPosition != context.position)
+        {
+            pencilEventsHandler.OnClearTemporalTiles();
+
+            Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, context.position);
+            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, squareCoords);
+            pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
+        }
+
+        lastPosition = context.position;
     }
 }
