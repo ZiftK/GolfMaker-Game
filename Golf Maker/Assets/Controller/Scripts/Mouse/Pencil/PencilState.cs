@@ -24,20 +24,20 @@ public abstract class PencilState
         pencilEventsHandler = PencilEventsHandler.GetInstance();
     }
 
-    protected void setIsDrawing(bool value){
-        
-        if (value && this.borrowing){
-            return;
+    public bool IsDrawing {
+        get { return drawing; }
+        protected set {
+            if (value && borrowing) return;
+            drawing = value;
         }
-        this.drawing = value;
     }
 
-    protected void setIsBorrowing(bool value){
-        
-        if (value && this.drawing){
-            return;
+    public bool IsBorrowing {
+        get { return borrowing; }
+        protected set {
+            if (value && drawing) return;
+            borrowing = value;
         }
-        this.borrowing = value;
     }
 
     protected static PencilState instance;
