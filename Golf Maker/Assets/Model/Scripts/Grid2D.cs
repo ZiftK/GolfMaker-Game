@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Grid), typeof(Tilemap))]
@@ -11,15 +7,19 @@ public class Grid2D : MonoBehaviour
 {
 
     #region //hd: map values
+    [Header("Map values")]
+
     [SerializeField]
-    [Range(10,300)]
+    [Range(10, 300)]
+    [Tooltip("Width of the map")]
     private int mapWidth = 30;
 
     [SerializeField]
-    [Range(10,300)]
+    [Range(10, 300)]
+    [Tooltip("Height of the map")]
     private int mapHeight = 30;
 
-    private int [,] mapIds;
+    private int[,] mapIds;
 
     #endregion
 
@@ -30,24 +30,22 @@ public class Grid2D : MonoBehaviour
 
     private int globalTilingId;
 
-    [SerializeField]
     private Tilemap temporalTileMap;
 
     #endregion
 
     #region //hd: tilemap values
 
-    private Grid gridComponent;
-
     [SerializeField]
     float tileBaseWidth = 0.5f;
 
     private TileMapsFactory tileMapsFactory;
-    
 
-    #endregion 
-    private void Awake() {
-        
+
+    #endregion
+    private void Awake()
+    {
+
         GetComponents();
         InitVariables();
         SuscribeEvents();
@@ -55,24 +53,29 @@ public class Grid2D : MonoBehaviour
         // TestInitTileMaps();
     }
 
-    private void InitVariables(){
+    private void InitVariables()
+    {
 
-        mapWidth = mapWidth%2 == 0 ? mapWidth : mapWidth + 1;
-        mapHeight = mapHeight%2 == 0 ? mapHeight : mapHeight + 1;
+        mapWidth = mapWidth % 2 == 0 ? mapWidth : mapWidth + 1;
+        mapHeight = mapHeight % 2 == 0 ? mapHeight : mapHeight + 1;
 
-        mapIds = new int [mapWidth, mapHeight];
+        mapIds = new int[mapWidth, mapHeight];
 
-        for (int i = 0; i < mapIds.GetLength(0); i++){
-            for (int j = 0; j < mapIds.GetLength(1); j++){
-                mapIds[i,j] = -1;
+        for (int i = 0; i < mapIds.GetLength(0); i++)
+        {
+            for (int j = 0; j < mapIds.GetLength(1); j++)
+            {
+                mapIds[i, j] = -1;
             }
         }
     }
 
-    private void GetComponents(){
+    private void GetComponents()
+    {
         tileMapsFactory = gameObject.GetComponent<TileMapsFactory>();
     }
-    private void SuscribeEvents(){
+    private void SuscribeEvents()
+    {
         PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
 
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
@@ -81,14 +84,15 @@ public class Grid2D : MonoBehaviour
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
     }
 
-    private void InitVisualGrid(){
-        visualGrid  = Instantiate(visualGrid);
+    private void InitVisualGrid()
+    {
+        visualGrid = Instantiate(visualGrid);
         visualGrid.transform.localScale = new Vector3(mapWidth, mapHeight);
         visualGrid.transform.SetParent(gameObject.transform);
         visualGrid.transform.SetLocalPositionAndRotation(
-            Vector3.zero, Quaternion.Euler(0,0,0)
+            Vector3.zero, Quaternion.Euler(0, 0, 0)
         );
-        
+
         globalTilingId = Shader.PropertyToID("_GlobalTiling");
         Material shaderMaterial = visualGrid.GetComponent<Renderer>().material;
         shaderMaterial.SetVector(globalTilingId, new Vector2(mapWidth, mapHeight));
@@ -105,40 +109,45 @@ public class Grid2D : MonoBehaviour
     }
 
 
-    private Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth/2, position.y + mapHeight/2);
-    private void SetIdAtPosition(Vector2Int idPosition, int newId){
+    private Vector2Int ConvertTileMapPositionToMapIndex(Vector3Int position) => new Vector2Int(position.x + mapWidth / 2, position.y + mapHeight / 2);
+    private void SetIdAtPosition(Vector2Int idPosition, int newId)
+    {
         mapIds[idPosition.x, idPosition.y] = newId;
     }
 
     private int GetIdAtPosition(Vector2Int idPosition) => mapIds[idPosition.x, idPosition.y];
 
 
-    private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
+    private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
+    {
         TileMapComponent tileMapComponent = tileMapsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
         TileBase tile = tileMapComponent.config.temporalTileBase;
-        
-        foreach (Vector3Int position in args.positions){
+
+        foreach (Vector3Int position in args.positions)
+        {
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
 
-            Debug.Log(tile);
             temporalTileMap.SetTile(position, tile);
 
         }
     }
 
-    private void ClearTemporalTiles(object sender, EventArgs e){
+    private void ClearTemporalTiles(object sender, EventArgs e)
+    {
         temporalTileMap.ClearAllTiles();
     }
 
-    private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args){
-        
+    private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
+    {
+
 
         TileMapComponent tileMapComponent = tileMapsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
         TileBase tile = tileMapComponent.config.tileBase;
         Tilemap tilemap = tileMapComponent.obj.GetComponent<Tilemap>();
-        
-        foreach (Vector3Int position in args.positions){
+
+        foreach (Vector3Int position in args.positions)
+        {
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
 
@@ -147,24 +156,27 @@ public class Grid2D : MonoBehaviour
         }
     }
 
-    private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args){
-        
-        foreach (Vector3Int position in args.positions){
-            
+    private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args)
+    {
+
+        foreach (Vector3Int position in args.positions)
+        {
+
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
             int id = GetIdAtPosition(idPosition);
-            if ( id == -1){
+            if (id == -1)
+            {
                 continue;
             }
             // recovery id tile map
             TileMapComponent tileMapComponent = tileMapsFactory.GetTileMapComponent(id, tileBaseWidth);
             TileBase tile = tileMapComponent.config.tileBase;
             Tilemap tilemap = tileMapComponent.obj.GetComponent<Tilemap>();
-            
+
             tilemap.SetTile(position, null);
             SetIdAtPosition(idPosition, -1);
         }
-        
+
     }
 
 }
