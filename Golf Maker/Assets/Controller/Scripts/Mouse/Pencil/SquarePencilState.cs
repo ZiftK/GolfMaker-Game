@@ -22,6 +22,9 @@ public class SquarePencilState : PencilState
 
     public override void OnLeftUnClikc(PencilContext context)
     {
+        // draw confirmation
+        if (!this.IsDrawing) return;
+
         finalPoint = context.position;
 
         // get positions between initial and final point
@@ -42,6 +45,9 @@ public class SquarePencilState : PencilState
 
     public override void OnRightUnClick(PencilContext context)
     {
+        // borrow confirmation
+        if (!this.IsBorrowing) return;
+
         finalPoint = context.position;
 
         // get positions between initial and final point
