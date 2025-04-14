@@ -2,7 +2,6 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-
 public class DrawTileBaseAtPositionsArgs: EventArgs{
 
     public Vector3Int[] positions {get;}
