@@ -18,7 +18,7 @@ public abstract class PencilState
 
     protected PencilEventsHandler pencilEventsHandler;
 
-    protected bool drawing, borrowing;
+    private bool drawing, borrowing;
 
     public PencilState(){
         pencilEventsHandler = PencilEventsHandler.GetInstance();
