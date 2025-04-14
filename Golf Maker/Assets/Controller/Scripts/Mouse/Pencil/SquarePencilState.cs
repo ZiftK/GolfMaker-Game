@@ -16,7 +16,7 @@ public class SquarePencilState : PencilState
 
     public override void OnLeftClick(PencilContext context)
     {
-        setIsDrawing(true);
+        this.IsDrawing = true;
         initialPoint = context.position;
     }
 
@@ -31,12 +31,12 @@ public class SquarePencilState : PencilState
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
-        setIsDrawing(false);
+        this.IsDrawing = false;
     }
 
     public override void OnRightClick(PencilContext context)
     {
-        setIsBorrowing(true);
+        this.IsBorrowing = true;
         initialPoint = context.position;
     }
 
@@ -50,9 +50,8 @@ public class SquarePencilState : PencilState
         BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(squareCoords);
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
-        
-        setIsBorrowing(false);
-        
+
+        this.IsBorrowing = false;
     }
 
     public override void Update(PencilContext context)
