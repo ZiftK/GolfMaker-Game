@@ -18,8 +18,26 @@ public abstract class PencilState
 
     protected PencilEventsHandler pencilEventsHandler;
 
+    protected bool drawing, borrowing;
+
     public PencilState(){
         pencilEventsHandler = PencilEventsHandler.GetInstance();
+    }
+
+    protected void setIsDrawing(bool value){
+        
+        if (value && this.borrowing){
+            return;
+        }
+        this.drawing = value;
+    }
+
+    protected void setIsBorrowing(bool value){
+        
+        if (value && this.drawing){
+            return;
+        }
+        this.borrowing = value;
     }
 
     protected static PencilState instance;
