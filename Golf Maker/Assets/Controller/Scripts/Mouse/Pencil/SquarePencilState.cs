@@ -33,7 +33,9 @@ public class SquarePencilState : PencilState
         DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, squareCoords);
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
-
+        
+        int[,] mapIds = Grid2D.Instance.GetMapIds();
+        
         this.IsDrawing = false;
     }
 
@@ -53,7 +55,7 @@ public class SquarePencilState : PencilState
         // get positions between initial and final point
         Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, finalPoint);
         // borrow tile base at positions
-        BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(squareCoords);
+        BorrowTileBaseAtPositionArgs args = new(squareCoords);
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
 
@@ -67,7 +69,7 @@ public class SquarePencilState : PencilState
             pencilEventsHandler.OnClearTemporalTiles();
 
             Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, context.position);
-            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, squareCoords);
+            DrawTileBaseAtPositionsArgs args = new(context.tileId, squareCoords);
             pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
         }
 
