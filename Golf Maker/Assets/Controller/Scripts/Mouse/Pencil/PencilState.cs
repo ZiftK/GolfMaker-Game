@@ -1,5 +1,4 @@
-using System.Data.Common;
-using JetBrains.Annotations;
+
 using UnityEngine;
 
 public struct PencilContext{
@@ -39,8 +38,6 @@ public abstract class PencilState
             borrowing = value;
         }
     }
-
-    protected static PencilState instance;
 
     public abstract void Update(PencilContext context);
 

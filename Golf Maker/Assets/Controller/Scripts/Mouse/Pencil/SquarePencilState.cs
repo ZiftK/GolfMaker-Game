@@ -3,7 +3,7 @@ using UnityEngine;
 public class SquarePencilState : PencilState
 {
 
-
+    private static SquarePencilState instance;
     public static PencilState GetInstance(){
         if (instance == null){
             instance = new SquarePencilState();

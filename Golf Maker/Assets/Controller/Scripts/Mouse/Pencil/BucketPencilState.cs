@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class BucketPencilState : PencilState
 {
+    private static BucketPencilState instance;
+    
     public static PencilState GetInstance()
     {
         if (instance == null)

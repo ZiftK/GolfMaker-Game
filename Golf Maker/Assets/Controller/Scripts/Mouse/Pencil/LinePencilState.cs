@@ -3,7 +3,8 @@ using UnityEngine;
 public class LinePencilState : PencilState
 {
     Vector3Int initialPoint, finalPoint;
-
+    
+    private static LinePencilState instance;
 
     public static PencilState GetInstance()
     {

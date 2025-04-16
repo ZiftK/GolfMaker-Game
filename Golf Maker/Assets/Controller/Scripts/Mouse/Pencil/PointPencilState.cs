@@ -3,7 +3,7 @@ using UnityEngine;
 public class PointPencilState : PencilState
 {
 
-    
+    private static PointPencilState instance;
     public static PencilState GetInstance()
     {
         if (instance == null){
