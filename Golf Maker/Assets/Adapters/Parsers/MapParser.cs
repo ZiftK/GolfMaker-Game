@@ -2,6 +2,17 @@ using UnityEngine;
 using System.Text;
 public class MapParser
 {
+    /// <summary>
+    /// Serializes a 2D array of integers into a string format.
+    /// The format is "row1col1,row1col2,...;row2col1,row2col2,..."
+    /// </summary>
+    /// <param name="mapIds">The 2D array of integers to serialize.</param>
+    /// <returns>A string representation of the 2D array.</returns>
+    /// <example>
+    /// int[,] mapIds = new int[,] { { 1, 2 }, { 3, 4 } };
+    /// string serializedMap = MapParser.SerializeMapIds(mapIds);
+    /// serializedMap will be "1,2;3,4"
+    /// </example>
     public static string SerializeMapIds(int[,] mapIds)
     {
         StringBuilder sb = new StringBuilder();
@@ -24,6 +35,17 @@ public class MapParser
         return sb.ToString();
     }
 
+    /// <summary>
+    /// Deserializes a string into a 2D array of integers.
+    /// The expected format is "row1col1,row1col2,...;row2col1,row2col2,..."
+    /// </summary>
+    /// <param name="serializedMap">The string to deserialize.</param>
+    /// <returns>A 2D array of integers.</returns>
+    /// <example>
+    /// string serializedMap = "1,2;3,4";
+    /// int[,] mapIds = MapParser.DeSerializeMapIds(serializedMap);
+    /// mapIds will be a 2D array with values { { 1, 2 }, { 3, 4 } }
+    /// </example>
     public static int[,] DeSerializeMapIds(string serializedMap)
     {
         string[] rows = serializedMap.Split(';');
