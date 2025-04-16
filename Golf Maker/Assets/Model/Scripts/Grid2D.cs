@@ -136,7 +136,6 @@ public class Grid2D : MonoBehaviour
         foreach (Vector3Int position in args.positions)
         {
             Vector2Int idPosition = ConvertTileMapPositionToMapIndex(position);
-            SetIdAtPosition(idPosition, args.tileBaseId);
 
             temporalTileMap.SetTile(position, tile);
 
