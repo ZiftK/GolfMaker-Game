@@ -34,8 +34,6 @@ public class SquarePencilState : PencilState
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         
-        int[,] mapIds = Grid2D.Instance.GetMapIds();
-        
         this.IsDrawing = false;
     }
 
