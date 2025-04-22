@@ -92,6 +92,11 @@ public class Grid2D : MonoBehaviour
         pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
+
+        MapEventsHandler mapEventsHandler = MapEventsHandler.GetInstance();
+        
+        mapEventsHandler.SaveMap += SaveMap;
+        mapEventsHandler.LoadMap += LoadMap;
     }
 
     private void InitVisualGrid()
@@ -200,6 +205,18 @@ public class Grid2D : MonoBehaviour
 
         this.mapIds = mapIds;
         
+    }
+
+    private void SaveMap(object sender, EventArgs e)
+    {
+        // Implement your save map logic here
+        Debug.Log("Map saved.");
+    }
+    
+    private void LoadMap(object sender, EventArgs e)
+    {
+        // Implement your load map logic here
+        Debug.Log("Map loaded.");
     }
     public int[,] GetMapIds()
     {
