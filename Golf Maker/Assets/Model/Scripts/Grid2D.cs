@@ -188,6 +188,19 @@ public class Grid2D : MonoBehaviour
 
     }
 
+    private void LoadMapFromParseMap(int[,] mapIds){
+        for (int i = 0; i < mapIds.GetLength(0); i++)
+        {
+            for (int j = 0; j < mapIds.GetLength(1); j++)
+            {
+                Vector3Int position = new Vector3Int(i - mapWidth / 2, j - mapHeight / 2, 0);
+                DrawTileBaseAtPositions(this, new DrawTileBaseAtPositionsArgs(mapIds[i, j], position));
+            }
+        }
+
+        this.mapIds = mapIds;
+        
+    }
     public int[,] GetMapIds()
     {
         return mapIds;
