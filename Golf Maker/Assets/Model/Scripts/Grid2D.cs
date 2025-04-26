@@ -124,7 +124,7 @@ public class Grid2D : MonoBehaviour
     }
 
 
-    public Vector2Int ConvertTileLevelPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
+    public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
         levelIds[idPosition.x, idPosition.y] = newId;
@@ -140,7 +140,7 @@ public class Grid2D : MonoBehaviour
 
         foreach (Vector3Int position in args.positions)
         {
-            Vector2Int idPosition = ConvertTileLevelPositionToLevelIndex(position);
+            Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
 
             temporalTileLevel.SetTile(position, tile);
 
@@ -162,7 +162,7 @@ public class Grid2D : MonoBehaviour
 
         foreach (Vector3Int position in args.positions)
         {
-            Vector2Int idPosition = ConvertTileLevelPositionToLevelIndex(position);
+            Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
 
             tilelevel.SetTile(position, tile);
@@ -176,7 +176,7 @@ public class Grid2D : MonoBehaviour
         foreach (Vector3Int position in args.positions)
         {
 
-            Vector2Int idPosition = ConvertTileLevelPositionToLevelIndex(position);
+            Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             int id = GetIdAtPosition(idPosition);
             if (id == -1)
             {

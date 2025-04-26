@@ -4,18 +4,18 @@ using UnityEngine.InputSystem;
 
 public class GlobalController : MonoBehaviour
 {
-    private MapEventsHandler mapEventsHandler;
+    private LevelEventsHandler levelEventsHandler;
 
     private void Awake()
     {
-        mapEventsHandler = MapEventsHandler.GetInstance();
+        levelEventsHandler = LevelEventsHandler.GetInstance();
         
     }
     public void OnSaveMap(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            mapEventsHandler.OnSaveMap();
+            levelEventsHandler.OnSaveLevel();
         }
     }
 
@@ -23,7 +23,7 @@ public class GlobalController : MonoBehaviour
     {
         if (context.started)
         {
-            mapEventsHandler.OnLoadMap();
+            levelEventsHandler.OnLoadLevel();
         }
     }
 
