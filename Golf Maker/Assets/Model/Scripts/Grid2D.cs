@@ -93,10 +93,7 @@ public class Grid2D : MonoBehaviour
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
 
-        LevelEventsHandler levelEventsHandler = LevelEventsHandler.GetInstance();
         
-        levelEventsHandler.SaveLevel += SaveLevel;
-        levelEventsHandler.LoadLevel += LoadLevel;
     }
 
     private void InitVisualGrid()
@@ -155,6 +152,10 @@ public class Grid2D : MonoBehaviour
     private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
 
+        if (args.tileBaseId == -1)
+        {
+            return;
+        }
 
         TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
         TileBase tile = tileLevelComponent.config.tileBase;
@@ -162,6 +163,7 @@ public class Grid2D : MonoBehaviour
 
         foreach (Vector3Int position in args.positions)
         {
+            
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
 
@@ -193,7 +195,21 @@ public class Grid2D : MonoBehaviour
 
     }
 
-    private void LoadLevelFromParseLevel(int[,] levelIds){
+    public void ClearAllTiles()
+    {
+        foreach (Transform child in transform)
+        {
+            Tilemap tilemap = child.gameObject.GetComponent<Tilemap>();
+            if (tilemap != null)
+            {
+                tilemap.ClearAllTiles();
+            }
+        }
+    }
+    public void LoadLevelFromParseLevel(int[,] levelIds){
+
+        ClearAllTiles();
+
         for (int i = 0; i < levelIds.GetLength(0); i++)
         {
             for (int j = 0; j < levelIds.GetLength(1); j++)
@@ -207,11 +223,6 @@ public class Grid2D : MonoBehaviour
         
     }
 
-    private void SaveLevel(object sender, EventArgs e)
-    {
-        
-    }
-    
     private void LoadLevel(object sender, EventArgs e)
     {
         // Implement your load level logic here
