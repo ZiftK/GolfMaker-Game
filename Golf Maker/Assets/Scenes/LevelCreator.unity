@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 431469978}
   - component: {fileID: 431469977}
   - component: {fileID: 431469976}
+  - component: {fileID: 431469979}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -266,6 +267,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &431469979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431469975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f12b7457e769cc49aa9df7962b6b2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1301093042
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,8 +872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250b03d20ced0fc4ead4760f9294789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 13
-  mapHeight: 13
+  levelWidth: 30
+  levelHeight: 30
   visualGrid: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
   tileBaseWidth: 0.5
 --- !u!4 &1893831420
