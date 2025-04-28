@@ -8,12 +8,14 @@ public class LevelHandler : MonoBehaviour
     void Awake()
     {
         levelEventsHandler = LevelEventsHandler.GetInstance();
+        levelRepository = new PrimalLevelRepository(); 
         levelEventsHandler.SaveLevel += OnSaveLevel;
         levelEventsHandler.LoadLevel += OnLoadLevel;
     }
 
     private void OnSaveLevel(object sender, System.EventArgs e)
     {
+        Debug.Log("Saving level...");
         LevelEntity level = new LevelEntity
         {
             LevelId = 1,
@@ -36,8 +38,10 @@ public class LevelHandler : MonoBehaviour
 
     private void OnLoadLevel(object sender, System.EventArgs e)
     {
+        Debug.Log("Loading level...");
         LevelEntity level = levelRepository.LoadLevelRecord(1);
 
-        //todo: Add logic to load the level using levelRepository
+        int [,] levelIds = LevelParser.DeSerializeLevelIds(level.LevelStructure);
+        Grid2D.Instance.LoadLevelFromParseLevel(levelIds);
     }
 }
