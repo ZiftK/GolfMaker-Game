@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 
 public class PrimalLevelRepository : ILevelRepository
 {
@@ -7,28 +8,19 @@ public class PrimalLevelRepository : ILevelRepository
     public int CreateLevelRecord(LevelEntity level)
     {
         // todo: Implement the logic to create a level record using file system
+        string json = JsonConvert.SerializeObject(level);
+        System.IO.File.WriteAllText(LevelDataFilePath, json);
         return 1;
     }
 
     public LevelEntity LoadLevelRecord(int id)
     {
-        LevelEntity level = new LevelEntity
+        string json = System.IO.File.ReadAllText(LevelDataFilePath);
+        LevelEntity level = JsonConvert.DeserializeObject<LevelEntity>(json);
+        if (level == null)
         {
-            LevelId = 1,
-            UserId = 123, // Example user ID
-            Name = "Level 1",
-            CreationDate = System.DateTime.Now,
-            Difficulty = "Not set",
-            Par = 0,
-            Description = "A challenging level with obstacles.",
-            AverageRating = 0f,
-            TimesPlayed = 0,
-            TimesCompleted = 0,
-            RewardCoins = 0,
-            //todo: Implement the logic to load a level record using file system
-            LevelStructure = "***Level structure data here",
-        };
-        
+            throw new System.Exception("Failed to load level data.");
+        }
         
 
         return level;
