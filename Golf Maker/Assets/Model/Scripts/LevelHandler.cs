@@ -20,13 +20,13 @@ public class LevelHandler : MonoBehaviour
             UserId = 123, // Example user ID
             Name = "Level 1",
             CreationDate = System.DateTime.Now,
-            Difficulty = "Medium",
-            Par = 3,
+            Difficulty = "Not set",
+            Par = 0,
             Description = "A challenging level with obstacles.",
-            AverageRating = 4.5f,
-            TimesPlayed = 10,
-            TimesCompleted = 5,
-            RewardCoins = 100,
+            AverageRating = 0f,
+            TimesPlayed = 0,
+            TimesCompleted = 0,
+            RewardCoins = 0,
             LevelStructure = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
         };
 
@@ -36,7 +36,8 @@ public class LevelHandler : MonoBehaviour
 
     private void OnLoadLevel(object sender, System.EventArgs e)
     {
-        // Implement your load logic here
-        Debug.Log("Level loaded!");
+        LevelEntity level = levelRepository.LoadLevelRecord(1);
+
+        //todo: Add logic to load the level using levelRepository
     }
 }
