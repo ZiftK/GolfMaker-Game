@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &431469976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,16 +240,40 @@ MonoBehaviour:
     m_ActionId: 162601e6-0702-44d5-a03f-74282841c572
     m_ActionName: 'Pencil/SwitchPencil[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 431469976}
+        m_TargetAssemblyTypeName: GlobalController, Assembly-CSharp
+        m_MethodName: OnSaveMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 02296c97-39d9-4105-b87a-7c64b49dafa8
     m_ActionName: 'Map/Save[/Keyboard/s]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 431469976}
+        m_TargetAssemblyTypeName: GlobalController, Assembly-CSharp
+        m_MethodName: OnLoadMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f2af7487-1065-4219-8dc4-fef26f81ce50
     m_ActionName: 'Map/Load[/Keyboard/l]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: Map
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &431469978
@@ -540,8 +564,20 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f265abd9-05a9-4e86-8103-29d937dd50e7
     m_ActionName: 'Pencil/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 162601e6-0702-44d5-a03f-74282841c572
+    m_ActionName: 'Pencil/SwitchPencil[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 02296c97-39d9-4105-b87a-7c64b49dafa8
+    m_ActionName: 'Map/Save[/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2af7487-1065-4219-8dc4-fef26f81ce50
+    m_ActionName: 'Map/Load[/Keyboard/l]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Camera
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -822,6 +858,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 162601e6-0702-44d5-a03f-74282841c572
     m_ActionName: 'Pencil/SwitchPencil[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 02296c97-39d9-4105-b87a-7c64b49dafa8
+    m_ActionName: 'Map/Save[/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2af7487-1065-4219-8dc4-fef26f81ce50
+    m_ActionName: 'Map/Load[/Keyboard/l]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Pencil
@@ -958,7 +1002,7 @@ Tilemap:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1301093045}
   - {fileID: 1392314415}
   - {fileID: 1893831420}
-  - {fileID: 1301093045}
   - {fileID: 431469978}
