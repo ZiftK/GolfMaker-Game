@@ -140,7 +140,7 @@ public class CameraMove : MonoBehaviour
     //* event to zoom
     public void OnZoom(InputAction.CallbackContext context){
         
-        Debug.Log("Zooming camera");
+        
         float zoomDirection = context.ReadValue<float>();
         
         if (context.performed){
