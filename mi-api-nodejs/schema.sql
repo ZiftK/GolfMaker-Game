@@ -30,21 +30,10 @@ CREATE TABLE IF NOT EXISTS Niveles (
     jugado_veces INT DEFAULT 0,
     completado_veces INT DEFAULT 0,
     monedas_recompensa INT DEFAULT 0,
+    estructura_nivel TEXT,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
 
--- Tabla de Bloques
-CREATE TABLE IF NOT EXISTS Bloques (
-    id_bloque INT AUTO_INCREMENT PRIMARY KEY,
-    id_nivel INT NOT NULL,
-    tipo ENUM('agua', 'arena', 'césped', 'piedra', 'madera') NOT NULL,
-    pos_x INT NOT NULL,
-    pos_y INT NOT NULL,
-    propiedades VARCHAR(255),
-    friccion FLOAT DEFAULT 1.0,
-    rebote FLOAT DEFAULT 1.0,
-    FOREIGN KEY (id_nivel) REFERENCES Niveles(id_nivel) ON DELETE CASCADE
-);
 
 -- Tabla de Ratings
 CREATE TABLE IF NOT EXISTS Rating (
