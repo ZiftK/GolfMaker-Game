@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movingSpeed: 10
   speedMultiplier: 2
-  zoomSpeed: 20
+  zoomSpeed: 8
   lowLimits: {x: -100, y: -100, z: -5}
   highLimits: {x: 100, y: 100, z: -30}
 --- !u!54 &519420034
@@ -405,7 +405,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 519420033}
         m_TargetAssemblyTypeName: CameraMove, Assembly-CSharp
-        m_MethodName: OnRun
+        m_MethodName: OnZoom
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -421,7 +421,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 519420033}
         m_TargetAssemblyTypeName: CameraMove, Assembly-CSharp
-        m_MethodName: OnZoom
+        m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
