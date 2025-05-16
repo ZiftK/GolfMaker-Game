@@ -13,6 +13,7 @@ public class TileMapComponent{
     }
 }
 
+[DefaultExecutionOrder(-199)]
 public class TileMapsFactory: MonoBehaviour
 {
     public TileMapStorage tileMapStorage;
