@@ -13,6 +13,7 @@ public class GameLevelHandler : MonoBehaviour
         Debug.Log("LevelSceneHandler Awake");
         LevelEventsHandler levelEventsHandler = LevelEventsHandler.GetInstance();
         levelEventsHandler.OnLoadLevel();
+        Grid2D.Instance.ActivateVisualGrid(false);
      
     }
 
