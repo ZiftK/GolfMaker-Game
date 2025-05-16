@@ -105,6 +105,7 @@ public class CameraMove : MonoBehaviour
 
     //* event to move
     public void OnMove(InputAction.CallbackContext context){
+
         Vector2 linearDirection = context.ReadValue<Vector2>();
         
         
@@ -138,6 +139,7 @@ public class CameraMove : MonoBehaviour
 
     //* event to zoom
     public void OnZoom(InputAction.CallbackContext context){
+        
         
         float zoomDirection = context.ReadValue<float>();
         
