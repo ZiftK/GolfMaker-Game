@@ -10,7 +10,6 @@ public class GameLevelHandler : MonoBehaviour
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-        Debug.Log("LevelSceneHandler Awake");
         LevelEventsHandler levelEventsHandler = LevelEventsHandler.GetInstance();
         levelEventsHandler.OnLoadLevel();
         Grid2D.Instance.ActivateVisualGrid(false);

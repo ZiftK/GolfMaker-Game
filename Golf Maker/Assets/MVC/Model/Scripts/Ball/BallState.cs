@@ -3,7 +3,7 @@ using UnityEngine;
 public struct BallContext
 {
     public BallContext(
-        Vector3Int position,
+        Vector3 position,
         BallController controller,
         Rigidbody2D rb,
         float forceMultiplier
@@ -14,7 +14,7 @@ public struct BallContext
         this.rb = rb;
         this.forceMultiplier = forceMultiplier;
     }
-    public Vector3Int position;
+    public Vector3 position;
     public BallController controller;
     public Rigidbody2D rb;
     public float forceMultiplier;
