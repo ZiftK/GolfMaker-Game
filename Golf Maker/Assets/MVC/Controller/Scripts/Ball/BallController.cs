@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
     typeof(CircleCollider2D),
     typeof(SpriteRenderer)
     )]
+[RequireComponent(
+    typeof(LineRenderer)
+    )]
 public class BallController : MonoBehaviour
 {
     private bool isHiteable;
@@ -13,6 +16,7 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float forceMultiplier = 1f;
     Rigidbody2D rb;
+    LineRenderer lineRenderer;
 
 
     // Ball states
@@ -23,9 +27,12 @@ public class BallController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+
+
         currentState = BalllIdleState.GetInstance();
         currentLeftClickState = BalllIdleState.GetInstance();
-        currentUpdateState = null;
+        currentUpdateState = BalllIdleState.GetInstance();
         isHiteable = true; 
     }
 
@@ -34,15 +41,27 @@ public class BallController : MonoBehaviour
     {
         if (currentUpdateState != null)
         {
+            Debug.Log("Update");
             currentUpdateState.Update(
                 new BallContext(
-                    Vector3Int.RoundToInt(transform.position),
+                    Camera.main.ScreenToWorldPoint(Input.mousePosition),
                     this,
                     rb,
                     forceMultiplier
                     )
                 );
         }
+
+        
+    }
+
+    public void DrawLine(Vector3 start, Vector3 end)
+    {
+        start.z = 0;
+        end.z = 0;
+
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
     }
 
     public void SwitchBallState(BallState newState, BallContext context)
