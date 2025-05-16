@@ -646,6 +646,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f265abd9-05a9-4e86-8103-29d937dd50e7
     m_ActionName: 'Pencil/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1392314419}
+        m_TargetAssemblyTypeName: Pencil, Assembly-CSharp
+        m_MethodName: OnSwitchPencil
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 162601e6-0702-44d5-a03f-74282841c572
+    m_ActionName: 'Pencil/SwitchPencil[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Pencil
@@ -663,6 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba40ce2806890de48b86e3faa880ad61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temporalTileOpacity: 0.3
 --- !u!1 &1893831417
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +692,7 @@ GameObject:
   - component: {fileID: 1893831418}
   - component: {fileID: 1893831422}
   - component: {fileID: 1893831421}
+  - component: {fileID: 1893831423}
   m_Layer: 0
   m_Name: Gird2D
   m_TagString: Untagged
@@ -737,7 +755,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a274f0ce889787c4eb2f11343ce327bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMapStorage: {fileID: 11400000, guid: 23fa8080d7fa0cc4bbc2aeb181435a23, type: 2}
+  tileMapStorage: {fileID: 11400000, guid: 7e16a6b318aaeb105b6a145d99588943, type: 2}
+--- !u!1839735485 &1893831423
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893831417}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

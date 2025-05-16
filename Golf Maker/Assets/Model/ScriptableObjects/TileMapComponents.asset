@@ -10,15 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e43cbdb543b3104489be88f00a437e2, type: 3}
-  m_Name: TileMapComponentsStorage
+  m_Name: TileMapComponents
   m_EditorClassIdentifier: 
   tileMapComponents:
   - name: grass
     id: 0
-    tileBase: {fileID: 11400000, guid: 560339ff167799a40b0f40318a2d5929, type: 2}
-  - name: water
-    id: 1
-    tileBase: {fileID: 11400000, guid: 00902ebdcd3432243b813baa7573e00c, type: 2}
-  - name: lava
-    id: 2
-    tileBase: {fileID: 11400000, guid: a7f58b784de93ec458dfc509068dfda0, type: 2}
+    tileBase: {fileID: 11400000, guid: 7900d07e6fd71db46ac1f92882d495a3, type: 2}
+    temporalTileBase: {fileID: 11400000, guid: 742f8a4d089009f46a993c529d95b9ac, type: 2}

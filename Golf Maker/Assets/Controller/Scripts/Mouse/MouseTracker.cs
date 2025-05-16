@@ -1,5 +1,4 @@
 using System;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]

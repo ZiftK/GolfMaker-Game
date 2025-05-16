@@ -3,7 +3,7 @@ using UnityEngine;
 public class PointPencilState : PencilState
 {
 
-    
+    private static PointPencilState instance;
     public static PencilState GetInstance()
     {
         if (instance == null){
@@ -12,42 +12,39 @@ public class PointPencilState : PencilState
         return instance;
     }
 
-    private bool drawing;
-    private bool borrowing;
 
-    public override void OnLeftClick()
+    public override void OnLeftClick(PencilContext context)
     {
-        drawing = true;
-        borrowing = false;
+        this.IsDrawing = true;
     }
 
-    public override void OnLeftUnClikc()
+    public override void OnLeftUnClikc(PencilContext context)
     {
-        drawing = false;
+        this.IsDrawing = false;
     }
 
     public override void Update(PencilContext context)
     {
-        if (drawing){
-            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(0, context.position);
+        if (this.IsDrawing){
+            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, context.position);
             pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         }
-        if (borrowing){
+        if (this.IsBorrowing){
             
             BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(context.position);
             pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
         }
     }
 
-    public override void OnRightClick()
+    public override void OnRightClick(PencilContext context)
     {
         
-        borrowing = true;
-        drawing = false;
+        this.IsBorrowing = true;
     }
 
-    public override void OnRightUnClick()
+    public override void OnRightUnClick(PencilContext context)
     {
-        borrowing = false;
+        this.IsBorrowing = false;
     }
+
 }

@@ -8,6 +8,7 @@ public struct TileMapConfig{
     public string name;
     public int id;
     public TileBase tileBase;
+    public TileBase temporalTileBase;
     
 }
 [CreateAssetMenu(fileName = "TileMapStorage", menuName = "Scriptable Objects/TileMapStorage")]

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-class TileMapComponent{
+public class TileMapComponent{
 
     public GameObject obj;
     public TileMapConfig config;
@@ -28,7 +28,7 @@ public class TileMapsFactory: MonoBehaviour
         }
     }
 
-    public Tilemap GetTileMap(string tileBaseName, float tileBaseWidth, out TileBase tile){
+    public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth){
 
         if (!tileMapByName.ContainsKey(tileBaseName)){
             throw new System.Exception($"TileBase {tileBaseName} not exists in TileBaseStorage");
@@ -57,29 +57,16 @@ public class TileMapsFactory: MonoBehaviour
             tileMapComponent.obj.AddComponent<CompositeCollider2D>();
             tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
         }
-
-        tile = tileMapComponent.config.tileBase;
-
         
-        return tileMapComponent.obj.GetComponent<Tilemap>();
+        return tileMapComponent;
     }
 
-    public Tilemap GetTileMap(int id, float tileBaseWidth, out TileBase tile){
-        if (id < 0 || id >= tileMapStorage.tileMapComponents.Length){
-            throw new System.Exception($"TileBase id {id} out of range");
+    public TileMapComponent GetTileMapComponent(int tileBaseId, float tileBaseWidth){
+        if (tileBaseId < 0 || tileBaseId >= tileMapStorage.tileMapComponents.Length){
+            throw new System.Exception($"Tile base id {tileBaseId} not exists");
         }
-
-        Tilemap tileMap = GetTileMap(tileMapStorage.tileMapComponents[id].name, tileBaseWidth, out TileBase tile1);
-        tile = tile1;
-        return tileMap;
-    }
-
-    public Tilemap GetTileMap(int id, float tileBaseWidth){
-        return GetTileMap(tileMapStorage.tileMapComponents[id].name, tileBaseWidth, out TileBase tile1);
-    }
-
-    public Tilemap GetTileMap(string tileBaseName, float tileBaseWidth){
-        return GetTileMap(tileBaseName, tileBaseWidth, out TileBase tileBase);
+        string name = tileMapStorage.tileMapComponents[tileBaseId].name;
+        return GetTileMapComponent(name, tileBaseWidth);
     }
 
 
