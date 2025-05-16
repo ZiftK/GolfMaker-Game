@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bricks-diagonal_break_1_0: 3850624099969459623
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
