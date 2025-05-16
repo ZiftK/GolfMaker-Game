@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Pencil : MonoBehaviour
+public class PencilController : MonoBehaviour
 {
     
     private PencilState currentState;

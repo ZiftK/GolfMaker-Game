@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GlobalController : MonoBehaviour
 {
@@ -23,6 +24,15 @@ public class GlobalController : MonoBehaviour
     {
         if (context.started)
         {
+            levelEventsHandler.OnLoadLevel();
+        }
+    }
+
+    public void OnExitEditLevel(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SceneManager.LoadScene("Game");
             levelEventsHandler.OnLoadLevel();
         }
     }

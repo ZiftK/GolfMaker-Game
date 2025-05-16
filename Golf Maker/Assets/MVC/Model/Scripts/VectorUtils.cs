@@ -41,7 +41,7 @@ public static class Vector3IntOperations{
 
     public static double Module(Vector3Int vector) => Math.Sqrt(vector.x*vector.x + vector.y*vector.y + vector.z*vector.z);
 
-
+    
 
     public static Vector3Int[] InterpolateVectors(Vector3Int initial, Vector3Int final){
 
@@ -97,5 +97,18 @@ public static class Vector3IntOperations{
 
 
         return vectorList;
+    }
+
+}
+
+public static class Vector3Operations{
+    public static float DistanceXY(Vector3 vectorA, Vector3 vectorB)
+    {
+        return Vector2.Distance(new Vector2(vectorA.x, vectorA.y), new Vector2(vectorB.x, vectorB.y));
+    }
+
+    public static Vector3 DirectionXY(Vector3 vectorA, Vector3 vectorB)
+    {
+        return new Vector3(vectorB.x - vectorA.x, vectorB.y - vectorA.y, 0);
     }
 }

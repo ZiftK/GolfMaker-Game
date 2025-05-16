@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Grid), typeof(Tilemap))]
+[DefaultExecutionOrder(-200)]
 public class Grid2D : MonoBehaviour
 {
     public static Grid2D Instance { get; private set; }
@@ -120,7 +121,14 @@ public class Grid2D : MonoBehaviour
         temporalTileLevelObj.AddComponent<TilemapRenderer>();
     }
 
-
+    public void ActivateVisualGrid(bool activate)
+    {
+        if (visualGrid != null)
+        {
+            visualGrid.SetActive(activate);
+        }
+    }
+    
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
