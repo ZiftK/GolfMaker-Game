@@ -55,8 +55,9 @@ public class TileMapsFactory: MonoBehaviour
             Rigidbody2D tileMapRgb = tileMapComponent.obj.AddComponent<Rigidbody2D>();
             tileMapRgb.bodyType = RigidbodyType2D.Static;
             TilemapCollider2D tileMapCollider = tileMapComponent.obj.AddComponent<TilemapCollider2D>();
-            tileMapComponent.obj.AddComponent<CompositeCollider2D>();
+            CompositeCollider2D compositeCollider = tileMapComponent.obj.AddComponent<CompositeCollider2D>();
             tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+            compositeCollider.sharedMaterial = tileMapComponent.config.physicsMaterial;
         }
         
         return tileMapComponent;

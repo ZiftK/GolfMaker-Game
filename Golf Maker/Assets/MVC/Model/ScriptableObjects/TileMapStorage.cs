@@ -9,6 +9,8 @@ public struct TileMapConfig{
     public int id;
     public TileBase tileBase;
     public TileBase temporalTileBase;
+
+    public PhysicsMaterial2D physicsMaterial;
     
 }
 [CreateAssetMenu(fileName = "TileMapStorage", menuName = "Scriptable Objects/TileMapStorage")]
