@@ -1,3 +1,12 @@
+.navbar{
+    padding: 0 20px;
+}
+
+.navbar > Button {
+    border: none;
+    border-width: 0px;
+}
+
 .ScrollView_Father {
     flex-grow: 1;
     flex-direction: column;
@@ -8,11 +17,12 @@
 
 .card-container {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     padding: 20px;
-    max-width: 900px;
+    max-width: 1000px;
     width: 100%;
 }
 
@@ -22,7 +32,8 @@
     padding: 10px;
     justify-content: space-between;
     align-items: center;
-    max-width: 300px;
+    align-self: center;
+    max-width: 450px;
     max-height: 150px;
     height: 150px;
     margin: 10px;

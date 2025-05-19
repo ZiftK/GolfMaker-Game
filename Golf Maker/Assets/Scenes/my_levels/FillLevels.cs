@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class FillLevels : MonoBehaviour
 {
@@ -28,13 +29,9 @@ public class FillLevels : MonoBehaviour
         }
 
         var root = uIDocument.rootVisualElement;
+        Debug.Log(root.name);
         levelsGrid = root.Q<VisualElement>("card-container");
 
-        if (levelsGrid == null)
-        {
-            Debug.LogError("Levels grid not found in the UI document.");
-            return;
-        }
 
         List<LevelData> levels = new List<LevelData>
         {
@@ -55,7 +52,8 @@ public class FillLevels : MonoBehaviour
         foreach (var level in levels)
         {
             var card = blockLevelCardTemplate.CloneTree();
-            var levelName = card.Q<Label>("level-name");
+            var levelName = card.Q<Label>("LevelName");
+            Debug.Log(card);
             levelName.text = level.name;
 
             card.RegisterCallback<ClickEvent>(_ =>
