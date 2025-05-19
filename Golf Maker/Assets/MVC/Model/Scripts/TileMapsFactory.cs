@@ -40,6 +40,10 @@ public class TileMapsFactory: MonoBehaviour
         if (tileMapComponent.obj == null){
             tileMapComponent.obj = new GameObject($"Tile map - {tileBaseName} - {tileMapComponent.config.id}");
 
+            // set collision layer mask
+            Debug.Log("TileMapComponent: " + tileMapComponent.config.objectLayer);
+            tileMapComponent.obj.layer = tileMapComponent.config.objectLayer;
+
             // relative position
             tileMapComponent.obj.transform.SetParent(transform);
 
