@@ -199,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &211875536
 Transform:
   m_ObjectHideFlags: 0
@@ -981,7 +981,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas:
   - {fileID: 1992263523}
-  - {fileID: 0}
+  - {fileID: 218928890}
+  - {fileID: 211875535}
+  - {fileID: 2146080865}
 --- !u!4 &1075788050
 Transform:
   m_ObjectHideFlags: 0
@@ -1967,7 +1969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 5099b4b9c6c1efa4380d9192258ca157, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: ef542249795ecfd45b08855f55c8da6d, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: bdfa19fe441e3b646b31dcfae968ef15, type: 3}
   m_SortingOrder: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920

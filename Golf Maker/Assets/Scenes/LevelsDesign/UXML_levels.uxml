@@ -25,16 +25,6 @@
                         <ui:VisualElement name="ruler-icon" class="tool-icon ruler-icon" />
                     </ui:Button>
                 </ui:VisualElement>
-                
-                <!-- Herramientas adicionales en la parte inferior del panel izquierdo -->
-                <ui:VisualElement name="additional-tools" class="additional-tools">
-                    <ui:Button name="wall-tool" class="tool-button large">
-                        <ui:VisualElement name="wall-icon" class="tool-icon wall-icon" />
-                    </ui:Button>
-                    <ui:Button name="stairs-tool" class="tool-button large">
-                        <ui:VisualElement name="stairs-icon" class="tool-icon stairs-icon" />
-                    </ui:Button>
-                </ui:VisualElement>
             </ui:VisualElement>
             
             <!-- Panel derecho con el canvas para la edición -->

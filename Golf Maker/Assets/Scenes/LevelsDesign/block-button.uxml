@@ -1,0 +1,3 @@
+<ui:Button class="block-button" xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement class="block-icon" name="icon" />
+</ui:Button>
