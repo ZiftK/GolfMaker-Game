@@ -1,5 +1,7 @@
 
+using System;
 using System.Threading;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
@@ -7,6 +9,8 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
 
     private Vector3 lastFinalPosition = Vector3.zero;
     private bool isClicked = false;
+
+    private Vector3 forceToApply;
 
     public static BalllIdleState instance;
     public static BalllIdleState GetInstance()
@@ -20,9 +24,9 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
 
     public override void OnEnterState(BallContext context)
     {
-        
+
         context.controller.SetHiteable(true);
-        
+
         context.controller.SwitchBallLeftClickState(this);
         context.controller.SwitchBallUpdateState(this);
     }
@@ -30,7 +34,7 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
     public override void OnExitState(BallContext context)
     {
         context.controller.SetHiteable(false);
-        context.controller.ClearLine(); 
+        context.controller.ClearLine();
 
         context.controller.SwitchBallLeftClickState(null);
         context.controller.SwitchBallUpdateState(null);
@@ -45,9 +49,7 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
 
     public void OnLeftUnClick(BallContext context)
     {
-        Vector3 currentPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = Vector3Operations.DirectionXY(currentPosition, initialPosition);
-        context.rb.AddForce(direction*context.forceMultiplier, ForceMode2D.Impulse);
+        context.rb.AddForce(forceToApply, ForceMode2D.Impulse);
 
         isClicked = false;
 
@@ -58,16 +60,46 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
     {
         if (isClicked && !lastFinalPosition.Equals(context.position))
         {
-            // context.controller.ClearLine();
-            // Vector3 targetPosition =
-            //     context.controller.gameObject.transform.position - context.position;
-            // context.controller.DrawLine(context.controller.gameObject.transform.position, targetPosition);
-
-            Vector3 direction = context.controller.GetOppositeDirection(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            context.controller.CastLine(direction, 1000f);
-
-
+            CastLine(context.controller, out Vector3 forceDirection, out float hitSlider);
+            forceToApply = forceDirection * context.forceMultiplier * hitSlider;
             lastFinalPosition = context.position;
         }
     }
+
+    public void CastLine(BallController controller, out Vector3 forceDirection, out float hitSlider)
+    {
+        forceDirection = Vector3.zero;
+        hitSlider = 0;
+
+        Vector3 start = controller.gameObject.transform.position;
+        Vector3 end = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        start.z = 0;
+        end.z = 0;
+
+        
+
+        RaycastHit2D hit = Physics2D.Raycast(start, start - end, 1000, controller.layerMask);
+
+        if (hit.collider != null)
+        {
+            float mouseDistance = Vector3.Distance(start, end);
+
+
+            Vector3 hitPoint = hit.point;
+            Vector3 direction = Vector3.Normalize(hitPoint);
+            forceDirection = direction;
+
+            float hitDistance = Math.Min(mouseDistance, controller.GetLineDistance());
+            float lineDistance = Math.Min(hitDistance, Vector3.Distance(start, hitPoint));
+
+            Debug.Log($"Line distance: {lineDistance}");
+
+            controller.DrawLine(start, start + direction * lineDistance);
+            
+            hitSlider = hitDistance/controller.GetLineDistance();
+        }
+
+    }
+    
+    
 }
