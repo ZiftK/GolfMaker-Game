@@ -38,11 +38,11 @@ public class FillLevels : MonoBehaviour
 
         List<LevelData> levels = new List<LevelData>
         {
-            new LevelData { name = "Level 1" },
-            new LevelData { name = "Level 2" },
-            new LevelData { name = "Level 3" },
-            new LevelData { name = "Level 4" },
-            new LevelData { name = "Level 5" }
+            new() { name = "Level 1" },
+            new() { name = "Level 2" },
+            new() { name = "Level 3" },
+            new() { name = "Level 4" },
+            new() { name = "Level 5" }
         };
 
         RenderLevels(levels);
