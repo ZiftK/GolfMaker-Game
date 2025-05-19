@@ -47,6 +47,7 @@ public class BlockManager : MonoBehaviour
             var icon = button.Q<VisualElement>("icon");
 
             icon.style.backgroundImage = new StyleBackground(block);
+            icon.style.backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Cover));
             icon.AddToClassList(block.name);
             button.RegisterCallback<ClickEvent>(_ =>
             {
