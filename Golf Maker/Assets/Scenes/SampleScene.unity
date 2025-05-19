@@ -193,13 +193,14 @@ GameObject:
   m_Component:
   - component: {fileID: 211875536}
   - component: {fileID: 211875537}
+  - component: {fileID: 211875538}
   m_Layer: 0
   m_Name: UIRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &211875536
 Transform:
   m_ObjectHideFlags: 0
@@ -234,6 +235,20 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &211875538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211875535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10410d86ae44956469b5794d39355a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockLevelCardTemplate: {fileID: 9197481963319205126, guid: b04ffca25d931474c845c8b4a5619889, type: 3}
+  uIDocument: {fileID: 211875537}
 --- !u!1 &218928890
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &961204448
 Transform:
   m_ObjectHideFlags: 0
