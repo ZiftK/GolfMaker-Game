@@ -63,19 +63,19 @@
 }
 
 .pen-icon {
-    background-image: resource('pen-icon');
+    background-image: resource('buttons/btn_edit');
 }
 
-.pencil-icon {
-    background-image: resource('pencil-icon');
+.fill-icon {
+    background-image: resource('buttons/tray');
 }
 
 .brush-icon {
-    background-image: resource('brush-icon');
+    background-image: resource('buttons/erase');
 }
 
 .ruler-icon {
-    background-image: resource('ruler-icon');
+    background-image: resource('buttons/btn_edit_line');
 }
 
 .additional-tools {
@@ -101,11 +101,14 @@
 .canvas-panel {
     flex-grow: 1;
     background-image: resource('white_space');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Panel de bloques (inferior) */
 .blocks-panel {
-    height: 120px;
+    height: 220px;
     background-color: #3A4A3A;
     padding: 10px;
 }

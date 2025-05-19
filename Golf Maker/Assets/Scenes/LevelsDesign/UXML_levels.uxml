@@ -15,8 +15,8 @@
                     <ui:Button name="pen-tool" class="tool-button">
                         <ui:VisualElement name="pen-icon" class="tool-icon pen-icon" />
                     </ui:Button>
-                    <ui:Button name="pencil-tool" class="tool-button">
-                        <ui:VisualElement name="pencil-icon" class="tool-icon pencil-icon" />
+                    <ui:Button name="fill-tool" class="tool-button">
+                        <ui:VisualElement name="pencil-icon" class="tool-icon fill-icon" />
                     </ui:Button>
                     <ui:Button name="brush-tool" class="tool-button">
                         <ui:VisualElement name="brush-icon" class="tool-icon brush-icon" />
