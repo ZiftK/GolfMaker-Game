@@ -3,81 +3,66 @@
 
     <Style src="LevelsDesign.uss"/>
     
-    <ui:VisualElement class="main-container">
-        <!-- Barra superior con menú y navegación -->
-        <ui:VisualElement class="top-bar">
-            <ui:Button class="menu-button">
-                <ui:VisualElement class="menu-icon" />
-            </ui:Button>
-            <ui:VisualElement class="spacer" />
-            <ui:VisualElement class="navigation-controls">
-                <ui:Button class="nav-button prev-button">
-                    <ui:VisualElement class="arrow-left-icon" />
-                </ui:Button>
-                <ui:Button class="nav-button next-button">
-                    <ui:VisualElement class="arrow-right-icon" />
-                </ui:Button>
-            </ui:VisualElement>
-        </ui:VisualElement>
-        
-        <!-- Contenedor principal que divide la UI -->
-        <ui:VisualElement class="content-container">
-            <!-- Panel lateral izquierdo con herramientas -->
-            <ui:VisualElement class="side-panel">
-                <ui:Label />
-                <ui:VisualElement class="tools-grid">
-                    <ui:Button class="tool-button">
-                        <ui:VisualElement class="tool-icon pen-icon" />
+    <ui:VisualElement name="root-container" class="root-container">
+        <!-- Contenedor principal que divide la pantalla en dos paneles -->
+        <ui:VisualElement name="main-layout" class="main-layout">
+            <!-- Panel izquierdo con las herramientas -->
+            <ui:VisualElement name="tools-panel" class="tools-panel">
+                <ui:Label text="Tools" class="panel-title" />
+                
+                <!-- Grid de herramientas -->
+                <ui:VisualElement name="tools-grid" class="tools-grid">
+                    <ui:Button name="pen-tool" class="tool-button">
+                        <ui:VisualElement name="pen-icon" class="tool-icon pen-icon" />
                     </ui:Button>
-                    <ui:Button class="tool-button">
-                        <ui:VisualElement class="tool-icon pencil-icon" />
+                    <ui:Button name="pencil-tool" class="tool-button">
+                        <ui:VisualElement name="pencil-icon" class="tool-icon pencil-icon" />
                     </ui:Button>
-                    <ui:Button class="tool-button">
-                        <ui:VisualElement class="tool-icon brush-icon" />
+                    <ui:Button name="brush-tool" class="tool-button">
+                        <ui:VisualElement name="brush-icon" class="tool-icon brush-icon" />
                     </ui:Button>
-                    <ui:Button class="tool-button">
-                        <ui:VisualElement class="tool-icon ruler-icon" />
+                    <ui:Button name="ruler-tool" class="tool-button">
+                        <ui:VisualElement name="ruler-icon" class="tool-icon ruler-icon" />
                     </ui:Button>
                 </ui:VisualElement>
                 
-                <!-- Contenedor para herramientas adicionales -->
-                <ui:VisualElement class="additional-tools">
-                    <ui:Button class="tool-button large">
-                        <ui:VisualElement class="tool-icon wall-icon" />
+                <!-- Herramientas adicionales en la parte inferior del panel izquierdo -->
+                <ui:VisualElement name="additional-tools" class="additional-tools">
+                    <ui:Button name="wall-tool" class="tool-button large">
+                        <ui:VisualElement name="wall-icon" class="tool-icon wall-icon" />
                     </ui:Button>
-                    <ui:Button class="tool-button large">
-                        <ui:VisualElement class="tool-icon stairs-icon" />
+                    <ui:Button name="stairs-tool" class="tool-button large">
+                        <ui:VisualElement name="stairs-icon" class="tool-icon stairs-icon" />
                     </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
             
-            <!-- Área principal de trabajo (canvas) -->
-            <ui:VisualElement class="canvas-area" />
+            <!-- Panel derecho con el canvas para la edición -->
+            <ui:VisualElement name="canvas-panel" class="canvas-panel" />
         </ui:VisualElement>
         
-        <!-- Panel inferior con materiales/bloques -->
-        <ui:VisualElement class="bottom-panel">
-            <ui:VisualElement class="materials-grid">
-                <ui:Button class="material-button">
-                    <ui:VisualElement class="material-icon wall-gray" />
+        <!-- Panel inferior para la selección de bloques -->
+        <ui:VisualElement name="blocks-panel" class="blocks-panel">
+            <ui:VisualElement name="blocks-grid" class="blocks-grid">
+                <ui:Button name="block-gray" class="block-button">
+                    <ui:VisualElement name="block-gray-icon" class="block-icon block-gray-icon" />
                 </ui:Button>
-                <ui:Button class="material-button">
-                    <ui:VisualElement class="material-icon wall-green" />
+                <ui:Button name="block-green" class="block-button">
+                    <ui:VisualElement name="block-green-icon" class="block-icon block-green-icon" />
                 </ui:Button>
-                <ui:Button class="material-button">
-                    <ui:VisualElement class="material-icon brick-orange" />
+                <ui:Button name="block-brick" class="block-button">
+                    <ui:VisualElement name="block-brick-icon" class="block-icon block-brick-icon" />
                 </ui:Button>
-                <ui:Button class="material-button">
-                    <ui:VisualElement class="material-icon brick-cracked-1" />
+                <ui:Button name="block-cracked1" class="block-button">
+                    <ui:VisualElement name="block-cracked1-icon" class="block-icon block-cracked1-icon" />
                 </ui:Button>
-                <ui:Button class="material-button">
-                    <ui:VisualElement class="material-icon brick-cracked-2" />
+                <ui:Button name="block-cracked2" class="block-button">
+                    <ui:VisualElement name="block-cracked2-icon" class="block-icon block-cracked2-icon" />
                 </ui:Button>
-                <ui:Button class="material-button">
-                    <ui:VisualElement class="material-icon brick-cracked-3" />
+                <ui:Button name="block-cracked3" class="block-button">
+                    <ui:VisualElement name="block-cracked3-icon" class="block-icon block-cracked3-icon" />
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-
 </ui:UXML>

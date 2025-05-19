@@ -1,68 +1,17 @@
-.main-container {
+.root-container {
     flex-grow: 1;
     flex-direction: column;
     background-color: #363636;
 }
 
-/* Barra superior */
-.top-bar {
-    height: 40px;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: #2A2A2A;
-    border-bottom-width: 1px;
-    border-color: #1A1A1A;
-}
-
-.menu-button {
-    width: 40px;
-    height: 40px;
-    background-color: transparent;
-    border-width: 0;
-}
-
-.menu-icon {
-    width: 20px;
-    height: 20px;
-    background-image: url('menu-icon.png');
-}
-
-.spacer {
-    flex-grow: 1;
-}
-
-.navigation-controls {
-    flex-direction: row;
-    align-items: center;
-}
-
-.nav-button {
-    width: 40px;
-    height: 40px;
-    background-color: transparent;
-    border-width: 0;
-}
-
-.arrow-left-icon {
-    width: 20px;
-    height: 20px;
-    background-image: url('arrow-left.png');
-}
-
-.arrow-right-icon {
-    width: 20px;
-    height: 20px;
-    background-image: url('arrow-right.png');
-}
-
-/* Contenedor principal */
-.content-container {
+/* Diseño principal */
+.main-layout {
     flex-grow: 1;
     flex-direction: row;
 }
 
-/* Panel lateral */
-.side-panel {
+/* Panel de herramientas (izquierda) */
+.tools-panel {
     width: 250px;
     background-color: #424242;
     padding: 10px;
@@ -101,6 +50,12 @@
     background-color: #A0A0A0;
 }
 
+.tool-button.selected {
+    border-color: #FFFFFF;
+    border-width: 2px;
+    background-color: #B0B0B0;
+}
+
 .tool-icon {
     width: 40px;
     height: 40px;
@@ -108,19 +63,19 @@
 }
 
 .pen-icon {
-    background-image: url('pen-icon.png');
+    background-image: resource('pen-icon');
 }
 
 .pencil-icon {
-    background-image: url('pencil-icon.png');
+    background-image: resource('pencil-icon');
 }
 
 .brush-icon {
-    background-image: url('brush-icon.png');
+    background-image: resource('brush-icon');
 }
 
 .ruler-icon {
-    background-image: url('ruler-icon.png');
+    background-image: resource('ruler-icon');
 }
 
 .additional-tools {
@@ -135,34 +90,33 @@
 }
 
 .wall-icon {
-    background-image: url('wall-icon.png');
+    background-image: resource('wall-icon');
 }
 
 .stairs-icon {
-    background-image: url('stairs-icon.png');
+    background-image: resource('stairs-icon');
 }
 
-/* Área de canvas */
-.canvas-area {
+/* Panel de canvas (derecha) */
+.canvas-panel {
     flex-grow: 1;
-    background-color: #222222;
-    background-image: url('grid-pattern.png');
+    background-image: resource('white_space');
 }
 
-/* Panel inferior */
-.bottom-panel {
-    height: 100px;
+/* Panel de bloques (inferior) */
+.blocks-panel {
+    height: 120px;
     background-color: #3A4A3A;
     padding: 10px;
 }
 
-.materials-grid {
+.blocks-grid {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.material-button {
+.block-button {
     width: 60px;
     height: 60px;
     margin: 5px;
@@ -172,36 +126,41 @@
     border-color: #5A5A5A;
 }
 
-.material-button:hover {
+.block-button:hover {
     border-color: #FFFFFF;
 }
 
-.material-icon {
+.block-button.selected {
+    border-color: #FFFF00;
+    border-width: 3px;
+}
+
+.block-icon {
     width: 50px;
     height: 50px;
     align-self: center;
 }
 
-.wall-gray {
-    background-image: url('wall-gray.png');
+.block-gray-icon {
+    background-image: resource('block-gray');
 }
 
-.wall-green {
-    background-image: url('wall-green.png');
+.block-green-icon {
+    background-image: resource('block-green');
 }
 
-.brick-orange {
-    background-image: url('brick-orange.png');
+.block-brick-icon {
+    background-image: resource('block-brick');
 }
 
-.brick-cracked-1 {
-    background-image: url('brick-cracked-1.png');
+.block-cracked1-icon {
+    background-image: resource('block-cracked1');
 }
 
-.brick-cracked-2 {
-    background-image: url('brick-cracked-2.png');
+.block-cracked2-icon {
+    background-image: resource('block-cracked2');
 }
 
-.brick-cracked-3 {
-    background-image: url('brick-cracked-3.png');
+.block-cracked3-icon {
+    background-image: resource('block-cracked3');
 }
