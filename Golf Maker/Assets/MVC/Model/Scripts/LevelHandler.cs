@@ -39,7 +39,6 @@ public class LevelHandler : MonoBehaviour
 
     private void OnLoadLevel(object sender, System.EventArgs e)
     {
-        Debug.Log("Loading level...");
         LevelEntity level = levelRepository.LoadLevelRecord(1);
 
         int [,] levelIds = LevelParser.DeSerializeLevelIds(level.LevelStructure);

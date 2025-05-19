@@ -1,3 +1,5 @@
+
+using System.Threading;
 using UnityEngine;
 
 public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
@@ -18,7 +20,7 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
 
     public override void OnEnterState(BallContext context)
     {
-        Debug.Log("Ball Idle State");
+        
         context.controller.SetHiteable(true);
         
         context.controller.SwitchBallLeftClickState(this);
@@ -28,6 +30,7 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
     public override void OnExitState(BallContext context)
     {
         context.controller.SetHiteable(false);
+        context.controller.ClearLine(); 
 
         context.controller.SwitchBallLeftClickState(null);
         context.controller.SwitchBallUpdateState(null);
@@ -53,9 +56,18 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
 
     public void Update(BallContext context)
     {
-        if (isClicked)
+        if (isClicked && !lastFinalPosition.Equals(context.position))
         {
-            context.controller.DrawLine(initialPosition, context.position);
+            // context.controller.ClearLine();
+            // Vector3 targetPosition =
+            //     context.controller.gameObject.transform.position - context.position;
+            // context.controller.DrawLine(context.controller.gameObject.transform.position, targetPosition);
+
+            Vector3 direction = context.controller.GetOppositeDirection(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            context.controller.CastLine(direction, 1000f);
+
+
+            lastFinalPosition = context.position;
         }
     }
 }
