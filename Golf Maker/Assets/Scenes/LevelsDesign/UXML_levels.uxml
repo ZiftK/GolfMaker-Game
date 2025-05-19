@@ -1,16 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-
-
-    <Style src="LevelsDesign.uss"/>
-    
+    <Style src="project://database/Assets/Scenes/LevelsDesign/LevelsDesign.uss?fileID=7433441132597879392&amp;guid=698449bb50900524faadc92cfb8adada&amp;type=3#LevelsDesign" />
     <ui:VisualElement name="root-container" class="root-container">
-        <!-- Contenedor principal que divide la pantalla en dos paneles -->
         <ui:VisualElement name="main-layout" class="main-layout">
-            <!-- Panel izquierdo con las herramientas -->
             <ui:VisualElement name="tools-panel" class="tools-panel">
-                <ui:Label text="Tools" class="panel-title" />
-                
-                <!-- Grid de herramientas -->
+                <ui:Label text="Tools" class="panel-title" style="font-size: 54px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/PixelifySans-VariableFont_wght.ttf?fileID=12800000&amp;guid=93d4877224e13864aa557d09ab856f87&amp;type=3#PixelifySans-VariableFont_wght&quot;);" />
                 <ui:VisualElement name="tools-grid" class="tools-grid">
                     <ui:Button name="pen-tool" class="tool-button">
                         <ui:VisualElement name="pen-icon" class="tool-icon pen-icon" />
@@ -26,31 +19,12 @@
                     </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
-            
-            <!-- Panel derecho con el canvas para la edición -->
             <ui:VisualElement name="canvas-panel" class="canvas-panel" />
         </ui:VisualElement>
-        
-        <!-- Panel inferior para la selección de bloques -->
         <ui:VisualElement name="blocks-panel" class="blocks-panel">
             <ui:VisualElement name="blocks-grid" class="blocks-grid">
-                <ui:Button name="block-gray" class="block-button">
-                    <ui:VisualElement name="block-gray-icon" class="block-icon block-gray-icon" />
-                </ui:Button>
-                <ui:Button name="block-green" class="block-button">
-                    <ui:VisualElement name="block-green-icon" class="block-icon block-green-icon" />
-                </ui:Button>
-                <ui:Button name="block-brick" class="block-button">
-                    <ui:VisualElement name="block-brick-icon" class="block-icon block-brick-icon" />
-                </ui:Button>
-                <ui:Button name="block-cracked1" class="block-button">
-                    <ui:VisualElement name="block-cracked1-icon" class="block-icon block-cracked1-icon" />
-                </ui:Button>
-                <ui:Button name="block-cracked2" class="block-button">
-                    <ui:VisualElement name="block-cracked2-icon" class="block-icon block-cracked2-icon" />
-                </ui:Button>
-                <ui:Button name="block-cracked3" class="block-button">
-                    <ui:VisualElement name="block-cracked3-icon" class="block-icon block-cracked3-icon" />
+                <ui:Button xmlns:ui="UnityEngine.UIElements" class="block-button">
+                    <ui:VisualElement name="icon" class="block-icon" />
                 </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>

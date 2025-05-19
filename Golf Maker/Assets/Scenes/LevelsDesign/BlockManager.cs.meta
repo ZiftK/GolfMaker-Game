@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 5e4eab0c140f1c740ae8f28ca0da310c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - blockbuttonTemplete: {fileID: 9197481963319205126, guid: d8783d67da319c442830385b1e49d80f, type: 3}
+  - uIDocument: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

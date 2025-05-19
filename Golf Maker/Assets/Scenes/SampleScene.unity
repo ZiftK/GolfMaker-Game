@@ -1948,6 +1948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146080867}
   - component: {fileID: 2146080866}
+  - component: {fileID: 2146080868}
   m_Layer: 0
   m_Name: LevelsDesign
   m_TagString: Untagged
@@ -1989,6 +1990,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146080868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146080865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4eab0c140f1c740ae8f28ca0da310c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockbuttonTemplete: {fileID: 9197481963319205126, guid: d8783d67da319c442830385b1e49d80f, type: 3}
+  uIDocument: {fileID: 2146080866}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
