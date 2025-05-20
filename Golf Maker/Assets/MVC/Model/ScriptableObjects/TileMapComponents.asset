@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TileMapComponents
   m_EditorClassIdentifier: 
   tileMapComponents:
-  - name: grass
+  - name: block
     id: 0
     tileBase: {fileID: 11400000, guid: 7900d07e6fd71db46ac1f92882d495a3, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 742f8a4d089009f46a993c529d95b9ac, type: 2}
