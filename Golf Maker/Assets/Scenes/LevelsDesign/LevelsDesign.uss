@@ -1,0 +1,148 @@
+.root-container {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: #363636;
+}
+
+/* Diseño principal */
+.main-layout {
+    flex-grow: 1;
+    flex-direction: row;
+}
+
+/* Panel de herramientas (izquierda) */
+.tools-panel {
+    width: 250px;
+    background-color: #424242;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.panel-title {
+    color: white;
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+    -unity-text-align: center;
+}
+
+.tools-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tool-button {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    background-color: #C0C0C0;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: #888888;
+}
+
+.tool-button:hover {
+    background-color: #D0D0D0;
+}
+
+.tool-button:active {
+    background-color: #A0A0A0;
+}
+
+.tool-button.selected {
+    border-color: #FFFFFF;
+    border-width: 2px;
+    background-color: #B0B0B0;
+}
+
+.tool-icon {
+    width: 100%;
+    height: 100%;
+    align-self: center;
+}
+
+.pen-icon {
+    background-image: resource('buttons/btn_edit');
+}
+
+.fill-icon {
+    background-image: resource('buttons/tray');
+}
+
+.brush-icon {
+    background-image: resource('buttons/erase');
+}
+
+.ruler-icon {
+    background-image: resource('buttons/btn_edit_line');
+}
+
+.additional-tools {
+    margin-top: 20px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tool-button.large {
+    width: 80px;
+    height: 80px;
+}
+
+.wall-icon {
+    background-image: resource('wall-icon');
+}
+
+.stairs-icon {
+    background-image: resource('stairs-icon');
+}
+
+/* Panel de canvas (derecha) */
+.canvas-panel {
+    flex-grow: 1;
+    background-image: resource('white_space');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Panel de bloques (inferior) */
+.blocks-panel {
+    height: 220px;
+    background-color:rgba(101, 119, 101, 0.38);
+    padding: 10px;
+}
+
+.blocks-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 30px;
+}
+
+.block-button {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    background-color: #4A4A4A;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #5A5A5A;
+
+}
+
+.block-button:hover {
+    border-color: #FFFFFF;
+}
+
+.block-button.selected {
+    border-color: #FFFF00;
+    border-width: 3px;
+}
+
+.block-icon {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
