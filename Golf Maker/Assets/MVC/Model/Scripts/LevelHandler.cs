@@ -3,12 +3,12 @@ using UnityEngine;
 [DefaultExecutionOrder(-100)]
 public class LevelHandler : MonoBehaviour
 {
-    LevelEventsHandler levelEventsHandler;
+    EditorLevelHandler levelEventsHandler;
     ILevelRepository levelRepository;
 
     void Awake()
     {
-        levelEventsHandler = LevelEventsHandler.GetInstance();
+        levelEventsHandler = EditorLevelHandler.GetInstance();
         levelRepository = new PrimalLevelRepository(); 
         levelEventsHandler.SaveLevel += OnSaveLevel;
         levelEventsHandler.LoadLevel += OnLoadLevel;

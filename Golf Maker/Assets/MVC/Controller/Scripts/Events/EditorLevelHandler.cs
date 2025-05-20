@@ -3,14 +3,14 @@ using System;
 
 
 
-public class LevelEventsHandler
+public class EditorLevelHandler
 {
-    public static LevelEventsHandler instance;
-    public static LevelEventsHandler GetInstance()
+    public static EditorLevelHandler instance;
+    public static EditorLevelHandler GetInstance()
     {
         if (instance == null)
         {
-            instance = new LevelEventsHandler();
+            instance = new EditorLevelHandler();
         }
 
         return instance;

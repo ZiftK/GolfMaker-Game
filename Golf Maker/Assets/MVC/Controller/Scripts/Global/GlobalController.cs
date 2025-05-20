@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GlobalController : MonoBehaviour
 {
-    private LevelEventsHandler levelEventsHandler;
+    private EditorLevelHandler levelEventsHandler;
 
     private void Awake()
     {
-        levelEventsHandler = LevelEventsHandler.GetInstance();
+        levelEventsHandler = EditorLevelHandler.GetInstance();
         
     }
     public void OnSaveMap(InputAction.CallbackContext context)
