@@ -31,16 +31,23 @@ public class MouseTracker : MonoBehaviour
         Vector3 mouse = Input.mousePosition;
         Ray castPoint = Camera.main.ScreenPointToRay(mouse);
 
-        if (Physics.Raycast(castPoint, out RaycastHit hit, Mathf.Infinity, layerMaskFilter))
+        if (!Physics.Raycast(castPoint, out RaycastHit hit, Mathf.Infinity, layerMaskFilter))
         {
+            transform.position = Vector3.right * 10_000;
+            return;
+        }
+
+        if (hit.collider != null && hit.collider.gameObject.name == "Panel")
+        {
+            transform.position = Vector3.right * 10_000; // Desactivar el bloque
+            Debug.Log("Desactivando el bloque");
+            return;
+        }
+
             transform.position = new Vector3(
-                ((int) Math.Floor(hit.point.x)) + tileOffset.x,
-                ((int) Math.Floor(hit.point.y)) + tileOffset.y,
+            ((int)Math.Floor(hit.point.x)) + tileOffset.x,
+            ((int)Math.Floor(hit.point.y)) + tileOffset.y,
                 hit.point.z
             );
         }
-
-    }
-
-
 }
