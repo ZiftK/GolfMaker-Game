@@ -54,7 +54,7 @@ public class EditorLevelHandler
     {
         ExitEditLevel?.Invoke(this, new EventArgs());
     }
-    
+
     public void OnEnterEditLevel()
     {
         EnterEditLevel?.Invoke(this, new EventArgs());

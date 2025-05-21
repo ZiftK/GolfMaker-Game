@@ -27,7 +27,7 @@ public class MouseTracker : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         Vector3 mouse = Input.mousePosition;
         Ray castPoint = Camera.main.ScreenPointToRay(mouse);
 
@@ -44,10 +44,10 @@ public class MouseTracker : MonoBehaviour
             return;
         }
 
-            transform.position = new Vector3(
+        transform.position = new Vector3(
             ((int)Math.Floor(hit.point.x)) + tileOffset.x,
             ((int)Math.Floor(hit.point.y)) + tileOffset.y,
-                hit.point.z
-            );
-        }
+            hit.point.z
+        );
+    }
 }
