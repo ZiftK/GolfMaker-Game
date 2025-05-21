@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class BlockManager : MonoBehaviour
 {
@@ -10,13 +11,15 @@ public class BlockManager : MonoBehaviour
 
     private VisualElement blocksGrid;
 
+    private EditorLevelHandler editorLevelHandler;
+
     public class BlockData
     {
         public string icon;
         public string name;
     }
 
-    void Start()
+    void Awake()
     {
         if (uIDocument == null)
         {
@@ -34,6 +37,8 @@ public class BlockManager : MonoBehaviour
         Sprite[] blocks = Resources.LoadAll<Sprite>("Blocks");
 
         RenderBlocks(blocks);
+
+        editorLevelHandler = EditorLevelHandler.GetInstance();
     }
 
     public void RenderBlocks(Sprite[] blocks)
@@ -53,6 +58,7 @@ public class BlockManager : MonoBehaviour
             {
 
                 Debug.Log("Block clicked: " + block.name);
+                editorLevelHandler.OnSelectBlock(new SelectBlockArgs(block.name));
             });
 
             blocksGrid.Add(button);

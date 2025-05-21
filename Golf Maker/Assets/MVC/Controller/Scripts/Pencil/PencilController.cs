@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,10 +9,18 @@ public class PencilController : MonoBehaviour
 
     public float temporalTileOpacity = 0.5f;
 
+    private int tileId = 0;
+
+    private EditorLevelHandler editorLevelHandler;
+
     void Awake()
     {
         // currentState = PointPencilState.GetInstance();
         currentState = PointPencilState.GetInstance();
+        editorLevelHandler = EditorLevelHandler.GetInstance();
+
+        editorLevelHandler.SelectBlock += OnSelectBlock;
+
     }
 
     void Update()
@@ -24,22 +33,31 @@ public class PencilController : MonoBehaviour
                 )
                 );
     }
-    public void OnLeftClick(InputAction.CallbackContext context){
 
-        if (context.started){
+    public void OnSelectBlock(object sender, SelectBlockArgs args)
+    {
+        tileId = TileMapsFactory.GetTileIdByName(args.blockName);
+    }
+    
+    public void OnLeftClick(InputAction.CallbackContext context)
+    {
+
+        if (context.started)
+        {
             currentState.OnLeftClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
                 );
         }
 
-        if (context.canceled){
+        if (context.canceled)
+        {
             currentState.OnLeftUnClikc(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
             );
         }
@@ -50,7 +68,7 @@ public class PencilController : MonoBehaviour
             currentState.OnRightClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
             );
         }
@@ -59,7 +77,7 @@ public class PencilController : MonoBehaviour
             currentState.OnRightUnClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
             );
         }

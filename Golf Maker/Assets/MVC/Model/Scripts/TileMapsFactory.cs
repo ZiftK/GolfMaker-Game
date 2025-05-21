@@ -14,30 +14,34 @@ public class TileMapComponent{
 }
 
 [DefaultExecutionOrder(-199)]
-public class TileMapsFactory: MonoBehaviour
+public class TileMapsFactory : MonoBehaviour
 {
     public TileMapStorage tileMapStorage;
 
-    Dictionary<string, TileMapComponent> tileMapByName;
+    private static Dictionary<string, TileMapComponent> tileMapByName;
 
     void Awake()
     {
         tileMapByName = new Dictionary<string, TileMapComponent>();
 
-        foreach(TileMapConfig component in tileMapStorage.tileMapComponents){
-                tileMapByName.Add(component.name, new TileMapComponent(null, component));
+        foreach (TileMapConfig component in tileMapStorage.tileMapComponents)
+        {
+            tileMapByName.Add(component.name, new TileMapComponent(null, component));
         }
     }
 
-    public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth){
+    public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth)
+    {
 
-        if (!tileMapByName.ContainsKey(tileBaseName)){
+        if (!tileMapByName.ContainsKey(tileBaseName))
+        {
             throw new System.Exception($"TileBase {tileBaseName} not exists in TileBaseStorage");
         }
 
         tileMapByName.TryGetValue(tileBaseName, out TileMapComponent tileMapComponent);
 
-        if (tileMapComponent.obj == null){
+        if (tileMapComponent.obj == null)
+        {
             tileMapComponent.obj = new GameObject($"Tile map - {tileBaseName} - {tileMapComponent.config.id}");
 
             // set collision layer mask
@@ -50,7 +54,7 @@ public class TileMapsFactory: MonoBehaviour
                 new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
                 Quaternion.identity
             );
-            
+
             // add components
             tileMapComponent.obj.AddComponent<Tilemap>();
             tileMapComponent.obj.AddComponent<TilemapRenderer>();
@@ -62,16 +66,28 @@ public class TileMapsFactory: MonoBehaviour
             tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
             compositeCollider.sharedMaterial = tileMapComponent.config.physicsMaterial;
         }
-        
+
         return tileMapComponent;
     }
 
-    public TileMapComponent GetTileMapComponent(int tileBaseId, float tileBaseWidth){
-        if (tileBaseId < 0 || tileBaseId >= tileMapStorage.tileMapComponents.Length){
+    public TileMapComponent GetTileMapComponent(int tileBaseId, float tileBaseWidth)
+    {
+        if (tileBaseId < 0 || tileBaseId >= tileMapStorage.tileMapComponents.Length)
+        {
             throw new System.Exception($"Tile base id {tileBaseId} not exists");
         }
         string name = tileMapStorage.tileMapComponents[tileBaseId].name;
         return GetTileMapComponent(name, tileBaseWidth);
+    }
+    
+    public static int GetTileIdByName(string tileBaseName)
+    {
+        tileMapByName.TryGetValue(tileBaseName, out TileMapComponent tileMapComponent);
+        if (tileMapComponent == null)
+        {
+            throw new System.Exception($"TileBase {tileBaseName} not exists in TileBaseStorage");
+        }
+        return tileMapComponent.config.id;
     }
 
 
