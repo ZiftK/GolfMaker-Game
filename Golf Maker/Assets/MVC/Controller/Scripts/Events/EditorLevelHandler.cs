@@ -2,10 +2,10 @@ using UnityEngine;
 using System;
 
 
-public class SelectPincelArgs : EventArgs
+public class SelectPencilArgs : EventArgs
 {
     public string pincelName { get; }
-    public SelectPincelArgs(string pincelName)
+    public SelectPencilArgs(string pincelName)
     {
         this.pincelName = pincelName;
     }
@@ -38,7 +38,7 @@ public class EditorLevelHandler
     public event EventHandler ExitEditLevel;
     public event EventHandler EnterEditLevel;
 
-    public event EventHandler<SelectPincelArgs> SelectPincel;
+    public event EventHandler<SelectPencilArgs> SelectPencil;
     public event EventHandler<SelectBlockArgs> SelectBlock;
 
     public void OnSaveLevel()
@@ -60,9 +60,9 @@ public class EditorLevelHandler
         EnterEditLevel?.Invoke(this, new EventArgs());
     }
 
-    public void OnSelectPincel(SelectPincelArgs e)
+    public void OnSelectPencil(SelectPencilArgs e)
     {
-        SelectPincel?.Invoke(this, e);
+        SelectPencil?.Invoke(this, e);
     }
     public void OnSelectBlock(SelectBlockArgs e)
     {
