@@ -45,33 +45,56 @@ public class TileMapsFactory : MonoBehaviour
         }
     }
 
+    public void BuildTileColliderByType(ref CompositeCollider2D compositeCollider, TileMapComponent tileMapComponent)
+    {
+        switch (tileMapComponent.config.tileType)
+        {
+            case TileType.Solid:
+                compositeCollider.isTrigger = false;
+                compositeCollider.sharedMaterial = tileMapComponent.config.physicsMaterial;
+                break;
 
+            case TileType.Background:
+                compositeCollider.isTrigger = true;
+                // todo: add viscosity implementation
+                break;
+
+        }
+
+        compositeCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+        
+
+    }
     public void BuildTileMapComponent(string tileBaseName, float tileBaseWidth, ref TileMapComponent tileMapComponent)
     {
+
+        tileMapComponent.obj = new GameObject($"Tile map - {tileBaseName} - {tileMapComponent.config.id}");
+
+        // set collision layer mask
+        tileMapComponent.obj.layer = tileMapComponent.GetComponentLayer();
+
+        // relative position
+        tileMapComponent.obj.transform.SetParent(transform);
+
+        tileMapComponent.obj.transform.SetLocalPositionAndRotation(
+            new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
+            Quaternion.identity
+        );
+
+        // add components
+        tileMapComponent.obj.AddComponent<Tilemap>();
+        tileMapComponent.obj.AddComponent<TilemapRenderer>();
+
+        // physics
+        Rigidbody2D tileMapRgb = tileMapComponent.obj.AddComponent<Rigidbody2D>();
+        tileMapRgb.bodyType = RigidbodyType2D.Static;
+
+        // collisions
+        TilemapCollider2D tileMapCollider = tileMapComponent.obj.AddComponent<TilemapCollider2D>();
+        CompositeCollider2D compositeCollider = tileMapComponent.obj.AddComponent<CompositeCollider2D>();
+        BuildTileColliderByType(ref compositeCollider, tileMapComponent);
+        tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
         
-            tileMapComponent.obj = new GameObject($"Tile map - {tileBaseName} - {tileMapComponent.config.id}");
-
-            // set collision layer mask
-            tileMapComponent.obj.layer = tileMapComponent.GetComponentLayer();
-
-            // relative position
-            tileMapComponent.obj.transform.SetParent(transform);
-
-            tileMapComponent.obj.transform.SetLocalPositionAndRotation(
-                new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
-                Quaternion.identity
-            );
-
-            // add components
-            tileMapComponent.obj.AddComponent<Tilemap>();
-            tileMapComponent.obj.AddComponent<TilemapRenderer>();
-            // physics
-            Rigidbody2D tileMapRgb = tileMapComponent.obj.AddComponent<Rigidbody2D>();
-            tileMapRgb.bodyType = RigidbodyType2D.Static;
-            TilemapCollider2D tileMapCollider = tileMapComponent.obj.AddComponent<TilemapCollider2D>();
-            CompositeCollider2D compositeCollider = tileMapComponent.obj.AddComponent<CompositeCollider2D>();
-            tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
-            compositeCollider.sharedMaterial = tileMapComponent.config.physicsMaterial;
     }
     
     public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth)
