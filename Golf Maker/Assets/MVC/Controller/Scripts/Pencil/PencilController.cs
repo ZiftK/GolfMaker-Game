@@ -20,6 +20,7 @@ public class PencilController : MonoBehaviour
         editorLevelHandler = EditorLevelHandler.GetInstance();
 
         editorLevelHandler.SelectBlock += OnSelectBlock;
+        editorLevelHandler.SelectPencil += OnSelectPencil;
 
     }
 
@@ -38,6 +39,30 @@ public class PencilController : MonoBehaviour
     {
         tileId = TileMapsFactory.GetTileIdByName(args.blockName);
     }
+
+    public void OnSelectPencil(object sender, SelectPencilArgs args)
+    {
+        // Handle the selection of different pencil types
+        switch (args.pincelName)
+        {
+            case "pen":
+                currentState = PointPencilState.GetInstance();
+                break;
+            case "fill":
+                currentState = BucketPencilState.GetInstance();
+                break;
+            case "brush":
+                currentState = SquarePencilState.GetInstance();
+                break;
+            case "ruler":
+                currentState = LinePencilState.GetInstance();
+                break;
+            default:
+                Debug.LogWarning("Unhandled pencil type: " + args.pincelName);
+                break;
+        }
+    }
+
     
     public void OnLeftClick(InputAction.CallbackContext context)
     {
