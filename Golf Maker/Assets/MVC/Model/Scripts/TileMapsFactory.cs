@@ -60,8 +60,6 @@ public class TileMapsFactory : MonoBehaviour
                 break;
 
         }
-
-        compositeCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
         
 
     }
@@ -89,11 +87,13 @@ public class TileMapsFactory : MonoBehaviour
         Rigidbody2D tileMapRgb = tileMapComponent.obj.AddComponent<Rigidbody2D>();
         tileMapRgb.bodyType = RigidbodyType2D.Static;
 
-        // collisions
+        // Collisions
         TilemapCollider2D tileMapCollider = tileMapComponent.obj.AddComponent<TilemapCollider2D>();
         CompositeCollider2D compositeCollider = tileMapComponent.obj.AddComponent<CompositeCollider2D>();
-        BuildTileColliderByType(ref compositeCollider, tileMapComponent);
         tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+
+
+        BuildTileColliderByType(ref compositeCollider, tileMapComponent);
         
     }
     
