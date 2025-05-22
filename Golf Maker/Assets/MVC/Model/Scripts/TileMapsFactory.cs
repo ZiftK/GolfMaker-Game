@@ -2,14 +2,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileMapComponent{
+public class TileMapComponent
+{
 
     public GameObject obj;
     public TileMapConfig config;
 
-    public TileMapComponent(GameObject obj, TileMapConfig config){
+    public TileMapComponent(GameObject obj, TileMapConfig config)
+    {
         this.config = config;
         this.obj = obj;
+    }
+
+    public int GetComponentLayer()
+    {
+        switch (config.tileType)
+        {
+            case TileType.Solid:
+                return 6;
+            case TileType.Background:
+                return 6;
+            default:
+                throw new System.Exception($"TileBase {config.name} has an invalid tile type");
+        }
     }
 }
 
@@ -30,22 +45,14 @@ public class TileMapsFactory : MonoBehaviour
         }
     }
 
-    public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth)
+
+    public void BuildTileMapComponent(string tileBaseName, float tileBaseWidth, ref TileMapComponent tileMapComponent)
     {
-
-        if (!tileMapByName.ContainsKey(tileBaseName))
-        {
-            throw new System.Exception($"TileBase {tileBaseName} not exists in TileBaseStorage");
-        }
-
-        tileMapByName.TryGetValue(tileBaseName, out TileMapComponent tileMapComponent);
-
-        if (tileMapComponent.obj == null)
-        {
+        
             tileMapComponent.obj = new GameObject($"Tile map - {tileBaseName} - {tileMapComponent.config.id}");
 
             // set collision layer mask
-            tileMapComponent.obj.layer = tileMapComponent.config.objectLayer;
+            tileMapComponent.obj.layer = tileMapComponent.GetComponentLayer();
 
             // relative position
             tileMapComponent.obj.transform.SetParent(transform);
@@ -65,6 +72,27 @@ public class TileMapsFactory : MonoBehaviour
             CompositeCollider2D compositeCollider = tileMapComponent.obj.AddComponent<CompositeCollider2D>();
             tileMapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
             compositeCollider.sharedMaterial = tileMapComponent.config.physicsMaterial;
+    }
+    
+    public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth)
+    {
+        /*
+        se revisa que existe un tile con ese nombre,
+        este caso se diferencia de obtener un tilemapComponent null porque
+        el nombre del tile puede estar registrado pero no tener un tilemapComponent, ya
+        que los tile components se inicializan a null para identificar los que ya han sido 
+        construidos de los que no.
+        */
+        if (!tileMapByName.ContainsKey(tileBaseName))
+        {
+            throw new System.Exception($"TileBase {tileBaseName} not exists in TileBaseStorage");
+        }
+
+        tileMapByName.TryGetValue(tileBaseName, out TileMapComponent tileMapComponent);
+
+        if (tileMapComponent.obj == null)
+        {
+            BuildTileMapComponent(tileBaseName, tileBaseWidth, ref tileMapComponent);
         }
 
         return tileMapComponent;
