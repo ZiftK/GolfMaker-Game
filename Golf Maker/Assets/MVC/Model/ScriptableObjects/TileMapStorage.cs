@@ -3,6 +3,13 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [Serializable]
+public enum TileType
+{
+    Solid,
+    Background
+}
+
+[Serializable]
 public struct TileMapConfig
 {
 
@@ -11,9 +18,14 @@ public struct TileMapConfig
     public TileBase tileBase;
     public TileBase temporalTileBase;
 
+    public TileType tileType;
+
+    [Header("If is a solid block")]
     public PhysicsMaterial2D physicsMaterial;
+
+    [Header("If is a background block")]
+    public float viscosity;
     
-    public int objectLayer;
     
 }
 [CreateAssetMenu(fileName = "TileMapStorage", menuName = "Scriptable Objects/TileMapStorage")]
