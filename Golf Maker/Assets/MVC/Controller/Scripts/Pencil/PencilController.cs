@@ -29,7 +29,7 @@ public class PencilController : MonoBehaviour
         currentState.Update(
             new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
                 );
     }
