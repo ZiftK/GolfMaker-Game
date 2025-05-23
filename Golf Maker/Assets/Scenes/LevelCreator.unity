@@ -217,30 +217,6 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 21121c53-3ebb-4e5d-8458-ee97c83e0197
-    m_ActionName: 'Camera/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 33ab2612-62fb-484c-81a9-b4a06be447b9
-    m_ActionName: 'Camera/Zoom[/Mouse/scroll/down,/Mouse/scroll/up]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f4e4c956-1207-4016-9ac7-7898665b3c27
-    m_ActionName: 'Camera/Run[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1bae660a-29c4-4882-bdbf-86fd0d570a71
-    m_ActionName: 'Pencil/LeftClick[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f265abd9-05a9-4e86-8103-29d937dd50e7
-    m_ActionName: 'Pencil/RightClick[/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 162601e6-0702-44d5-a03f-74282841c572
-    m_ActionName: 'Pencil/SwitchPencil[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: a598122a-7afb-499c-8166-892e92df072a
     m_ActionName: 'PlayerGame/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
@@ -255,10 +231,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c4b42b1d-df45-4668-8452-df241a22d534
     m_ActionName: 'PlayerGame/LeftClick[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7a5c4b4b-aa65-4bf2-b4b5-320ffc25e9b9
-    m_ActionName: 'Ball/LeftClick[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1301093049}
@@ -339,6 +311,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f57a5202-3ad4-49fa-b2e9-06938895edab
     m_ActionName: 'PlayerLevelEditor/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3cc3718c-a6ec-4b61-87eb-5c46bc461a52
+    m_ActionName: 'PlayerLevelEditor/Save[/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1339b271-17ee-40e8-b492-6053b3060bb5
+    m_ActionName: 'PlayerLevelEditor/Load[/Keyboard/l]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerLevelEditor
@@ -381,6 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 844245885}
   - component: {fileID: 844245884}
+  - component: {fileID: 844245887}
   - component: {fileID: 844245883}
   - component: {fileID: 844245886}
   m_Layer: 0
@@ -448,6 +429,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fb9ebf9f475b2758fed337684184f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIDocument: {fileID: 844245884}
+--- !u!114 &844245887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844245882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d55205c755d0833bbcfbe7bdc419d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uIDocument: {fileID: 844245884}
