@@ -29,7 +29,6 @@ public class BlockManager : MonoBehaviour
 
         var root = uIDocument.rootVisualElement;
         blocksGrid = root.Q<VisualElement>("blocks-grid");
-        Debug.Log(blocksGrid);
 
 
 
