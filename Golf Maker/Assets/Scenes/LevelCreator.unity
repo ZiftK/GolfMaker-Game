@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 844245885}
   - component: {fileID: 844245884}
   - component: {fileID: 844245883}
+  - component: {fileID: 844245886}
   m_Layer: 0
   m_Name: UILevelsDesign
   m_TagString: Untagged
@@ -437,6 +438,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &844245886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844245882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8fb9ebf9f475b2758fed337684184f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIDocument: {fileID: 844245884}
 --- !u!1 &845393722
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +765,7 @@ MonoBehaviour:
   layerMaskFilter:
     serializedVersion: 2
     m_Bits: 4294967295
+  uiDocument: {fileID: 844245884}
 --- !u!212 &1392314417
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -851,8 +866,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250b03d20ced0fc4ead4760f9294789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelWidth: 30
-  levelHeight: 30
+  levelWidth: 20
+  levelHeight: 20
   visualGrid: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
   tileBaseWidth: 0.5
 --- !u!4 &1893831420
