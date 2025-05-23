@@ -169,6 +169,8 @@ public class Grid2D : MonoBehaviour
         {
             return;
         }
+        BorrowTileBaseAtPositionArgs borrowArgs = new BorrowTileBaseAtPositionArgs(args.positions);
+        BorrowTileBaseAtPositions(sender, borrowArgs);
 
         TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
         TileBase tile = tileLevelComponent.config.tileBase;
