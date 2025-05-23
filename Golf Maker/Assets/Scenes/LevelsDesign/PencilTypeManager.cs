@@ -9,6 +9,8 @@ public class PencilTypeManager : MonoBehaviour
 
     private EditorLevelHandler editorLevelHandler;
 
+    public static bool isPointerOverUI = false;
+
     public class PencilData
     {
         public string icon;
@@ -57,6 +59,14 @@ public class PencilTypeManager : MonoBehaviour
             Debug.Log("Ruler tool clicked");
             editorLevelHandler.OnSelectPencil(new SelectPencilArgs("ruler"));
         });
+
+        VisualElement rootPanel = root.Q<VisualElement>("tools-panel");
+        VisualElement blocksPanel = root.Q<VisualElement>("blocks-panel");
+
+        rootPanel.RegisterCallback<PointerEnterEvent>(evt => isPointerOverUI = true);
+        rootPanel.RegisterCallback<PointerLeaveEvent>(evt => isPointerOverUI = false);
+        blocksPanel.RegisterCallback<PointerEnterEvent>(evt => isPointerOverUI = true);
+        blocksPanel.RegisterCallback<PointerLeaveEvent>(evt => isPointerOverUI = false);
 
     }
 }
