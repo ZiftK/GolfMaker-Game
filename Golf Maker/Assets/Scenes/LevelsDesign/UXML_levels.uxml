@@ -18,6 +18,8 @@
                         <ui:VisualElement name="ruler-icon" class="tool-icon ruler-icon" />
                     </ui:Button>
                 </ui:VisualElement>
+                <ui:Button text="Save" name="save-tool" style="transform-origin: center; translate: 0 20px;" />
+                <ui:Button text="Reset" name="reset-tool" style="transform-origin: center; translate: 0 20px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="blocks-panel" class="blocks-panel" style="background-color: rgb(101, 119, 101);">
