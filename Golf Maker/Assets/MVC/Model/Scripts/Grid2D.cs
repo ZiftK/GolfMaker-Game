@@ -94,7 +94,7 @@ public class Grid2D : MonoBehaviour
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
 
-        
+
     }
 
     private void InitVisualGrid()
@@ -128,14 +128,32 @@ public class Grid2D : MonoBehaviour
             visualGrid.SetActive(activate);
         }
     }
-    
+
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
-        levelIds[idPosition.x, idPosition.y] = newId;
+        try
+        {
+            levelIds[idPosition.x, idPosition.y] = newId;
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Debug.LogWarning($"Index out of range: {e.Message}");
+        }
     }
 
-    private int GetIdAtPosition(Vector2Int idPosition) => levelIds[idPosition.x, idPosition.y];
+    private int GetIdAtPosition(Vector2Int idPosition)
+    {
+        try
+        {
+            return levelIds[idPosition.x, idPosition.y];
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Debug.LogWarning($"Index out of range: {e.Message}");
+            return -1;
+        }
+    }
 
 
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
@@ -178,7 +196,7 @@ public class Grid2D : MonoBehaviour
 
         foreach (Vector3Int position in args.positions)
         {
-            
+
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             SetIdAtPosition(idPosition, args.tileBaseId);
 
@@ -221,7 +239,8 @@ public class Grid2D : MonoBehaviour
             }
         }
     }
-    public void LoadLevelFromParseLevel(int[,] levelIds){
+    public void LoadLevelFromParseLevel(int[,] levelIds)
+    {
 
         ClearAllTiles();
 
@@ -235,7 +254,7 @@ public class Grid2D : MonoBehaviour
         }
 
         this.levelIds = levelIds;
-        
+
     }
 
     private void LoadLevel(object sender, EventArgs e)
@@ -246,6 +265,15 @@ public class Grid2D : MonoBehaviour
     public int[,] GetLevelIds()
     {
         return levelIds;
+    }
+    
+    public int GetLevelWidth()
+    {
+        return levelWidth;
+    }
+    public int GetLevelHeight()
+    {
+        return levelHeight;
     }
 
 }
