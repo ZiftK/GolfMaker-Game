@@ -132,11 +132,11 @@ public class Grid2D : MonoBehaviour
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
-        if (idPosition.x < 0 || idPosition.x >= levelWidth )
+        if (idPosition.x < 0 || idPosition.x >= levelWidth)
             return;
         if (idPosition.y < 0 || idPosition.y >= levelHeight)
             return;
-        
+
         levelIds[idPosition.x, idPosition.y] = newId;
     }
 
@@ -149,7 +149,7 @@ public class Grid2D : MonoBehaviour
 
         return levelIds[idPosition.x, idPosition.y];
     }
-     
+
 
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
@@ -256,7 +256,7 @@ public class Grid2D : MonoBehaviour
     {
         return levelIds;
     }
-    
+
     public int GetLevelWidth()
     {
         return levelWidth;
@@ -264,6 +264,34 @@ public class Grid2D : MonoBehaviour
     public int GetLevelHeight()
     {
         return levelHeight;
+    }
+
+    public void SetLevelWidth(int newWidth)
+    {
+        if (newWidth < 0)
+        {
+            newWidth = Mathf.Abs(newWidth);
+        }
+
+        if (newWidth % 2 != 0)
+        {
+            newWidth++;
+        }
+        levelWidth = newWidth;
+    }
+    
+    public void SetLevelHeight(int newHeight)
+    {
+        if (newHeight < 0)
+        {
+            newHeight = Mathf.Abs(newHeight);
+        }
+
+        if (newHeight % 2 != 0)
+        {
+            newHeight++;
+        }
+        levelHeight = newHeight;
     }
 
 }
