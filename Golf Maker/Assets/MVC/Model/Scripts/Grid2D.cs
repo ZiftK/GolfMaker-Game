@@ -132,29 +132,24 @@ public class Grid2D : MonoBehaviour
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
-        try
-        {
-            levelIds[idPosition.x, idPosition.y] = newId;
-        }
-        catch (IndexOutOfRangeException e)
-        {
-            Debug.LogWarning($"Index out of range: {e.Message}");
-        }
+        if (idPosition.x < 0 || idPosition.x >= levelWidth )
+            return;
+        if (idPosition.y < 0 || idPosition.y >= levelHeight)
+            return;
+        
+        levelIds[idPosition.x, idPosition.y] = newId;
     }
 
     private int GetIdAtPosition(Vector2Int idPosition)
     {
-        try
-        {
-            return levelIds[idPosition.x, idPosition.y];
-        }
-        catch (IndexOutOfRangeException e)
-        {
-            Debug.LogWarning($"Index out of range: {e.Message}");
+        if (idPosition.x < 0 || idPosition.x >= levelWidth)
             return -1;
-        }
-    }
+        if (idPosition.y < 0 || idPosition.y >= levelHeight)
+            return -1;
 
+        return levelIds[idPosition.x, idPosition.y];
+    }
+     
 
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
