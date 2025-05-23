@@ -30,6 +30,8 @@ public class LevelHandler : MonoBehaviour
             TimesPlayed = 0,
             TimesCompleted = 0,
             RewardCoins = 0,
+            levelHeight = Grid2D.Instance.GetLevelHeight(),
+            levelWidth = Grid2D.Instance.GetLevelWidth(),
             LevelStructure = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
         };
 
@@ -40,6 +42,18 @@ public class LevelHandler : MonoBehaviour
     private void OnLoadLevel(object sender, System.EventArgs e)
     {
         LevelEntity level = levelRepository.LoadLevelRecord(1);
+
+        if (level == null)
+        {
+            Debug.LogError("Level not found.");
+            return;
+        }
+        if (level.levelHeight != Grid2D.Instance.GetLevelHeight() || level.levelWidth != Grid2D.Instance.GetLevelWidth())
+        {
+            Debug.LogError(
+                $"Level dimensions must be {level.levelWidth}x{level.levelHeight} not {Grid2D.Instance.GetLevelWidth()}x{Grid2D.Instance.GetLevelHeight()}");
+            return;
+        }
 
         int [,] levelIds = LevelParser.DeSerializeLevelIds(level.LevelStructure);
         Grid2D.Instance.LoadLevelFromParseLevel(levelIds);
