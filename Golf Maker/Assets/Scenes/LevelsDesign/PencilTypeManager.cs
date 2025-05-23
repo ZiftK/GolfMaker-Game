@@ -34,7 +34,6 @@ public class PencilTypeManager : MonoBehaviour
         var penToolButton = root.Q<Button>("pen-tool");
         penToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            Debug.Log("Pen tool clicked");
             editorLevelHandler.OnSelectPencil(new SelectPencilArgs("pen"));
         });
 
@@ -42,21 +41,18 @@ public class PencilTypeManager : MonoBehaviour
         var fillToolButton = root.Q<Button>("fill-tool");
         fillToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            Debug.Log("Fill tool clicked");
             editorLevelHandler.OnSelectPencil(new SelectPencilArgs("fill"));
         });
 
         var brushToolButton = root.Q<Button>("brush-tool");
         brushToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            Debug.Log("Brush tool clicked");
             editorLevelHandler.OnSelectPencil(new SelectPencilArgs("brush"));
         });
 
         var rulerToolButton = root.Q<Button>("ruler-tool");
         rulerToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            Debug.Log("Ruler tool clicked");
             editorLevelHandler.OnSelectPencil(new SelectPencilArgs("ruler"));
         });
 

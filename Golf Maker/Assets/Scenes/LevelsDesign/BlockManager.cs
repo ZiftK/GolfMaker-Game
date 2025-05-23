@@ -57,7 +57,7 @@ public class BlockManager : MonoBehaviour
             button.RegisterCallback<ClickEvent>(_ =>
             {
 
-                Debug.Log("Block clicked: " + block.name);
+                
                 editorLevelHandler.OnSelectBlock(new SelectBlockArgs(block.name));
             });
 
