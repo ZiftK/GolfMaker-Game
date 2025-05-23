@@ -29,7 +29,6 @@ public class FillLevels : MonoBehaviour
         }
 
         var root = uIDocument.rootVisualElement;
-        Debug.Log(root.name);
         levelsGrid = root.Q<VisualElement>("card-container");
 
 

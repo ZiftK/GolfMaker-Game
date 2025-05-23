@@ -92,8 +92,6 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
             float hitDistance = Math.Min(mouseDistance, controller.GetLineDistance());
             float lineDistance = Math.Min(hitDistance, Vector3.Distance(start, hitPoint));
 
-            Debug.Log($"Line distance: {lineDistance}");
-
             controller.DrawLine(start, start + direction * lineDistance);
             
             hitSlider = hitDistance/controller.GetLineDistance();

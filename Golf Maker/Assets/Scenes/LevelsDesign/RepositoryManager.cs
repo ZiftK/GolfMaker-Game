@@ -20,14 +20,12 @@ public class RepositoryManager : MonoBehaviour
         saveButton = root.Q<Button>("save-tool");
         saveButton.RegisterCallback<ClickEvent>(_ =>
         {
-            Debug.Log("Save button clicked");
             editorLevelHandler.OnSaveLevel();
         });
 
         resetButton = root.Q<Button>("reset-tool");
         resetButton.RegisterCallback<ClickEvent>(_ =>
         {
-            Debug.Log("Reset button clicked");
             editorLevelHandler.OnLoadLevel();
         });
     }
