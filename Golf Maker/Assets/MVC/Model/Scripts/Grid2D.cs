@@ -257,11 +257,6 @@ public class Grid2D : MonoBehaviour
 
     }
 
-    private void LoadLevel(object sender, EventArgs e)
-    {
-        // Implement your load level logic here
-        Debug.Log("Level loaded.");
-    }
     public int[,] GetLevelIds()
     {
         return levelIds;
