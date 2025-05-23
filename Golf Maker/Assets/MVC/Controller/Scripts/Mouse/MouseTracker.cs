@@ -38,13 +38,14 @@ public class MouseTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //todo: refactor to event system
         if (PencilTypeManager.isPointerOverUI)
         {
-            
+
             GetMouseOverMap();
             return;
         }
-        
+
         Vector2 mouse = Input.mousePosition;
         Ray castPoint = Camera.main.ScreenPointToRay(mouse);
 

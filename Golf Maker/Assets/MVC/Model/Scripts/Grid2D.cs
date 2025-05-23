@@ -147,6 +147,11 @@ public class Grid2D : MonoBehaviour
         {
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
 
+            if (idPosition.x < 0 || idPosition.x >= levelWidth || idPosition.y < 0 || idPosition.y >= levelHeight)
+            {
+                break;
+            }
+
             temporalTileLevel.SetTile(position, tile);
 
         }
