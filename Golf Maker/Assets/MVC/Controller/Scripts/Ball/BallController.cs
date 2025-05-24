@@ -61,7 +61,7 @@ public class BallController : MonoBehaviour
 
     }
 
-
+    #region Line Methods
     public void DrawLine(Vector3 start, Vector3 end)
     {
 
@@ -74,7 +74,18 @@ public class BallController : MonoBehaviour
         lineRenderer.SetPosition(0, Vector3.zero);
         lineRenderer.SetPosition(1, Vector3.zero);
     }
+    #endregion Line Methods
 
+    #region Behavior Methods
+    public void KillBall()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    }
+    #endregion Behavior Methods
+
+    #region State Methods
     public void SwitchBallState(BallState newState, BallContext context)
     {
         currentState.OnExitState(context);
@@ -91,7 +102,9 @@ public class BallController : MonoBehaviour
     {
         currentUpdateState = newState;
     }
+    #endregion State Methods
 
+    #region Event Methods
     public void OnLeftClick(InputAction.CallbackContext context)
     {
 
@@ -131,11 +144,25 @@ public class BallController : MonoBehaviour
 
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log($"Ball collided with a {other.name}");
+        if (other.CompareTag("water"))
+        {
+            KillBall();
+        }     
+    }
+
+    #endregion Event Methods
+
+    #region Getters and Setters
     public bool IsHiteable() => isHiteable;
     public void SetHiteable(bool value) => isHiteable = value;
 
     public float GetLineDistance() => lineDistance;
-    
+
     public float GetForceMultiplier() => forceMultiplier;
+    
+    #endregion Getters and Setters
 
 }
