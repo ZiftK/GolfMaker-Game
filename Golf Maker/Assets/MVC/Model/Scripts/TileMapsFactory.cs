@@ -81,7 +81,14 @@ public class TileMapsFactory : MonoBehaviour
 
         // add components
         tileMapComponent.obj.AddComponent<Tilemap>();
-        tileMapComponent.obj.AddComponent<TilemapRenderer>();
+        var tileMapRenderer = tileMapComponent.obj.AddComponent<TilemapRenderer>();
+
+        if (tileMapComponent.config.material != null)
+        {
+            tileMapRenderer.material = tileMapComponent.config.material;
+        }
+
+        tileMapRenderer.sortingOrder = tileMapComponent.config.sortingLayer;
 
         // physics
         Rigidbody2D tileMapRgb = tileMapComponent.obj.AddComponent<Rigidbody2D>();
