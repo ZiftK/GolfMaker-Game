@@ -52,10 +52,12 @@ public class TileMapsFactory : MonoBehaviour
             case TileType.Solid:
                 compositeCollider.isTrigger = false;
                 compositeCollider.sharedMaterial = tileMapComponent.config.physicsMaterial;
+                compositeCollider.gameObject.layer = LayerMask.NameToLayer("Block");
                 break;
 
             case TileType.Background:
                 compositeCollider.isTrigger = true;
+                compositeCollider.gameObject.layer = LayerMask.NameToLayer("Background");
                 // todo: add viscosity implementation
                 break;
 
