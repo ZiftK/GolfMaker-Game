@@ -48,6 +48,13 @@ public class LevelHandler : MonoBehaviour
             Debug.LogError("Level not found.");
             return;
         }
+
+        if (gameObject.name == "GameLevelController")
+        {
+            Grid2D.Instance.SetLevelHeight(level.levelHeight);
+            Grid2D.Instance.SetLevelWidth(level.levelWidth);
+        }
+        
         if (level.levelHeight != Grid2D.Instance.GetLevelHeight() || level.levelWidth != Grid2D.Instance.GetLevelWidth())
         {
             Debug.LogError(
