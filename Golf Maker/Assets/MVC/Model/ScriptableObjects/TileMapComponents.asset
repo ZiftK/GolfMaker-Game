@@ -18,6 +18,8 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: 414866557f581393bbc11fd14127daf7, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 1b447fc1699b3e770a24c5797e7741ac, type: 2}
     tileType: 0
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 2.42
   - name: bricks-diagonal
@@ -25,6 +27,8 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: 382087dbebf4af25a80429d8241ca660, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 382087dbebf4af25a80429d8241ca660, type: 2}
     tileType: 0
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
   - name: bricks-diagonal_break_1
@@ -32,6 +36,8 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: 90e48c9e2af1cd6c68d341e20fbd6b8b, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 90e48c9e2af1cd6c68d341e20fbd6b8b, type: 2}
     tileType: 0
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
   - name: bricks-diagonal_break_2
@@ -39,6 +45,8 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: e0b80f4ee8121af12a6047192597f92a, type: 2}
     temporalTileBase: {fileID: 11400000, guid: e0b80f4ee8121af12a6047192597f92a, type: 2}
     tileType: 0
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
   - name: bricks-diagonal_break_3
@@ -46,6 +54,8 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: 07851d6e5701a049b8ff6b9e4aa50b02, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 07851d6e5701a049b8ff6b9e4aa50b02, type: 2}
     tileType: 0
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
   - name: water
@@ -53,6 +63,8 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: 7c6fb6a926b95d85e93ee154abd12a7e, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 7c6fb6a926b95d85e93ee154abd12a7e, type: 2}
     tileType: 1
+    material: {fileID: 2100000, guid: 606780b28c520ea0da879091c72bc375, type: 2}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
   - name: lava
@@ -60,12 +72,16 @@ MonoBehaviour:
     tileBase: {fileID: 11400000, guid: 61ef89715f38e587c8fdcb40c9bbdffc, type: 2}
     temporalTileBase: {fileID: 11400000, guid: 61ef89715f38e587c8fdcb40c9bbdffc, type: 2}
     tileType: 1
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
-  - name: grass-2
+  - name: grass
     id: 7
-    tileBase: {fileID: 11400000, guid: 2d39404183ae56721ad3df3a82c2cf7a, type: 2}
-    temporalTileBase: {fileID: 11400000, guid: 2d39404183ae56721ad3df3a82c2cf7a, type: 2}
+    tileBase: {fileID: 11400000, guid: 058a410bccda267949ec43a2174228a4, type: 2}
+    temporalTileBase: {fileID: 11400000, guid: 058a410bccda267949ec43a2174228a4, type: 2}
     tileType: 1
+    material: {fileID: 0}
+    sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
