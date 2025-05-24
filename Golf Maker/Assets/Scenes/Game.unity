@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 51677765}
   - component: {fileID: 51677763}
   m_Layer: 0
-  m_Name: LevelController
+  m_Name: GameLevelController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,9 +387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b25650ded587fd49b63116ba279cd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingSpeed: 2
-  speedMultiplier: 2
-  zoomSpeed: 2
+  movingSpeed: 2.5
+  speedMultiplier: 1.04
+  zoomSpeed: 20
   lowLimits: {x: -100, y: -100, z: -5}
   highLimits: {x: 100, y: 100, z: -30}
 --- !u!1 &619394800
@@ -536,18 +536,6 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 21121c53-3ebb-4e5d-8458-ee97c83e0197
-    m_ActionName: 'Camera/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 33ab2612-62fb-484c-81a9-b4a06be447b9
-    m_ActionName: 'Camera/Zoom[/Mouse/scroll/down,/Mouse/scroll/up]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f4e4c956-1207-4016-9ac7-7898665b3c27
-    m_ActionName: 'Camera/Run[/Keyboard/leftShift]'
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 519420036}
         m_TargetAssemblyTypeName: CameraMove, Assembly-CSharp
@@ -613,18 +601,6 @@ MonoBehaviour:
     m_ActionName: 'PlayerGame/LeftClick[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 02296c97-39d9-4105-b87a-7c64b49dafa8
-    m_ActionName: 'Map/Save[/Keyboard/k]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f2af7487-1065-4219-8dc4-fef26f81ce50
-    m_ActionName: 'Map/Load[/Keyboard/l]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 88656aa8-b097-4fce-82a0-cf7e0d4ef3f1
-    m_ActionName: 'Map/Exit[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
     m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
@@ -665,20 +641,24 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 1bae660a-29c4-4882-bdbf-86fd0d570a71
-    m_ActionName: 'Pencil/LeftClick[/Mouse/leftButton]'
+    m_ActionId: 1e73f952-dfd5-457e-b5b5-17d0b6bea32b
+    m_ActionName: 'PlayerLevelEditor/CameraMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: f265abd9-05a9-4e86-8103-29d937dd50e7
-    m_ActionName: 'Pencil/RightClick[/Mouse/rightButton]'
+    m_ActionId: f3a58129-26e0-40ab-8425-9ba53ced6bd2
+    m_ActionName: 'PlayerLevelEditor/CameraZoom[/Mouse/scroll/down,/Mouse/scroll/up]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 162601e6-0702-44d5-a03f-74282841c572
-    m_ActionName: 'Pencil/SwitchPencil[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]'
+    m_ActionId: 490206e6-4ff3-4900-b2fb-b19e18a2f890
+    m_ActionName: 'PlayerLevelEditor/CameraRun[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 7a5c4b4b-aa65-4bf2-b4b5-320ffc25e9b9
-    m_ActionName: 'Ball/LeftClick[/Mouse/leftButton]'
+    m_ActionId: 1bdf55e2-44e1-461f-aab4-edaefa878386
+    m_ActionName: 'PlayerLevelEditor/LeftClick[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f57a5202-3ad4-49fa-b2e9-06938895edab
+    m_ActionName: 'PlayerLevelEditor/RightClick[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: PlayerGame
@@ -779,8 +759,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250b03d20ced0fc4ead4760f9294789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelWidth: 30
-  levelHeight: 30
+  levelWidth: 52
+  levelHeight: 20
   visualGrid: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
   tileBaseWidth: 0.5
 --- !u!4 &1276304457

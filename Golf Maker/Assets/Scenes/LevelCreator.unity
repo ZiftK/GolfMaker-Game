@@ -311,14 +311,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f57a5202-3ad4-49fa-b2e9-06938895edab
     m_ActionName: 'PlayerLevelEditor/RightClick[/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3cc3718c-a6ec-4b61-87eb-5c46bc461a52
-    m_ActionName: 'PlayerLevelEditor/Save[/Keyboard/k]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1339b271-17ee-40e8-b492-6053b3060bb5
-    m_ActionName: 'PlayerLevelEditor/Load[/Keyboard/l]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerLevelEditor
