@@ -103,6 +103,8 @@ public class TileMapsFactory : MonoBehaviour
 
 
         BuildTileColliderByType(ref compositeCollider, tileMapComponent);
+
+        tileMapComponent.obj.tag = tileMapComponent.config.name;
         
     }
     
