@@ -22,6 +22,8 @@ public struct TileMapConfig
 
     public Material material;
 
+    public int sortingLayer;
+
     [Header("If is a solid block")]
     public PhysicsMaterial2D physicsMaterial;
 
