@@ -20,6 +20,8 @@ public struct TileMapConfig
 
     public TileType tileType;
 
+    public Material material;
+
     [Header("If is a solid block")]
     public PhysicsMaterial2D physicsMaterial;
 
