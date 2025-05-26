@@ -103,3 +103,13 @@ MonoBehaviour:
     tileSetType: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
+  - name: fall
+    id: 9
+    tileBase: {fileID: 11400000, guid: c03d24514474a4e27ace9e7f392ea74f, type: 2}
+    temporalTileBase: {fileID: 11400000, guid: c03d24514474a4e27ace9e7f392ea74f, type: 2}
+    tileType: 1
+    material: {fileID: 0}
+    sortingLayer: 1
+    tileSetType: 0
+    physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
+    viscosity: 0
