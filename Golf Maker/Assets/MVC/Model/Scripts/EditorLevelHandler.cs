@@ -1,15 +1,17 @@
 using UnityEngine;
 
 [DefaultExecutionOrder(-100)]
-public class LevelHandler : MonoBehaviour
+public class EditorEventHandler : MonoBehaviour
 {
-    EditorLevelHandler levelEventsHandler;
+
+    EditorLevelEvents levelEventsHandler;
     ILevelRepository levelRepository;
 
     void Awake()
     {
-        levelEventsHandler = EditorLevelHandler.GetInstance();
         levelRepository = new PrimalLevelRepository(); 
+        levelEventsHandler = EditorLevelEvents.GetInstance();
+
         levelEventsHandler.SaveLevel += OnSaveLevel;
         levelEventsHandler.LoadLevel += OnLoadLevel;
     }
@@ -63,6 +65,7 @@ public class LevelHandler : MonoBehaviour
         }
 
         int [,] levelIds = LevelParser.DeSerializeLevelIds(level.LevelStructure);
+
         Grid2D.Instance.LoadLevelFromParseLevel(levelIds);
     }
 }
