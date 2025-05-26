@@ -22,7 +22,17 @@ public class SelectBlockArgs : EventArgs
 
 public class EditorLevelEvents
 {
-    
+
+
+    private static EditorLevelEvents Instance;
+    public static EditorLevelEvents GetInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = new EditorLevelEvents();
+        }
+        return Instance;
+    }
 
     public event EventHandler SaveLevel;
     public event EventHandler LoadLevel;
