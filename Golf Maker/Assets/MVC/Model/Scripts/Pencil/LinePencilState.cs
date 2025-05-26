@@ -28,6 +28,14 @@ public class LinePencilState : PencilState
     {
         // check if the pencil is drawing
         if (!this.IsDrawing) return;
+
+        this.IsDrawing = false;
+
+        if (context.tileId == 8)
+        {
+            Debug.LogWarning("You cannot use the line pencil with the initial tile.");
+            return;
+        }
         
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
@@ -35,7 +43,6 @@ public class LinePencilState : PencilState
         pencilEventsHandler.OnClearTemporalTiles();
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
-        this.IsDrawing = false;
     }
 
     public override void OnRightClick(PencilContext context)
