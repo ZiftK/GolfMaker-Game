@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.VFX;
 public class EffectsEvents
 {
 
@@ -16,6 +16,6 @@ public class EffectsEvents
         GameObject effect = EffectsFactory.Instance.GetEffect(effectName);
         effect.transform.position = position;
         effect.SetActive(true);
-        effect.GetComponent<EffectToPool>().effect.Play();
+        effect.GetComponent<VisualEffect>().Play();
     }
 }
