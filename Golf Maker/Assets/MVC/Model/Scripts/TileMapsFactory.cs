@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 public class TileMapComponent
 {
 
@@ -65,6 +66,7 @@ public class TileMapsFactory : MonoBehaviour
         
 
     }
+
     public void BuildTileMapComponent(string tileBaseName, float tileBaseWidth, ref TileMapComponent tileMapComponent)
     {
 
@@ -103,9 +105,10 @@ public class TileMapsFactory : MonoBehaviour
 
 
         BuildTileColliderByType(ref compositeCollider, tileMapComponent);
+        TileMapStorageConversions.AddTileHandler(ref tileMapComponent);
+
 
         tileMapComponent.obj.tag = tileMapComponent.config.name;
-        
     }
     
     public TileMapComponent GetTileMapComponent(string tileBaseName, float tileBaseWidth)
