@@ -189,7 +189,7 @@ public class Grid2D : MonoBehaviour
 
         TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
         TileBase tile = tileLevelComponent.config.tileBase;
-        Tilemap tilelevel = tileLevelComponent.obj.GetComponent<Tilemap>();
+        ITileHandler tilelevel = TileMapStorageConversions.GetTileHandler(tileLevelComponent.config, tileLevelComponent.obj);
 
         foreach (Vector3Int position in args.positions)
         {
@@ -216,8 +216,7 @@ public class Grid2D : MonoBehaviour
             }
             // recovery id tile level
             TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(id, tileBaseWidth);
-            TileBase tile = tileLevelComponent.config.tileBase;
-            Tilemap tilelevel = tileLevelComponent.obj.GetComponent<Tilemap>();
+            ITileHandler tilelevel = TileMapStorageConversions.GetTileHandler(tileLevelComponent.config, tileLevelComponent.obj);
 
             tilelevel.SetTile(position, null);
             SetIdAtPosition(idPosition, -1);
