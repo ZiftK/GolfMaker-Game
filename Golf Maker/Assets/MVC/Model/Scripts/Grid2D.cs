@@ -130,6 +130,8 @@ public class Grid2D : MonoBehaviour
     }
 
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
+    public Vector2 ConvertLevelIndexToTileMapPosition(Vector2Int position) => new Vector2(position.x - levelWidth / 2, position.y - levelHeight / 2);
+    
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
         if (idPosition.x < 0 || idPosition.x >= levelWidth)
@@ -243,6 +245,22 @@ public class Grid2D : MonoBehaviour
         {
             for (int j = 0; j < levelIds.GetLength(1); j++)
             {
+                if (levelIds[i, j] == -1)
+                {
+                    continue; // Skip empty tiles
+                }
+                if (levelIds[i, j] < 0)
+                {
+                    Debug.LogError($"Invalid tile ID at position ({i}, {j}): {levelIds[i, j]}");
+                    continue; // Skip invalid tile IDs
+                }
+
+                if (levelIds[i, j] == 8)
+                {
+                    Vector2 tilePosition = ConvertLevelIndexToTileMapPosition(new Vector2Int(i, j));
+                    GameLevelEvents.TriggerSetBallInitialPosition(tilePosition);
+                }
+                
                 Vector3Int position = new Vector3Int(i - levelWidth / 2, j - levelHeight / 2, 0);
                 DrawTileBaseAtPositions(this, new DrawTileBaseAtPositionsArgs(levelIds[i, j], position));
             }
