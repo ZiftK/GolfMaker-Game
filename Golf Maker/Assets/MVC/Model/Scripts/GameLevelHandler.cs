@@ -9,12 +9,13 @@ public class GameLevelHandler : MonoBehaviour
 
     public Vector3 initialBallPosition = new Vector3(0, 0, 0);
 
-    
+
     // Awake is called when the script instance is being loaded
     void Awake()
     {
         GameLevelEvents.OnLoadLevelEvent += OnLoadLevel;
         Grid2D.Instance.ActivateVisualGrid(false);
+        OnLoadLevel(1); // Load the default level with ID 1
      
     }
 
