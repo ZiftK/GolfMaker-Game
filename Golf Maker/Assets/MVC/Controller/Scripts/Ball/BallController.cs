@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +29,7 @@ public class BallController : MonoBehaviour
     private BallState currentState;
     private IBallLeftClickActor currentLeftClickState;
     private IBallUpdate currentUpdateState;
+
 
     void Awake()
     {
@@ -83,6 +85,25 @@ public class BallController : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
     }
+
+    public void ResetBall()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+        rb.linearVelocity = Vector2.zero;
+
+        transform.position = GameLevelHandler.Instance.initialBallPosition;
+        // EffectsEvents.ThrowEffect("ResetBall", transform.position);
+    }
+
+    public void KillAndResetBall()
+    {
+        KillBall();
+        ResetBall();
+    }
+
     #endregion Behavior Methods
 
     #region State Methods
@@ -146,11 +167,17 @@ public class BallController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.isTrigger) return;
 
         if (other.CompareTag("water"))
         {
-            KillBall();
             EffectsEvents.ThrowEffect("WaterSplash", transform.position);
+            KillAndResetBall();
+        }
+
+        if (other.CompareTag("fall"))
+        {
+            Debug.Log("Win!!!");            
         }     
     }
 
