@@ -11,7 +11,7 @@ public class BlockManager : MonoBehaviour
 
     private VisualElement blocksGrid;
 
-    private EditorLevelHandler editorLevelHandler;
+    private EditorLevelEvents editorLevelEvents;
 
     public class BlockData
     {
@@ -37,7 +37,7 @@ public class BlockManager : MonoBehaviour
 
         RenderBlocks(blocks);
 
-        editorLevelHandler = EditorLevelHandler.GetInstance();
+        editorLevelEvents = EditorLevelEvents.GetInstance();
     }
 
     public void RenderBlocks(Sprite[] blocks)
@@ -57,7 +57,7 @@ public class BlockManager : MonoBehaviour
             {
 
                 
-                editorLevelHandler.OnSelectBlock(new SelectBlockArgs(block.name));
+                editorLevelEvents.OnSelectBlock(new SelectBlockArgs(block.name));
             });
 
             blocksGrid.Add(button);

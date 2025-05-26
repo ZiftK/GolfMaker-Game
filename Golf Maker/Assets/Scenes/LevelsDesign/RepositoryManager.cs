@@ -8,25 +8,25 @@ public class RepositoryManager : MonoBehaviour
     private VisualElement saveButton;
     private VisualElement resetButton;
 
-    private EditorLevelHandler editorLevelHandler;
+    private EditorLevelEvents editorLevelEvents;
 
 
     public void Awake()
     {
-        editorLevelHandler = EditorLevelHandler.GetInstance();
+        editorLevelEvents = EditorLevelEvents.GetInstance();
 
         var root = uIDocument.rootVisualElement;
         
         saveButton = root.Q<Button>("save-tool");
         saveButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelHandler.OnSaveLevel();
+            editorLevelEvents.OnSaveLevel();
         });
 
         resetButton = root.Q<Button>("reset-tool");
         resetButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelHandler.OnLoadLevel();
+            editorLevelEvents.OnLoadLevel();
         });
     }
 }

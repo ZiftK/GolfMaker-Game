@@ -7,7 +7,7 @@ public class PencilTypeManager : MonoBehaviour
 
     private VisualElement blocksGrid;
 
-    private EditorLevelHandler editorLevelHandler;
+    private EditorLevelEvents editorLevelEvents;
 
     public static bool isPointerOverUI = false;
 
@@ -20,7 +20,7 @@ public class PencilTypeManager : MonoBehaviour
     void Awake()
     {
 
-        editorLevelHandler = EditorLevelHandler.GetInstance();
+        editorLevelEvents = EditorLevelEvents.GetInstance();
         if (uIDocument == null)
         {
             uIDocument = GetComponent<UIDocument>();
@@ -34,26 +34,26 @@ public class PencilTypeManager : MonoBehaviour
         var penToolButton = root.Q<Button>("pen-tool");
         penToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelHandler.OnSelectPencil(new SelectPencilArgs("pen"));
+            editorLevelEvents.OnSelectPencil(new SelectPencilArgs("pen"));
         });
 
 
         var fillToolButton = root.Q<Button>("fill-tool");
         fillToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelHandler.OnSelectPencil(new SelectPencilArgs("fill"));
+            editorLevelEvents.OnSelectPencil(new SelectPencilArgs("fill"));
         });
 
         var brushToolButton = root.Q<Button>("brush-tool");
         brushToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelHandler.OnSelectPencil(new SelectPencilArgs("brush"));
+            editorLevelEvents.OnSelectPencil(new SelectPencilArgs("brush"));
         });
 
         var rulerToolButton = root.Q<Button>("ruler-tool");
         rulerToolButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelHandler.OnSelectPencil(new SelectPencilArgs("ruler"));
+            editorLevelEvents.OnSelectPencil(new SelectPencilArgs("ruler"));
         });
 
         VisualElement rootPanel = root.Q<VisualElement>("tools-panel");
