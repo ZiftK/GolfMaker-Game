@@ -46,8 +46,10 @@ public class LevelParser
     /// int[,] levelIds = LevelParser.DeSerializeLevelIds(serializedLevel);
     /// levelIds will be a 2D array with values { { 1, 2 }, { 3, 4 } }
     /// </example>
-    public static int[,] DeSerializeLevelIds(string serializedLevel)
-    {
+    public static int[,] DeSerializeLevelIds(string serializedLevel, out int iInitialPointIndex, out int jInitialPointIndex)
+    {       
+        iInitialPointIndex = -1;
+        jInitialPointIndex = -1;
         string[] rows = serializedLevel.Split(';');
         int rowCount = rows.Length;
         int colCount = rows[0].Split(',').Length;
@@ -59,6 +61,12 @@ public class LevelParser
             string[] cols = rows[i].Split(',');
             for (int j = 0; j < colCount; j++)
             {
+                if (levelIds[i, j] == 8)//todo: remove hardcoded value
+                {
+                    iInitialPointIndex = i;
+                    jInitialPointIndex = j;
+                }
+
                 levelIds[i, j] = int.Parse(cols[j]);
             }
         }
