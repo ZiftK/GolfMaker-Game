@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-201)]
 public class BallEventsHandler : MonoBehaviour
 {
     void Awake()
