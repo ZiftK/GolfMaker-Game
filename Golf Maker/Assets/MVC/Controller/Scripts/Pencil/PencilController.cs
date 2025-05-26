@@ -11,13 +11,13 @@ public class PencilController : MonoBehaviour
 
     private int tileId = 0;
 
-    private EditorLevelHandler editorLevelHandler;
+    private EditorLevelEvents editorLevelHandler;
 
     void Awake()
     {
         // currentState = PointPencilState.GetInstance();
         currentState = PointPencilState.GetInstance();
-        editorLevelHandler = EditorLevelHandler.GetInstance();
+        editorLevelHandler = EditorLevelEvents.GetInstance();
 
         editorLevelHandler.SelectBlock += OnSelectBlock;
         editorLevelHandler.SelectPencil += OnSelectPencil;
