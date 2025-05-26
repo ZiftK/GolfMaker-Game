@@ -85,3 +85,12 @@ MonoBehaviour:
     sortingLayer: 1
     physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
     viscosity: 0
+  - name: initial
+    id: 8
+    tileBase: {fileID: 11400000, guid: 7256a05f5f97251f398094b637a36316, type: 2}
+    temporalTileBase: {fileID: 11400000, guid: 7256a05f5f97251f398094b637a36316, type: 2}
+    tileType: 1
+    material: {fileID: 0}
+    sortingLayer: 1
+    physicsMaterial: {fileID: 6200000, guid: 86499e320525c911ca50a644323805dc, type: 2}
+    viscosity: 0
