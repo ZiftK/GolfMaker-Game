@@ -9,13 +9,27 @@ public class GameLevelHandler : MonoBehaviour
 
     public Vector3 initialBallPosition = new Vector3(0, 0, 0);
 
+    public static GameLevelHandler Instance;
+
 
     // Awake is called when the script instance is being loaded
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+
         GameLevelEvents.OnLoadLevelEvent += OnLoadLevel;
+        GameLevelEvents.SetBallInitialPositionEvent += SetInitialBallPosition;
         Grid2D.Instance.ActivateVisualGrid(false);
         OnLoadLevel(1); // Load the default level with ID 1
+
+        
      
     }
 
@@ -44,9 +58,8 @@ public class GameLevelHandler : MonoBehaviour
         Grid2D.Instance.ActivateVisualGrid(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetInitialBallPosition(Vector3 position)
     {
-        
+        initialBallPosition = position + new Vector3(0.5f, 0.5f, 0); // Adjusting position to center the ball on the tile
     }
 }
