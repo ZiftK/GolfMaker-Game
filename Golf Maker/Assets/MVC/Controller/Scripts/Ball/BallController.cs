@@ -146,10 +146,11 @@ public class BallController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Ball collided with a {other.name}");
+
         if (other.CompareTag("water"))
         {
             KillBall();
+            EffectsEvents.ThrowEffect("WaterSplash", transform.position);
         }     
     }
 
