@@ -29,33 +29,33 @@ public class EditorLevelEvents
     public event EventHandler ExitEditLevel;
     public event EventHandler EnterEditLevel;
 
-    public static event EventHandler<SelectPencilArgs> SelectPencil;
-    public static event EventHandler<SelectBlockArgs> SelectBlock;
+    public event EventHandler<SelectPencilArgs> SelectPencil;
+    public event EventHandler<SelectBlockArgs> SelectBlock;
 
-    public static void OnSaveLevel()
+    public void OnSaveLevel()
     {
         SaveLevel?.Invoke(this, new EventArgs());
     }
-    public static void OnLoadLevel()
+    public void OnLoadLevel()
     {
         LoadLevel?.Invoke(this, new EventArgs());
     }
 
-    public static void OnExitEditLevel()
+    public void OnExitEditLevel()
     {
         ExitEditLevel?.Invoke(this, new EventArgs());
     }
 
-    public static void OnEnterEditLevel()
+    public void OnEnterEditLevel()
     {
         EnterEditLevel?.Invoke(this, new EventArgs());
     }
 
-    public static void OnSelectPencil(SelectPencilArgs e)
+    public void OnSelectPencil(SelectPencilArgs e)
     {
         SelectPencil?.Invoke(this, e);
     }
-    public static void OnSelectBlock(SelectBlockArgs e)
+    public void OnSelectBlock(SelectBlockArgs e)
     {
         SelectBlock?.Invoke(this, e);
     }
