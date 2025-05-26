@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8d8c7558ea4ad779766e45483f4610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialBallPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &297205022
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +872,7 @@ GameObject:
   - component: {fileID: 1736525883}
   - component: {fileID: 1736525889}
   - component: {fileID: 1736525887}
+  - component: {fileID: 1736525890}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Player
@@ -1144,6 +1146,18 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1736525890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736525882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ec054dc6a5885ec96142283319dda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
