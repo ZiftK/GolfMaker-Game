@@ -204,9 +204,11 @@ public class Grid2D : MonoBehaviour
         {
 
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
-            SetIdAtPosition(idPosition, args.tileBaseId);
 
-            tilelevel.SetTile(position, tile);
+            bool canSetTile = tilelevel.SetTile(position, tile);
+
+            if (canSetTile)
+                SetIdAtPosition(idPosition, args.tileBaseId);
 
         }
     }

@@ -27,7 +27,7 @@ public class SingleTileMapHandler : MonoBehaviour, ITileHandler
         return tilemap;
     }
 
-    public void SetTile(Vector3Int position, TileBase tilebase)
+    public bool SetTile(Vector3Int position, TileBase tilebase)
     {
 
         tilemap = GetTilemap();
@@ -37,19 +37,20 @@ public class SingleTileMapHandler : MonoBehaviour, ITileHandler
         {
             hasOne = false;
             tilemap.SetTile(position, tilebase);
-            return;
+            return false;
         }
 
-        if (tilebase == null) return;
+        if (tilebase == null) return false;
 
         if (hasOne)
         {
             Debug.LogError("SingleTileMapHandler can only have one tile at a time. Attempted to set another tile.");
-            return;
+            return false;
         }
 
         tilemap.SetTile(position, tilebase);
         hasOne = true;
+        return true;
 
     }
 

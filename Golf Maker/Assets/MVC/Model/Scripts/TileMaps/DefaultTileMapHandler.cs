@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 public interface ITileHandler
 {
-    public void SetTile(Vector3Int position, TileBase tilebase);
+    public bool SetTile(Vector3Int position, TileBase tilebase);
     public void ClearAllTiles();
 }
 
@@ -17,10 +17,11 @@ public class MultipleTileMapHandler : MonoBehaviour, ITileHandler
         tilemap.ClearAllTiles();
     }
 
-    public void SetTile(Vector3Int position, TileBase tilebase)
+    public bool SetTile(Vector3Int position, TileBase tilebase)
     {
         tilemap = GetTilemap();
         tilemap.SetTile(position, tilebase);
+        return true;
     }
 
     protected Tilemap GetTilemap()
