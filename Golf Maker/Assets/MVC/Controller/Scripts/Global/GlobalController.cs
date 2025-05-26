@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class GlobalController : MonoBehaviour
 {
-    private EditorLevelHandler levelEventsHandler;
+    private EditorLevelEvents editorLevelEvents;
 
     private void Awake()
     {
-        levelEventsHandler = EditorLevelHandler.GetInstance();
+        editorLevelEvents = EditorLevelEvents.GetInstance();
         
     }
     public void OnSaveMap(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            levelEventsHandler.OnSaveLevel();
+            editorLevelEvents.OnSaveLevel();
         }
     }
 
@@ -24,7 +24,7 @@ public class GlobalController : MonoBehaviour
     {
         if (context.started)
         {
-            levelEventsHandler.OnLoadLevel();
+            editorLevelEvents.OnLoadLevel();
         }
     }
 
@@ -33,7 +33,7 @@ public class GlobalController : MonoBehaviour
         if (context.started)
         {
             SceneManager.LoadScene("Game");
-            levelEventsHandler.OnLoadLevel();
+            editorLevelEvents.OnLoadLevel();
         }
     }
 
