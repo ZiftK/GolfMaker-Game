@@ -64,6 +64,7 @@ public class Grid2D : MonoBehaviour
         // TestInitTileLevels();
     }
 
+    #region Initializing methods
     private void InitVariables()
     {
 
@@ -121,6 +122,9 @@ public class Grid2D : MonoBehaviour
         temporalTileLevelObj.AddComponent<TilemapRenderer>();
     }
 
+    #endregion Initializing methods
+
+    #region Expose Methods
     public void ActivateVisualGrid(bool activate)
     {
         if (visualGrid != null)
@@ -131,7 +135,10 @@ public class Grid2D : MonoBehaviour
 
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
     public Vector2 ConvertLevelIndexToTileMapPosition(Vector2Int position) => new Vector2(position.x - levelWidth / 2, position.y - levelHeight / 2);
-    
+    #endregion Expose Methods
+
+
+    #region Map ids
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
         if (idPosition.x < 0 || idPosition.x >= levelWidth)
@@ -151,8 +158,10 @@ public class Grid2D : MonoBehaviour
 
         return levelIds[idPosition.x, idPosition.y];
     }
+    #endregion Map ids
 
 
+    #region Alter tiles
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
         TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
@@ -235,6 +244,9 @@ public class Grid2D : MonoBehaviour
             }
         }
     }
+
+    #endregion Alter tiles
+
     public void LoadLevelFromParseLevel(int[,] levelIds)
     {
 
@@ -259,7 +271,7 @@ public class Grid2D : MonoBehaviour
                     Vector2 tilePosition = ConvertLevelIndexToTileMapPosition(new Vector2Int(i, j));
                     GameLevelEvents.TriggerSetBallInitialPosition(tilePosition);
                 }
-                
+
                 Vector3Int position = new Vector3Int(i - levelWidth / 2, j - levelHeight / 2, 0);
                 DrawTileBaseAtPositions(this, new DrawTileBaseAtPositionsArgs(levelIds[i, j], position));
             }
@@ -269,6 +281,7 @@ public class Grid2D : MonoBehaviour
 
     }
 
+    #region Getters and Setters
     public int[,] GetLevelIds()
     {
         return levelIds;
@@ -296,7 +309,7 @@ public class Grid2D : MonoBehaviour
         }
         levelWidth = newWidth;
     }
-    
+
     public void SetLevelHeight(int newHeight)
     {
         if (newHeight < 0)
@@ -310,5 +323,6 @@ public class Grid2D : MonoBehaviour
         }
         levelHeight = newHeight;
     }
+    #endregion Getters and Setters
 
 }
