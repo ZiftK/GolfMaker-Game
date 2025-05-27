@@ -18,7 +18,9 @@ public class LevelEntity {
     public int TimesPlayed { get; set; }
     public int TimesCompleted { get; set; }
 
-    public int levelWidth? { get; set; }
-    public int levelHeight? { get; set; }
+    public int CoinsCount { get; set; }
+
+    public int? levelWidth { get; set; }
+    public int? levelHeight { get; set; }
     public string LevelStructure { get; set; }
 }
