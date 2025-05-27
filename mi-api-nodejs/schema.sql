@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS Niveles (
     jugado_veces INT DEFAULT 0,
     completado_veces INT DEFAULT 0,
     estructura_nivel TEXT,
+    cantidad_moneas INT DEFAULT 0,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
 
@@ -50,7 +51,6 @@ CREATE TABLE IF NOT EXISTS PowerUps (
     id_powerup INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     descripcion TEXT,
-    duracion INT DEFAULT 0, -- Tiempo en segundos
     cantidad_uso INT DEFAULT 1,
     efecto ENUM('rebote_extra', 'vuelo', 'freno', 'aceleracion') NOT NULL,
     desbloqueo TEXT
