@@ -15,7 +15,7 @@ public class BallMovingState : BallState, IBallUpdate
 
     public override void OnEnterState(BallContext context)
     {
-        
+        GameLevelEvents.TriggerHitBall();
         context.controller.SwitchBallUpdateState(this);
     }
 
