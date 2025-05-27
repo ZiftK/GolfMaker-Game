@@ -9,12 +9,11 @@ CREATE TABLE IF NOT EXISTS Usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre_usuario VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    contraseña VARCHAR(255) NOT NULL, -- Recuerda que aquí guardas el HASH
+    contrasenna VARCHAR(255) NOT NULL, -- Recuerda que aquí guardas el HASH
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     niveles_creados INT DEFAULT 0,
     niveles_completados INT DEFAULT 0,
-    puntuacion_total INT DEFAULT 0,
-    monedas INT DEFAULT 0
+    puntiacion_promedio_recibida FLOAT DEFAULT 0
 );
 
 -- Tabla de Niveles
