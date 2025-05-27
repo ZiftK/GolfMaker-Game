@@ -71,31 +71,34 @@ public class BalllIdleState : BallState, IBallLeftClickActor, IBallUpdate
         forceDirection = Vector3.zero;
         hitSlider = 0;
 
-        Vector3 start = controller.gameObject.transform.position;
-        Vector3 end = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        start.z = 0;
-        end.z = 0;
+        Vector3 ballPos = controller.transform.position;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        ballPos.z = 0;
+        mousePos.z = 0;
 
-        
+        // Dirección opuesta al mouse
+        Vector3 direction = (ballPos - mousePos).normalized;
+        forceDirection = direction;
 
-        RaycastHit2D hit = Physics2D.Raycast(start, start - end, 1000, controller.layerMask);
+        // Distancia entre la bola y el mouse
+        float mouseDistance = Vector3.Distance(ballPos, mousePos);
+        float maxDistance = controller.GetLineDistance();
+        float desiredDistance = Mathf.Min(mouseDistance, maxDistance);
+
+        // Lanzamos el raycast en dirección opuesta al mouse
+        RaycastHit2D hit = Physics2D.Raycast(ballPos, direction, desiredDistance, controller.layerMask);
+
+        float finalDistance = desiredDistance;
 
         if (hit.collider != null)
         {
-            float mouseDistance = Vector3.Distance(start, end);
-
-
-            Vector3 hitPoint = hit.point;
-            Vector3 direction = Vector3.Normalize(hitPoint);
-            forceDirection = direction;
-
-            float hitDistance = Math.Min(mouseDistance, controller.GetLineDistance());
-            float lineDistance = Math.Min(hitDistance, Vector3.Distance(start, hitPoint));
-
-            controller.DrawLine(start, start + direction * lineDistance);
-            
-            hitSlider = hitDistance/controller.GetLineDistance();
+            // Si colisiona, usamos la distancia hasta el impacto
+            finalDistance = hit.distance;
         }
+
+        hitSlider = finalDistance / maxDistance;
+        controller.DrawLine(ballPos, ballPos + direction * finalDistance);
+        
 
     }
     
