@@ -41,52 +41,68 @@ CREATE TABLE IF NOT EXISTS Rating (
     calificacion INT CHECK (calificacion BETWEEN 1 AND 5),
     comentario TEXT,
     fecha_rating TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    monedas_bonus INT DEFAULT 0,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
     FOREIGN KEY (id_nivel) REFERENCES Niveles(id_nivel) ON DELETE CASCADE
 );
 
--- Tabla de PowerUps
-CREATE TABLE IF NOT EXISTS PowerUps (
-    id_powerup INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    descripcion TEXT,
-    cantidad_uso INT DEFAULT 1,
-    efecto ENUM('rebote_extra', 'vuelo', 'freno', 'aceleracion') NOT NULL,
-    desbloqueo TEXT
+-- Tabla de EstadisticasJugadorMapa
+CREATE TABLE IF NOT EXISTS EstadisticasJugadorMapa (
+    id_estadistica INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_nivel INT NOT NULL,
+    max_muertes INT DEFAULT 0,
+    min_muertes INT DEFAULT 0,
+    max_golpes INT DEFAULT 0,
+    min_golpes INT DEFAULT 0,
+    monedas_recolectadas INT DEFAULT 0,
+    calificacion_general FLOAT CHECK (calificacion_general BETWEEN 0 AND 5) DEFAULT 0,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_nivel) REFERENCES Niveles(id_nivel) ON DELETE CASCADE
 );
 
--- Tabla intermedia Usuario_PowerUp
-CREATE TABLE IF NOT EXISTS Usuario_PowerUp (
-    id_usuario INT NOT NULL,
-    id_powerup INT NOT NULL,
-    cantidad_disponible INT DEFAULT 1,
-    PRIMARY KEY (id_usuario, id_powerup),
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
-    FOREIGN KEY (id_powerup) REFERENCES PowerUps(id_powerup) ON DELETE CASCADE
+
+-- Tabla de PowerUps
+-- CREATE TABLE IF NOT EXISTS PowerUps (
+--     id_powerup INT AUTO_INCREMENT PRIMARY KEY,
+--     nombre VARCHAR(50) NOT NULL,
+--     descripcion TEXT,
+--     cantidad_uso INT DEFAULT 1,
+--     efecto ENUM('rebote_extra', 'vuelo', 'freno', 'aceleracion') NOT NULL,
+--     desbloqueo TEXT
+-- );
+
+-- -- Tabla intermedia Usuario_PowerUp
+-- CREATE TABLE IF NOT EXISTS Usuario_PowerUp (
+--     id_usuario INT NOT NULL,
+--     id_powerup INT NOT NULL,
+--     cantidad_disponible INT DEFAULT 1,
+--     PRIMARY KEY (id_usuario, id_powerup),
+--     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+--     FOREIGN KEY (id_powerup) REFERENCES PowerUps(id_powerup) ON DELETE CASCADE
 );
 
 -- Tabla de Tienda (No utilizada por ahora en API)
-CREATE TABLE IF NOT EXISTS Tienda (
-    id_item INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    tipo ENUM('monedas', 'power-up') NOT NULL,
-    precio_monedas INT DEFAULT 0,
-    precio_real DECIMAL(10,2) DEFAULT 0,
-    descripcion TEXT
-);
+-- CREATE TABLE IF NOT EXISTS Tienda (
+--     id_item INT AUTO_INCREMENT PRIMARY KEY,
+--     nombre VARCHAR(50) NOT NULL,
+--     tipo ENUM('monedas', 'power-up') NOT NULL,
+--     precio_monedas INT DEFAULT 0,
+--     precio_real DECIMAL(10,2) DEFAULT 0,
+--     descripcion TEXT
+-- );
 
--- Tabla de Transacciones (No utilizada por ahora en API)
-CREATE TABLE IF NOT EXISTS Transacciones (
-    id_transaccion INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    id_item INT NOT NULL,
-    monto_monedas INT DEFAULT 0,
-    monto_real DECIMAL(10,2) DEFAULT 0,
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
-    FOREIGN KEY (id_item) REFERENCES Tienda(id_item) ON DELETE CASCADE
-);
+-- -- Tabla de Transacciones (No utilizada por ahora en API)
+-- CREATE TABLE IF NOT EXISTS Transacciones (
+--     id_transaccion INT AUTO_INCREMENT PRIMARY KEY,
+--     id_usuario INT NOT NULL,
+--     id_item INT NOT NULL,
+--     monto_monedas INT DEFAULT 0,
+--     monto_real DECIMAL(10,2) DEFAULT 0,
+--     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+--     FOREIGN KEY (id_item) REFERENCES Tienda(id_item) ON DELETE CASCADE
+-- );
+
 
 -- Puedes añadir aquí INSERTs iniciales si quieres datos de ejemplo
 -- INSERT INTO PowerUps (nombre, efecto) VALUES ('Super Rebote', 'rebote_extra');
