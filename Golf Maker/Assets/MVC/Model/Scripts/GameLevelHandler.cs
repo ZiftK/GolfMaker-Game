@@ -11,6 +11,13 @@ public class GameLevelHandler : MonoBehaviour
 
     public static GameLevelHandler Instance;
 
+    #region Properties
+
+    private int hits;
+    private int resets;
+
+    #endregion Properties
+
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -26,11 +33,13 @@ public class GameLevelHandler : MonoBehaviour
 
         GameLevelEvents.OnLoadLevelEvent += OnLoadLevel;
         GameLevelEvents.SetBallInitialPositionEvent += SetInitialBallPosition;
+        GameLevelEvents.OnHitBallEvent += AddHit;
+        GameLevelEvents.OnResetBallEvent += AddReset;
+
+
         Grid2D.Instance.ActivateVisualGrid(false);
         OnLoadLevel(1); // Load the default level with ID 1
 
-        
-     
     }
 
     public void OnLoadLevel(int levelId)
@@ -62,4 +71,26 @@ public class GameLevelHandler : MonoBehaviour
     {
         initialBallPosition = position + new Vector3(0.5f, 0.5f, 0); // Adjusting position to center the ball on the tile
     }
+
+    #region Controls
+    public void AddHit() => hits++;
+    public void ResetHits() => hits = 0;
+    public void MinusHit()
+    {
+        if (hits > 0)
+        {
+            hits--;
+        }
+    }
+
+    public void AddReset() => resets++;
+    public void ResetResets() => resets = 0;
+    public void MinusReset()
+    {
+        if (resets > 0)
+        {
+            resets--;
+        }
+    }
+    #endregion Controls
 }
