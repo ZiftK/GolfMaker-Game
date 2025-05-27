@@ -23,12 +23,10 @@ CREATE TABLE IF NOT EXISTS Niveles (
     nombre VARCHAR(100) NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     dificultad ENUM('fácil', 'medio', 'difícil') NOT NULL,
-    par INT NOT NULL,
     descripcion TEXT,
     rating_promedio FLOAT DEFAULT 0,
     jugado_veces INT DEFAULT 0,
     completado_veces INT DEFAULT 0,
-    monedas_recompensa INT DEFAULT 0,
     estructura_nivel TEXT,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
