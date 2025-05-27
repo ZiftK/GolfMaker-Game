@@ -96,6 +96,8 @@ public class BallController : MonoBehaviour
 
         transform.position = GameLevelHandler.Instance.initialBallPosition;
         // EffectsEvents.ThrowEffect("ResetBall", transform.position);
+
+        GameLevelEvents.TriggerResetBall();
     }
 
     public void KillAndResetBall()
