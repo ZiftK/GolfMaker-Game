@@ -1,8 +1,7 @@
-
 using System;
 
-
-public class Usuario {
+public class UserEntity
+{
     public int IdUsuario { get; set; }
     public string NombreUsuario { get; set; }
     public string Email { get; set; }
