@@ -1,12 +1,14 @@
 
 using System;
 
-public class UserEntity {
-    public int? UserId { get; set; }
-    public string Username { get; set; }
+
+public class Usuario {
+    public int IdUsuario { get; set; }
+    public string NombreUsuario { get; set; }
     public string Email { get; set; }
-    public DateTime? RegistrationDate { get; set; }
-    public int TotalLevelsCreated { get; set; }
-    public int TotalLevelsCompleted { get; set; }
-    public float AverageRatingReceived { get; set; }
+    public string Contrasenna { get; set; }
+    public DateTime FechaRegistro { get; set; }
+    public int NivelesCreados { get; set; }
+    public int NivelesCompletados { get; set; }
+    public float PuntuacionPromedioRecibida { get; set; }
 }
