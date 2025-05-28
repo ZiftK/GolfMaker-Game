@@ -15,4 +15,5 @@ export interface UsuarioRepository {
   update(id: number, data: Partial<Omit<Usuario, 'id_usuario' | 'fecha_registro'>>): Promise<Usuario>;
   delete(id: number): Promise<void>;
   getById(id: number): Promise<Usuario>;
+  getByUsername(nombreUsuario: string): Promise<Usuario | null>;
 }

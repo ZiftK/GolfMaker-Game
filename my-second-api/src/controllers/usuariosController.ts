@@ -117,3 +117,22 @@ export const getNivelesJugadosPorUsuario = async (req: Request, res: Response): 
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getUsuarioByUsername = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { nombreUsuario } = req.params;
+    if (!nombreUsuario) {
+      res.status(400).json({ error: 'Nombre de usuario no proporcionado' });
+      return;
+    }
+
+    const usuario = await usuarioRepository.getByUsername(nombreUsuario);
+    if (!usuario) {
+      res.status(404).json({ error: 'Usuario no encontrado' });
+      return;
+    }
+    res.json(usuario);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};

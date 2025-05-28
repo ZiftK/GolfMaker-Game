@@ -66,4 +66,17 @@ export class SupabaseUsuarioRepository implements UsuarioRepository {
     if (error) throw error;
     return data || [];
   }
+
+  async getByUsername(nombreUsuario: string): Promise<Usuario | null> {
+    const { data, error } = await supabase
+      .from(USUARIOS_TABLE)
+      .select('*')
+      .eq('nombre_usuario', nombreUsuario)
+      .single();
+    if (error) {
+      if (error.code === 'PGRST116') return null; // No rows returned
+      throw error;
+    }
+    return data;
+  }
 }

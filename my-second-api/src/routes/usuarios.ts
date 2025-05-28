@@ -6,7 +6,8 @@ import {
   deleteUsuario,
   getUsuarioById,
   getNivelesCreadosPorUsuario,
-  getNivelesJugadosPorUsuario
+  getNivelesJugadosPorUsuario,
+  getUsuarioByUsername
 } from '../controllers/usuariosController';
 
 const router = Router();
@@ -21,5 +22,6 @@ router.delete('/:id', deleteUsuario);
 router.get('/:id', getUsuarioById);
 router.get('/:id/niveles-creados', getNivelesCreadosPorUsuario);
 router.get('/:id/niveles-jugados', getNivelesJugadosPorUsuario);
+router.get('/nombre/:nombreUsuario', getUsuarioByUsername);
 
 export default router;
