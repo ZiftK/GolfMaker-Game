@@ -36,13 +36,7 @@ export class SupabaseNivelRepository implements NivelRepository {
     return data;
   }
 
-  async getByNivelId(id: string): Promise<any[]> {
-    const { data, error } = await supabase.from('Rating').select('*').eq('id_nivel', id);
-    if (error) throw error;
-    return data || [];
-  }
-
-  async getByUsuarioId(usuarioId: string): Promise<any[]> {
+  async getByUserId(usuarioId: string): Promise<any[]> {
     const { data, error } = await supabase.from('Niveles').select('*').eq('id_usuario', usuarioId);
     if (error) throw error;
     return data || [];

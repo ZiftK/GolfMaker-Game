@@ -30,8 +30,24 @@ export class SupabaseEstadisticaRepository implements EstadisticaRepository {
     if (error) throw error;
   }
 
-  async getPlayedByUser(usuarioId: string): Promise<any[]> {
-    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_usuario', usuarioId);
+  async getByUserId(userId: string): Promise<any[]> {
+    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_usuario', userId);
+    if (error) throw error;
+    return data || [];
+  }
+
+  async getByLevelId(levelId: string): Promise<any[]> {
+    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_nivel', levelId);
+    if (error) throw error;
+    return data || [];
+  }
+
+  async getByUserIdAndLevelId(userId: string, levelId: string): Promise<any[]> {
+    const { data, error } = await supabase
+      .from('EstadisticasJugadorMapa')
+      .select('*')
+      .eq('id_usuario', userId)
+      .eq('id_nivel', levelId);
     if (error) throw error;
     return data || [];
   }

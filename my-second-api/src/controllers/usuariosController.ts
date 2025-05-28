@@ -36,7 +36,7 @@ export const getUsuarioById = async (req: Request, res: Response) => {
 export const getNivelesCreadosPorUsuario = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const niveles = await nivelRepository.getByUsuarioId(id);
+    const niveles = await nivelRepository.getByUserId(id);
     res.json(niveles);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
@@ -46,7 +46,7 @@ export const getNivelesCreadosPorUsuario = async (req: Request, res: Response) =
 export const getNivelesJugadosPorUsuario = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const niveles = await estadisticaRepository.getPlayedByUser(id);
+    const niveles = await estadisticaRepository.getByUserId(id);
     res.json(niveles);
   } catch (error: any) {
     res.status(500).json({ error: error.message });

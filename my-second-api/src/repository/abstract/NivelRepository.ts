@@ -3,5 +3,6 @@ export interface NivelRepository {
   create(data: any): Promise<any>;
   update(id: string, data: any): Promise<any>;
   delete(id: string): Promise<void>;
-  getByUsuarioId(usuarioId: string): Promise<any[]>;
+  getByUserId(usuarioId: string): Promise<any[]>;
+  getById(id: string): Promise<any>;
 }

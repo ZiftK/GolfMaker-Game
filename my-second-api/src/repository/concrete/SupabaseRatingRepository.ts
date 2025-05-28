@@ -2,6 +2,17 @@ import { RatingRepository } from '../abstract/RatingRepository';
 import { supabase } from '../../config/supabaseClient';
 
 export class SupabaseRatingRepository implements RatingRepository {
+  
+  async getAverageRatingByLevel(levelId: string): Promise<number> {
+    const { data, error } = await supabase
+      .from('Rating')
+      .select('rating')
+      .eq('id_nivel', levelId);
+    if (error) throw error;
+    const ratings = data.map((rating) => rating.rating);
+    const average = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+    return average;
+  }
   async getAll(): Promise<any[]> {
     const { data, error } = await supabase.from('Rating').select('*');
     if (error) throw error;
