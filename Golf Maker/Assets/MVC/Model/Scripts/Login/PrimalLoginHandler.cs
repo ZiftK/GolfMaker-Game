@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PrimalLoginHandler : MonoBehaviour
@@ -41,7 +42,8 @@ public class PrimalLoginHandler : MonoBehaviour
             return;
         }
 
-        Debug.Log("Login successful.");
+        EnvDataHandler.Instance.SetUserData(user);
+        SceneManager.LoadScene("LevelCreator");
 
         // Reset input fields after submission
         usernameInputField.text = string.Empty;
