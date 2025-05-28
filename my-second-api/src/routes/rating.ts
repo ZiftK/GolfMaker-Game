@@ -16,6 +16,6 @@ router.put('/:id', updateRating);
 router.delete('/:id', deleteRating);
 
 // Additional endpoints
-router.get('/level/:levelId/average', getAverageRatingByLevel);
+router.get('/nivel/:id/promedio', getAverageRatingByLevel);
 
 export default router;

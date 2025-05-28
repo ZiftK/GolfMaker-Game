@@ -4,22 +4,23 @@ import {
   createEstadistica,
   updateEstadistica,
   deleteEstadistica,
-  getEstadisticasByUserId,
-  getEstadisticasByLevelId,
-  getEstadisticasByUserIdAndLevelId
+  getEstadisticasByUsuario,
+  getEstadisticasByNivel,
+  getEstadisticasByUsuarioAndNivel
 } from '../controllers/estadisticasController';
 
 const router = Router();
 
-// CRUD endpoints
-router.get('/', getAllEstadisticas);
-router.post('/', createEstadistica);
-router.put('/:id', updateEstadistica);
-router.delete('/:id', deleteEstadistica);
+// Basic CRUD operations
+router.get('/', getAllEstadisticas);                                    // Get all statistics
+router.post('/', createEstadistica);                                    // Create new statistics
+router.get('/:id', getEstadisticasByUsuario);                          // Get statistics by ID
+router.put('/:id', updateEstadistica);                                 // Update statistics
+router.delete('/:id', deleteEstadistica);                              // Delete statistics
 
-// Additional endpoints
-router.get('/user/:userId', getEstadisticasByUserId);
-router.get('/level/:levelId', getEstadisticasByLevelId);
-router.get('/user/:userId/level/:levelId', getEstadisticasByUserIdAndLevelId);
+// User and Level specific operations
+router.get('/usuario/:id', getEstadisticasByUsuario);                  // Get statistics by user ID
+router.get('/nivel/:id', getEstadisticasByNivel);                      // Get statistics by level ID
+router.get('/usuario/:userId/nivel/:levelId', getEstadisticasByUsuarioAndNivel); // Get statistics by user and level
 
 export default router;

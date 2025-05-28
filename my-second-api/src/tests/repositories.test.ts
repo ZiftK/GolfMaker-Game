@@ -41,22 +41,30 @@ describe('Repository Tests', () => {
 
     it('should create a new usuario', async () => {
       const userData = {
-        nombre: 'Test User ' + Date.now(),
-        email: `test${Date.now()}@example.com`
+        nombre_usuario: 'Test User ' + Date.now(),
+        email: `test${Date.now()}@example.com`,
+        contrasenna: 'test123',
+        niveles_creados: 0,
+        niveles_completados: 0,
+        puntiacion_promedio_recibida: 0
       };
       const result = await usuarioRepository.create(userData);
       console.log('\n=== Usuario creado ===');
       console.log(JSON.stringify(result, null, 2));
       expect(result).toHaveProperty('id_usuario');
-      expect(result.nombre).toBe(userData.nombre);
+      expect(result.nombre_usuario).toBe(userData.nombre_usuario);
       expect(result.email).toBe(userData.email);
     });
 
     it('should get usuario by id', async () => {
       // Primero creamos un usuario para obtener su ID
       const userData = {
-        nombre: 'Test User ' + Date.now(),
-        email: `test${Date.now()}@example.com`
+        nombre_usuario: 'Test User ' + Date.now(),
+        email: `test${Date.now()}@example.com`,
+        contrasenna: 'test123',
+        niveles_creados: 0,
+        niveles_completados: 0,
+        puntiacion_promedio_recibida: 0
       };
       const createdUser = await usuarioRepository.create(userData);
       
@@ -78,7 +86,11 @@ describe('Repository Tests', () => {
     it('should create a new nivel', async () => {
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const result = await nivelRepository.create(nivelData);
       console.log('\n=== Nivel creado ===');
@@ -86,13 +98,18 @@ describe('Repository Tests', () => {
       expect(result).toHaveProperty('id_nivel');
       expect(result.nombre).toBe(nivelData.nombre);
       expect(result.descripcion).toBe(nivelData.descripcion);
+      expect(result.dificultad).toBe(nivelData.dificultad);
     });
 
     it('should get nivel by id', async () => {
       // Primero creamos un nivel para obtener su ID
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
       
@@ -115,34 +132,44 @@ describe('Repository Tests', () => {
       // Primero creamos un nivel para poder calificarlo
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
       const ratingData = {
-        rating: 5,
-        comentario: 'Great level! ' + Date.now(),
-        id_nivel: createdNivel.id_nivel
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        id_nivel: createdNivel.id_nivel,
+        calificacion: 5,
+        comentario: 'Great level! ' + Date.now()
       };
       const result = await ratingRepository.create(ratingData);
       console.log('\n=== Rating creado ===');
       console.log(JSON.stringify(result, null, 2));
       expect(result).toHaveProperty('id_rating');
-      expect(result.rating).toBe(ratingData.rating);
+      expect(result.calificacion).toBe(ratingData.calificacion);
+      expect(result.comentario).toBe(ratingData.comentario);
     });
 
     it('should get average rating by level', async () => {
       // Primero creamos un nivel y le agregamos algunas calificaciones
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
       const ratings = [
-        { rating: 5, comentario: 'Great!', id_nivel: createdNivel.id_nivel },
-        { rating: 4, comentario: 'Good!', id_nivel: createdNivel.id_nivel },
-        { rating: 3, comentario: 'OK', id_nivel: createdNivel.id_nivel }
+        { id_usuario: 1, id_nivel: createdNivel.id_nivel, calificacion: 5, comentario: 'Great!' },
+        { id_usuario: 1, id_nivel: createdNivel.id_nivel, calificacion: 4, comentario: 'Good!' },
+        { id_usuario: 1, id_nivel: createdNivel.id_nivel, calificacion: 3, comentario: 'OK' }
       ];
 
       for (const rating of ratings) {
@@ -170,42 +197,63 @@ describe('Repository Tests', () => {
       // Primero creamos un nivel para poder registrar estadísticas
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
       const statsData = {
-        tiempo: 120,
-        intentos: 5,
-        id_nivel: createdNivel.id_nivel
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        id_nivel: createdNivel.id_nivel,
+        max_muertes: 5,
+        min_muertes: 2,
+        max_golpes: 10,
+        min_golpes: 5,
+        monedas_recolectadas: 3,
+        calificacion_general: 4.5
       };
       const result = await estadisticaRepository.create(statsData);
       console.log('\n=== Estadística creada ===');
       console.log(JSON.stringify(result, null, 2));
       expect(result).toHaveProperty('id_estadistica');
-      expect(result.tiempo).toBe(statsData.tiempo);
-      expect(result.intentos).toBe(statsData.intentos);
+      expect(result.max_muertes).toBe(statsData.max_muertes);
+      expect(result.min_muertes).toBe(statsData.min_muertes);
     });
 
     it('should get estadisticas by user id', async () => {
       // Primero creamos un usuario y algunas estadísticas
       const userData = {
-        nombre: 'Test User ' + Date.now(),
-        email: `test${Date.now()}@example.com`
+        nombre_usuario: 'Test User ' + Date.now(),
+        email: `test${Date.now()}@example.com`,
+        contrasenna: 'test123',
+        niveles_creados: 0,
+        niveles_completados: 0,
+        puntiacion_promedio_recibida: 0
       };
       const createdUser = await usuarioRepository.create(userData);
 
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: createdUser.id_usuario,
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
       const statsData = {
-        tiempo: 120,
-        intentos: 5,
+        id_usuario: createdUser.id_usuario,
         id_nivel: createdNivel.id_nivel,
-        id_usuario: createdUser.id_usuario
+        max_muertes: 5,
+        min_muertes: 2,
+        max_golpes: 10,
+        min_golpes: 5,
+        monedas_recolectadas: 3,
+        calificacion_general: 4.5
       };
       await estadisticaRepository.create(statsData);
 
@@ -219,14 +267,23 @@ describe('Repository Tests', () => {
       // Primero creamos un nivel y algunas estadísticas
       const nivelData = {
         nombre: 'Test Level ' + Date.now(),
-        descripcion: 'Test Description ' + Date.now()
+        descripcion: 'Test Description ' + Date.now(),
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        dificultad: 'fácil' as const,
+        estructura_nivel: '{}',
+        cantidad_moneas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
       const statsData = {
-        tiempo: 120,
-        intentos: 5,
-        id_nivel: createdNivel.id_nivel
+        id_usuario: 1, // Asumiendo que existe un usuario con ID 1
+        id_nivel: createdNivel.id_nivel,
+        max_muertes: 5,
+        min_muertes: 2,
+        max_golpes: 10,
+        min_golpes: 5,
+        monedas_recolectadas: 3,
+        calificacion_general: 4.5
       };
       await estadisticaRepository.create(statsData);
 

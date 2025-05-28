@@ -1,33 +1,37 @@
-import { RatingRepository } from '../abstract/RatingRepository';
+import { RatingRepository, Rating } from '../abstract/RatingRepository';
 import { supabase } from '../../config/supabaseClient';
+
+const TABLE_NAME = 'rating';
 
 export class SupabaseRatingRepository implements RatingRepository {
   
-  async getAverageRatingByLevel(levelId: string): Promise<number> {
+  async getAverageRatingByLevel(levelId: number): Promise<number> {
     const { data, error } = await supabase
-      .from('Rating')
-      .select('rating')
+      .from(TABLE_NAME)
+      .select('calificacion')
       .eq('id_nivel', levelId);
     if (error) throw error;
-    const ratings = data.map((rating) => rating.rating);
+    if (!data || data.length === 0) return 0;
+    const ratings = data.map((rating) => rating.calificacion);
     const average = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
     return average;
   }
-  async getAll(): Promise<any[]> {
-    const { data, error } = await supabase.from('Rating').select('*');
+
+  async getAll(): Promise<Rating[]> {
+    const { data, error } = await supabase.from(TABLE_NAME).select('*');
     if (error) throw error;
     return data || [];
   }
 
-  async create(data: any): Promise<any> {
-    const { error, data: insertedData } = await supabase.from('Rating').insert(data).select().single();
+  async create(data: Omit<Rating, 'id_rating' | 'fecha_rating'>): Promise<Rating> {
+    const { error, data: insertedData } = await supabase.from(TABLE_NAME).insert(data).select().single();
     if (error) throw error;
     return insertedData;
   }
 
-  async update(id: string, data: any): Promise<any> {
+  async update(id: number, data: Partial<Omit<Rating, 'id_rating' | 'fecha_rating'>>): Promise<Rating> {
     const { error, data: updatedData } = await supabase
-      .from('Rating')
+      .from(TABLE_NAME)
       .update(data)
       .eq('id_rating', id)
       .select()
@@ -36,8 +40,8 @@ export class SupabaseRatingRepository implements RatingRepository {
     return updatedData;
   }
 
-  async delete(id: string): Promise<void> {
-    const { error } = await supabase.from('Rating').delete().eq('id_rating', id);
+  async delete(id: number): Promise<void> {
+    const { error } = await supabase.from(TABLE_NAME).delete().eq('id_rating', id);
     if (error) throw error;
   }
 }

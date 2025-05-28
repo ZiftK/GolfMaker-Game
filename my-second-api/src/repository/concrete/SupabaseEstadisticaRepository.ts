@@ -1,22 +1,24 @@
-import { EstadisticaRepository } from '../abstract/EstadisticaRepository';
+import { EstadisticaRepository, Estadistica } from '../abstract/EstadisticaRepository';
 import { supabase } from '../../config/supabaseClient';
 
+const TABLE_NAME = 'estadisticasjugadormapa';
+
 export class SupabaseEstadisticaRepository implements EstadisticaRepository {
-  async getAll(): Promise<any[]> {
-    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*');
+  async getAll(): Promise<Estadistica[]> {
+    const { data, error } = await supabase.from(TABLE_NAME).select('*');
     if (error) throw error;
     return data || [];
   }
 
-  async create(data: any): Promise<any> {
-    const { error, data: insertedData } = await supabase.from('EstadisticasJugadorMapa').insert(data).select().single();
+  async create(data: Omit<Estadistica, 'id_estadistica'>): Promise<Estadistica> {
+    const { error, data: insertedData } = await supabase.from(TABLE_NAME).insert(data).select().single();
     if (error) throw error;
     return insertedData;
   }
 
-  async update(id: string, data: any): Promise<any> {
+  async update(id: number, data: Partial<Omit<Estadistica, 'id_estadistica'>>): Promise<Estadistica> {
     const { error, data: updatedData } = await supabase
-      .from('EstadisticasJugadorMapa')
+      .from(TABLE_NAME)
       .update(data)
       .eq('id_estadistica', id)
       .select()
@@ -25,26 +27,26 @@ export class SupabaseEstadisticaRepository implements EstadisticaRepository {
     return updatedData;
   }
 
-  async delete(id: string): Promise<void> {
-    const { error } = await supabase.from('EstadisticasJugadorMapa').delete().eq('id_estadistica', id);
+  async delete(id: number): Promise<void> {
+    const { error } = await supabase.from(TABLE_NAME).delete().eq('id_estadistica', id);
     if (error) throw error;
   }
 
-  async getByUserId(userId: string): Promise<any[]> {
-    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_usuario', userId);
-    if (error) throw error;
-    return data || [];
-  }
-
-  async getByLevelId(levelId: string): Promise<any[]> {
-    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_nivel', levelId);
+  async getByUserId(userId: number): Promise<Estadistica[]> {
+    const { data, error } = await supabase.from(TABLE_NAME).select('*').eq('id_usuario', userId);
     if (error) throw error;
     return data || [];
   }
 
-  async getByUserIdAndLevelId(userId: string, levelId: string): Promise<any[]> {
+  async getByLevelId(levelId: number): Promise<Estadistica[]> {
+    const { data, error } = await supabase.from(TABLE_NAME).select('*').eq('id_nivel', levelId);
+    if (error) throw error;
+    return data || [];
+  }
+
+  async getByUserIdAndLevelId(userId: number, levelId: number): Promise<Estadistica[]> {
     const { data, error } = await supabase
-      .from('EstadisticasJugadorMapa')
+      .from(TABLE_NAME)
       .select('*')
       .eq('id_usuario', userId)
       .eq('id_nivel', levelId);
