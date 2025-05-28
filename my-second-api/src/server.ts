@@ -1,7 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import routes from './routes';
-import { createRepositoryInterfaces } from './repository/abstract';
 
 dotenv.config();
 

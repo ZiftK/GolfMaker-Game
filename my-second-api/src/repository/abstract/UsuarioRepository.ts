@@ -3,4 +3,5 @@ export interface UsuarioRepository {
   create(data: any): Promise<any>;
   update(id: string, data: any): Promise<any>;
   delete(id: string): Promise<void>;
+  getById(id: string): Promise<any>;
 }

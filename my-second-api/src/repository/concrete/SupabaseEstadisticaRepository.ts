@@ -29,4 +29,10 @@ export class SupabaseEstadisticaRepository implements EstadisticaRepository {
     const { error } = await supabase.from('EstadisticasJugadorMapa').delete().eq('id_estadistica', id);
     if (error) throw error;
   }
+
+  async getPlayedByUser(usuarioId: string): Promise<any[]> {
+    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_usuario', usuarioId);
+    if (error) throw error;
+    return data || [];
+  }
 }

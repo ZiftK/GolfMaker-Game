@@ -29,4 +29,22 @@ export class SupabaseUsuarioRepository implements UsuarioRepository {
     const { error } = await supabase.from('Usuarios').delete().eq('id_usuario', id);
     if (error) throw error;
   }
+
+  async getById(id: string): Promise<any> {
+    const { data, error } = await supabase.from('Usuarios').select('*').eq('id_usuario', id).single();
+    if (error) throw error;
+    return data;
+  }
+
+  async getByUsuarioId(id: string): Promise<any[]> {
+    const { data, error } = await supabase.from('Niveles').select('*').eq('id_usuario', id);
+    if (error) throw error;
+    return data || [];
+  }
+
+  async getJugadosPorUsuarioId(id: string): Promise<any[]> {
+    const { data, error } = await supabase.from('EstadisticasJugadorMapa').select('*').eq('id_usuario', id);
+    if (error) throw error;
+    return data || [];
+  }
 }
