@@ -8,4 +8,6 @@ public interface IUserRepository
     Task<UserEntity> Update(int id, UserEntity user);
     Task Delete(int id);
     Task<UserEntity> GetById(int id);
+
+    Task<UserEntity> GetByUsername(string username);
 } 
