@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
 using System;
+using Newtonsoft.Json;
 
 public class ServerUserRepository : IUserRepository
 {
@@ -95,6 +96,25 @@ public class ServerUserRepository : IUserRepository
                 return JsonUtility.FromJson<UserEntity>(jsonResponse);
             }
             throw new Exception($"Error getting user: {request.error}");
+        }
+    }
+
+    public async Task<UserEntity> GetByUsername(string nombreUsuario)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/nombre/{UnityWebRequest.EscapeURL(nombreUsuario)}"))
+        {
+            await request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string jsonResponse = request.downloadHandler.text;
+                UserEntity user = JsonConvert.DeserializeObject<UserEntity>(jsonResponse);
+                return user;
+            }
+            if (request.responseCode == 404)
+            {
+                return null;
+            }
+            throw new Exception($"Error getting user by username: {request.error}");
         }
     }
 }
