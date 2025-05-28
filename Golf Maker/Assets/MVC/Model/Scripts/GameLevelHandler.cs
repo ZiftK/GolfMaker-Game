@@ -54,11 +54,11 @@ public class GameLevelHandler : MonoBehaviour
         }
 
         // set level dimensions
-        Grid2D.Instance.SetLevelHeight((int)level.levelHeight);
-        Grid2D.Instance.SetLevelWidth((int)level.levelWidth);
+        Grid2D.Instance.SetLevelHeight((int)level.AltoNivel);
+        Grid2D.Instance.SetLevelWidth((int)level.AnchoNivel);
 
         // deserialize the level structure
-        int[,] levelStructure = LevelParser.DeSerializeLevelIds(level.LevelStructure);
+        int[,] levelStructure = LevelParser.DeSerializeLevelIds(level.EstructuraNivel);
 
         // Load the level structure into the grid
         Grid2D.Instance.LoadLevelFromParseLevel(levelStructure);

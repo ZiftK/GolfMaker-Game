@@ -21,19 +21,19 @@ public class EditorEventHandler : MonoBehaviour
         Debug.Log("Saving level...");
         LevelEntity level = new LevelEntity
         {
-            LevelId = 1,
-            UserId = 123, // Example user ID
-            Name = "Level 1",
-            CreationDate = System.DateTime.Now,
-            Difficulty = "Not set",
-            Description = "A challenging level with obstacles.",
-            AverageRating = 0f,
-            TimesPlayed = 0,
-            TimesCompleted = 0,
-            CoinsCount = 0,
-            levelHeight = Grid2D.Instance.GetLevelHeight(),
-            levelWidth = Grid2D.Instance.GetLevelWidth(),
-            LevelStructure = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
+            IdNivel = 1,
+            IdUsuario= 123, // Example user ID
+            Nombre = "Level 1",
+            FechaCreacion = System.DateTime.Now,
+            Dificultad = Dificultad.Medio,
+            Descripcion = "A challenging level with obstacles.",
+            RatingPromedio = 0f,
+            JugadoVeces = 0,
+            CompletadoVeces = 0,
+            CantidadMoneas = 0,
+            AltoNivel = Grid2D.Instance.GetLevelHeight(),
+            AnchoNivel = Grid2D.Instance.GetLevelWidth(),
+            EstructuraNivel = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
         };
 
         // Add logic to save the level using levelRepository
@@ -50,14 +50,15 @@ public class EditorEventHandler : MonoBehaviour
             return;
         }
         
-        if (level.levelHeight != Grid2D.Instance.GetLevelHeight() || level.levelWidth != Grid2D.Instance.GetLevelWidth())
+        if (level.AltoNivel != Grid2D.Instance.GetLevelHeight() || level.AnchoNivel != Grid2D.Instance.GetLevelWidth())
         {
             Debug.LogError(
-                $"Level dimensions must be {level.levelWidth}x{level.levelHeight} not {Grid2D.Instance.GetLevelWidth()}x{Grid2D.Instance.GetLevelHeight()}");
+                $"Level dimensions must be {level.AnchoNivel}x{level.AltoNivel} not {Grid2D.Instance.GetLevelWidth()}x{Grid2D.Instance.GetLevelHeight()}");
             return;
         }
 
-        int [,] levelIds = LevelParser.DeSerializeLevelIds(level.LevelStructure);
+        // todo: here whe should assign the level width and height
+        int [,] levelIds = LevelParser.DeSerializeLevelIds(level.EstructuraNivel);
 
         Grid2D.Instance.LoadLevelFromParseLevel(levelIds);
     }
