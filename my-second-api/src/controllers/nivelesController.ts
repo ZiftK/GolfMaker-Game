@@ -25,7 +25,7 @@ export const createNivel = async (req: Request, res: Response): Promise<void> =>
     };
 
     // Validar que la dificultad sea válida
-    if (!['fácil', 'medio', 'difícil'].includes(nivelData.dificultad)) {
+    if (!['Facil', 'Medio', 'Dificil'].includes(nivelData.dificultad)) {
       res.status(400).json({ error: 'Dificultad inválida. Debe ser: fácil, medio o difícil' });
       return;
     }
