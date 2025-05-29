@@ -62,9 +62,9 @@ public class RepositoryManager : MonoBehaviour
             jugado_veces = 0,
             completado_veces = 0,
             cantidad_monedas = 0,
-            alto_nivel = Grid2D.Instance.GetLevelHeight(),
-            ancho_nivel = Grid2D.Instance.GetLevelWidth(),
-            estructura_nivel = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
+            alto_nivel = GridFacade.Instance.GetLevelHeight(),
+            ancho_nivel = GridFacade.Instance.GetLevelWidth(),
+            estructura_nivel = LevelParser.SerializeLevelIds(GridFacade.Instance.GetLevelIds()),
         };
 
         editorLevelEvents.OnSaveLevel(levelData);

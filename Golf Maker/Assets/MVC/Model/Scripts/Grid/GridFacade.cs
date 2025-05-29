@@ -1,50 +1,50 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(Grid), typeof(Tilemap))]
+[RequireComponent(typeof(Grid), typeof(Tilemap), typeof(VisualGridRenderer))]
+[RequireComponent(typeof(VisualGridTileRenderer), typeof(GridIdStorage))]
 [DefaultExecutionOrder(-200)]
-public class Grid2D : MonoBehaviour
+public class GridFacade : MonoBehaviour
 {
-    public static Grid2D Instance { get; private set; }
+    public static GridFacade Instance { get; private set; }
 
-    #region //hd: level values
-    [Header("Level values")]
+    #region Level config
 
+    [Space(10)]
+    [Header("Config")]
+
+    [Tooltip("It must be an even number. If it's not, the value will be rounded up to the next even number.")]
     [SerializeField]
-    [Range(10, 300)]
-    [Tooltip("Width of the level")]
-    private int levelWidth = 30;
+    [Range(10, 60)]
+    private int levelWidth;
 
+    [Tooltip("It must be an even number. If it's not, the value will be rounded up to the next even number.")]
     [SerializeField]
-    [Range(10, 300)]
-    [Tooltip("Height of the level")]
-    private int levelHeight = 30;
+    [Range(10, 60)]
+    private int levelHeight;
 
-    private int[,] levelIds;
-
-    #endregion
-
-    #region //hd: visuals
-
+    [Tooltip("Set the number of tiles count in the visual grid")]
     [SerializeField]
-    private GameObject visualGrid;
-
     private int globalTilingId;
 
-    private Tilemap temporalTileLevel;
-
-    #endregion
-
-    #region //hd: tilelevel values
-
+    [Tooltip("Set the width and height of each tile in the grid")]
     [SerializeField]
-    float tileBaseWidth = 0.5f;
-
-    private TileMapsFactory tileLevelsFactory;
+    private float tileBaseWidth;
 
 
-    #endregion
+    #endregion Level config
+
+    #region Visuals
+
+    private VisualGridRenderer gridRenderer;
+    private VisualGridTileRenderer tilesRenderer;
+
+    #endregion Visuals
+
+    GridIdStorage idStorage;
+
     private void Awake()
     {
         if (Instance == null)
@@ -58,33 +58,23 @@ public class Grid2D : MonoBehaviour
         }
 
         GetComponents();
-        InitVariables();
         SuscribeEvents();
-        InitVisualGrid();
-        // TestInitTileLevels();
+
+        gridRenderer.InitVisualGrid(levelWidth, levelHeight, globalTilingId);
+        tilesRenderer.InitVisualGridTiles(tileBaseWidth);
+        idStorage.InitGridIdStorage(levelWidth, levelHeight);
+
+
     }
 
     #region Initializing methods
-    private void InitVariables()
-    {
-
-        SetLevelWidth(levelWidth);
-        SetLevelHeight(levelHeight);
-
-        levelIds = new int[levelWidth, levelHeight];
-
-        for (int i = 0; i < levelIds.GetLength(0); i++)
-        {
-            for (int j = 0; j < levelIds.GetLength(1); j++)
-            {
-                levelIds[i, j] = -1;
-            }
-        }
-    }
+    
 
     private void GetComponents()
     {
-        tileLevelsFactory = gameObject.GetComponent<TileMapsFactory>();
+        gridRenderer = gameObject.GetComponent<VisualGridRenderer>();
+        tilesRenderer = gameObject.GetComponent<VisualGridTileRenderer>();
+        idStorage = gameObject.GetComponent<GridIdStorage>();
     }
     private void SuscribeEvents()
     {
@@ -98,38 +88,14 @@ public class Grid2D : MonoBehaviour
 
     }
 
-    private void InitVisualGrid()
-    {
-        visualGrid = Instantiate(visualGrid);
-        visualGrid.transform.localScale = new Vector3(levelWidth, levelHeight);
-        visualGrid.transform.SetParent(gameObject.transform);
-        visualGrid.transform.SetLocalPositionAndRotation(
-            Vector3.zero, Quaternion.Euler(0, 0, 0)
-        );
-
-        globalTilingId = Shader.PropertyToID("_GlobalTiling");
-        Material shaderMaterial = visualGrid.GetComponent<Renderer>().material;
-        shaderMaterial.SetVector(globalTilingId, new Vector2(levelWidth, levelHeight));
-
-        // temporal tile level
-        GameObject temporalTileLevelObj = new GameObject("Temporal tile level");
-        temporalTileLevelObj.transform.SetParent(transform);
-        temporalTileLevelObj.transform.SetPositionAndRotation(
-                new Vector3(-tileBaseWidth, -tileBaseWidth, 0),
-                Quaternion.identity
-            );
-        temporalTileLevel = temporalTileLevelObj.AddComponent<Tilemap>();
-        temporalTileLevelObj.AddComponent<TilemapRenderer>();
-    }
-
     #endregion Initializing methods
 
     #region Expose Methods
     public void ActivateVisualGrid(bool activate)
     {
-        if (visualGrid != null)
+        if (gridRenderer != null)
         {
-            visualGrid.SetActive(activate);
+            gridRenderer.SetActive(activate);
         }
     }
 
@@ -139,33 +105,15 @@ public class Grid2D : MonoBehaviour
 
 
     #region Map ids
-    private void SetIdAtPosition(Vector2Int idPosition, int newId)
-    {
-        if (idPosition.x < 0 || idPosition.x >= levelWidth)
-            return;
-        if (idPosition.y < 0 || idPosition.y >= levelHeight)
-            return;
+    
 
-        levelIds[idPosition.x, idPosition.y] = newId;
-    }
-
-    private int GetIdAtPosition(Vector2Int idPosition)
-    {
-        if (idPosition.x < 0 || idPosition.x >= levelWidth)
-            return -1;
-        if (idPosition.y < 0 || idPosition.y >= levelHeight)
-            return -1;
-
-        return levelIds[idPosition.x, idPosition.y];
-    }
+    
     #endregion Map ids
 
 
     #region Alter tiles
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
-        TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
-        TileBase tile = tileLevelComponent.config.temporalTileBase;
 
         foreach (Vector3Int position in args.positions)
         {
@@ -176,14 +124,14 @@ public class Grid2D : MonoBehaviour
                 break;
             }
 
-            temporalTileLevel.SetTile(position, tile);
+            tilesRenderer.TemporalDrawTileBaseAtPosition(tileBaseWidth, position, args.tileBaseId);
 
         }
     }
 
     private void ClearTemporalTiles(object sender, EventArgs e)
     {
-        temporalTileLevel.ClearAllTiles();
+        tilesRenderer.ClearTemporalTiles();
     }
 
     private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
@@ -196,20 +144,15 @@ public class Grid2D : MonoBehaviour
         BorrowTileBaseAtPositionArgs borrowArgs = new BorrowTileBaseAtPositionArgs(args.positions);
         BorrowTileBaseAtPositions(sender, borrowArgs);
 
-        TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
-        TileBase tile = tileLevelComponent.config.tileBase;
-        ITileHandler tilelevel = TileMapStorageConversions.GetTileHandler(tileLevelComponent.config, tileLevelComponent.obj);
-
         foreach (Vector3Int position in args.positions)
         {
 
+            bool canSetTile = tilesRenderer.DrawTileBaseAtPosition(args.tileBaseId, tileBaseWidth, position);
+            if (!canSetTile) break;
+            
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
-
-            bool canSetTile = tilelevel.SetTile(position, tile);
-
-            if (canSetTile)
-                SetIdAtPosition(idPosition, args.tileBaseId);
-
+            idStorage.SetIdAtPosition(idPosition, args.tileBaseId);
+            
         }
     }
 
@@ -220,17 +163,13 @@ public class Grid2D : MonoBehaviour
         {
 
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
-            int id = GetIdAtPosition(idPosition);
+            int id = idStorage.GetIdAtPosition(idPosition);
             if (id == -1)
             {
                 continue;
             }
-            // recovery id tile level
-            TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(id, tileBaseWidth);
-            ITileHandler tilelevel = TileMapStorageConversions.GetTileHandler(tileLevelComponent.config, tileLevelComponent.obj);
-
-            tilelevel.SetTile(position, null);
-            SetIdAtPosition(idPosition, -1);
+            tilesRenderer.BorrowTileBaseAtPosition(id, tileBaseWidth, position);
+            idStorage.SetIdAtPosition(idPosition, -1);
         }
 
     }
@@ -279,14 +218,14 @@ public class Grid2D : MonoBehaviour
             }
         }
 
-        this.levelIds = levelIds;
+        idStorage.SetAllIds(levelIds);
 
     }
 
     #region Getters and Setters
     public int[,] GetLevelIds()
     {
-        return levelIds;
+        return idStorage.GetAllIds();
     }
 
     public int GetLevelWidth()

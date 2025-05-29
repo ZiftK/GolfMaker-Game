@@ -33,7 +33,7 @@ public class BucketPencilState : PencilState
         }
 
 
-        int[,] mapIds = Grid2D.Instance.GetLevelIds();
+        int[,] mapIds = GridFacade.Instance.GetLevelIds();
 
         Vector3Int[] floodFillCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), mapIds);
 
@@ -46,7 +46,7 @@ public class BucketPencilState : PencilState
     public  Vector3Int[] GetFloodPoints(Vector3Int position, int[,] mapIds)
     {
 
-        Vector2Int tileMapIndex = Grid2D.Instance.ConvertTileMapPositionToLevelIndex(position);
+        Vector2Int tileMapIndex = GridFacade.Instance.ConvertTileMapPositionToLevelIndex(position);
 
         int pointId = mapIds[tileMapIndex.x, tileMapIndex.y];
 
@@ -73,7 +73,7 @@ public class BucketPencilState : PencilState
             foreach (Vector3Int direction in directions){
                 
                 // Relative position since the world to tile map position
-                tileMapIndex = Grid2D.Instance.ConvertTileMapPositionToLevelIndex(current + direction);
+                tileMapIndex = GridFacade.Instance.ConvertTileMapPositionToLevelIndex(current + direction);
 
                 // Check bounds
                 if (tileMapIndex.x < 0 || tileMapIndex.x >= mapIds.GetLength(0)) continue;
@@ -109,7 +109,7 @@ public class BucketPencilState : PencilState
 
         this.IsBorrowing = false;
 
-        Vector3Int[] floodBorrowCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), Grid2D.Instance.GetLevelIds());
+        Vector3Int[] floodBorrowCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), GridFacade.Instance.GetLevelIds());
         BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(floodBorrowCoords);
         pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
     }

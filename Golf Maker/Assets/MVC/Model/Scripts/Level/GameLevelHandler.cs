@@ -37,7 +37,7 @@ public class GameLevelHandler : MonoBehaviour
         GameLevelEvents.OnResetBallEvent += AddReset;
 
 
-        Grid2D.Instance.ActivateVisualGrid(false);
+        GridFacade.Instance.ActivateVisualGrid(false);
         OnLoadLevel(1); // Load the default level with ID 1
 
     }
