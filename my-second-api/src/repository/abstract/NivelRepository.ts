@@ -1,4 +1,4 @@
-export type Dificultad = 'fácil' | 'medio' | 'difícil';
+export type Dificultad = 'Facil' | 'Medio' | 'Dificil';
 
 export interface Nivel {
   id_nivel: number;
@@ -11,7 +11,7 @@ export interface Nivel {
   jugado_veces: number;
   completado_veces: number;
   estructura_nivel: string | null;
-  cantidad_moneas: number;
+  cantidad_monedas: number;
 }
 
 export interface NivelRepository {

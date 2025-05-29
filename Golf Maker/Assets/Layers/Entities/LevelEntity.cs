@@ -21,7 +21,7 @@ public class LevelEntity
     public float rating_promedio;
     public int jugado_veces;
     public int completado_veces;
-    public int cantidad_moneas;
+    public int cantidad_monedas;
     public string estructura_nivel;
 
     [NonSerialized]
@@ -29,3 +29,4 @@ public class LevelEntity
     [NonSerialized]
     public int alto_nivel;
 }
+

@@ -4,6 +4,9 @@ using UnityEngine;
 public class EnvDataHandler : MonoBehaviour
 {
     private UserEntity userData;
+
+    private LevelEntity levelInEdition;
+
     public static EnvDataHandler Instance;
     void Awake()
     {
@@ -24,7 +27,28 @@ public class EnvDataHandler : MonoBehaviour
         userData = user;
     }
 
+    public void SetLevelInEditionData(LevelEntity level)
+    {
+        levelInEdition = level;
+    }
+
+    public void SetLevelInEditionUserData(ref LevelEntity level)
+    {
+        level.id_usuario = this.userData.id_usuario;
+    }
+
+    public void ClearLevelInEditionData()
+    {
+        levelInEdition = null;
+    }
+
     public bool HasData() => !(userData is null);
 
     public int GetCurrentUserId() => userData.id_usuario;
+
+    public int GetCurrentLevelInEditionId()
+    {
+        if (levelInEdition is null) return -1;
+        return levelInEdition.id_nivel;
+    }
 }

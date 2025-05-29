@@ -23,6 +23,16 @@ public class PrimalLoginHandler : MonoBehaviour
     public GameObject content;
     public GameObject buttonPrefab;
 
+
+    void Awake()
+    {
+        if (EnvDataHandler.Instance.HasData())
+        {
+            SwitchCambas(1);
+        }
+
+    }
+
     public void OnLoginButtonClickEvent()
     {
         _ = TryLogin();

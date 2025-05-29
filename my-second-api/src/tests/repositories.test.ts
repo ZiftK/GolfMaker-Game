@@ -90,7 +90,7 @@ describe('Repository Tests', () => {
         id_usuario: 1, // Asumiendo que existe un usuario con ID 1
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const result = await nivelRepository.create(nivelData);
       console.log('\n=== Nivel creado ===');
@@ -109,7 +109,7 @@ describe('Repository Tests', () => {
         id_usuario: 1, // Asumiendo que existe un usuario con ID 1
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
       
@@ -136,7 +136,7 @@ describe('Repository Tests', () => {
         id_usuario: 1, // Asumiendo que existe un usuario con ID 1
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
@@ -162,7 +162,7 @@ describe('Repository Tests', () => {
         id_usuario: 1, // Asumiendo que existe un usuario con ID 1
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
@@ -201,7 +201,7 @@ describe('Repository Tests', () => {
         id_usuario: 1, // Asumiendo que existe un usuario con ID 1
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
@@ -241,7 +241,7 @@ describe('Repository Tests', () => {
         id_usuario: createdUser.id_usuario,
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 
@@ -271,7 +271,7 @@ describe('Repository Tests', () => {
         id_usuario: 1, // Asumiendo que existe un usuario con ID 1
         dificultad: 'fácil' as const,
         estructura_nivel: '{}',
-        cantidad_moneas: 0
+        cantidad_monedas: 0
       };
       const createdNivel = await nivelRepository.create(nivelData);
 

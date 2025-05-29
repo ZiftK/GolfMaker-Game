@@ -21,7 +21,7 @@ export const createNivel = async (req: Request, res: Response): Promise<void> =>
       dificultad: req.body.dificultad as Dificultad,
       descripcion: req.body.descripcion,
       estructura_nivel: req.body.estructura_nivel,
-      cantidad_moneas: req.body.cantidad_moneas || 0
+      cantidad_monedas: req.body.cantidad_monedas || 0
     };
 
     // Validar que la dificultad sea válida
@@ -50,12 +50,14 @@ export const updateNivel = async (req: Request, res: Response): Promise<void> =>
       dificultad: req.body.dificultad as Dificultad,
       descripcion: req.body.descripcion,
       estructura_nivel: req.body.estructura_nivel,
-      cantidad_moneas: req.body.cantidad_moneas
+      cantidad_monedas: req.body.cantidad_monedas,
+      jugado_veces: req.body.jugado_veces,
+      completado_veces: req.body.completado_veces
     };
 
     // Validar que la dificultad sea válida si se proporciona
-    if (updateData.dificultad && !['fácil', 'medio', 'difícil'].includes(updateData.dificultad)) {
-      res.status(400).json({ error: 'Dificultad inválida. Debe ser: fácil, medio o difícil' });
+    if (updateData.dificultad && !['Facil', 'Medio', 'Dificil'].includes(updateData.dificultad)) {
+      res.status(400).json({ error: 'Dificultad inválida. Debe ser: Facil, Medio o Dificil' });
       return;
     }
 

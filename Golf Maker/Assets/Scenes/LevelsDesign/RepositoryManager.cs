@@ -52,19 +52,19 @@ public class RepositoryManager : MonoBehaviour
 
         LevelEntity levelData = new LevelEntity
         {
-            IdNivel = -1,
-            IdUsuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
-            Nombre = levelName,
-            FechaCreacion = System.DateTime.Now,
-            Dificultad = Dificultad.Medio,
-            Descripcion = "A challenging level with obstacles.",
-            RatingPromedio = 0f,
-            JugadoVeces = 0,
-            CompletadoVeces = 0,
-            CantidadMoneas = 0,
-            AltoNivel = Grid2D.Instance.GetLevelHeight(),
-            AnchoNivel = Grid2D.Instance.GetLevelWidth(),
-            EstructuraNivel = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
+            id_nivel = EnvDataHandler.Instance.GetCurrentLevelInEditionId(),
+            id_usuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
+            nombre = levelName,
+            fecha_creacion = "",
+            dificultad = Dificultad.Medio.ToString(),
+            descripcion = "A challenging level with obstacles.",
+            rating_promedio = 0f,
+            jugado_veces = 0,
+            completado_veces = 0,
+            cantidad_monedas = 0,
+            alto_nivel = Grid2D.Instance.GetLevelHeight(),
+            ancho_nivel = Grid2D.Instance.GetLevelWidth(),
+            estructura_nivel = LevelParser.SerializeLevelIds(Grid2D.Instance.GetLevelIds()),
         };
 
         editorLevelEvents.OnSaveLevel(levelData);

@@ -15,7 +15,7 @@ public class LevelButton : MonoBehaviour
     {
         this.levelData = levelData;
         
-        buttonText.text = levelData.Nombre;
+        buttonText.text = levelData.nombre;
     }
 
 }
