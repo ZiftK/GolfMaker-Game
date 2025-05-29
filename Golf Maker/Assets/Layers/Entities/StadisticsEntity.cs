@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 
-public class StadisticsEntity 
+[Serializable]
+public class StadisticsEntity
 {
     public int IdEstadistica { get; set; }
     public int IdUsuario { get; set; }

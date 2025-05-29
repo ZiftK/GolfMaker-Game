@@ -1,5 +1,7 @@
 using System;
+using UnityEngine;
 
+[Serializable]
 public enum Dificultad
 {
     Fácil,
@@ -7,19 +9,20 @@ public enum Dificultad
     Difícil
 }
 
+[Serializable]
 public class LevelEntity
 {
-    public int? IdNivel { get; set; }
-    public int IdUsuario { get; set; }
-    public string Nombre { get; set; }
-    public DateTime? FechaCreacion { get; set; }
-    public Dificultad Dificultad { get; set; }
-    public string Descripcion { get; set; }
-    public float RatingPromedio { get; set; }
-    public int JugadoVeces { get; set; }
-    public int CompletadoVeces { get; set; }
-    public int CantidadMoneas { get; set; }
-    public string EstructuraNivel { get; set; }
-    public int AnchoNivel { get; set; }
-    public int AltoNivel { get; set; }
+    public int? IdNivel;
+    public int IdUsuario;
+    public string Nombre;
+    public DateTime? FechaCreacion;
+    public Dificultad Dificultad;
+    public string Descripcion;
+    public float RatingPromedio;
+    public int JugadoVeces;
+    public int CompletadoVeces;
+    public int CantidadMoneas;
+    public string EstructuraNivel;
+    public int AnchoNivel;
+    public int AltoNivel;
 }

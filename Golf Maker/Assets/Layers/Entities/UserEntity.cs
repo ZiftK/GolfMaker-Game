@@ -1,5 +1,6 @@
 using System;
 
+[Serializable]
 public class UserEntity
 {
     public int id_usuario { get; set; }

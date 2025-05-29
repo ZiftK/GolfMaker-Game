@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 
+[Serializable]
 public class RatingEntity
 {
     public int IdRating { get; set; }
