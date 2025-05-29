@@ -20,6 +20,15 @@ public class SelectBlockArgs : EventArgs
     }
 }
 
+public class SaveLevelArgs : EventArgs
+{
+    public LevelEntity levelData { get; }
+    public SaveLevelArgs(LevelEntity levelData)
+    {
+        this.levelData = levelData;
+    }
+}
+
 public class EditorLevelEvents
 {
 
@@ -34,7 +43,7 @@ public class EditorLevelEvents
         return Instance;
     }
 
-    public event EventHandler SaveLevel;
+    public event EventHandler<SaveLevelArgs> SaveLevel;
     public event EventHandler LoadLevel;
     public event EventHandler ExitEditLevel;
     public event EventHandler EnterEditLevel;
@@ -42,9 +51,9 @@ public class EditorLevelEvents
     public event EventHandler<SelectPencilArgs> SelectPencil;
     public event EventHandler<SelectBlockArgs> SelectBlock;
 
-    public void OnSaveLevel()
+    public void OnSaveLevel(LevelEntity levelData)
     {
-        SaveLevel?.Invoke(this, new EventArgs());
+        SaveLevel?.Invoke(this, new SaveLevelArgs(levelData));
     }
     public void OnLoadLevel()
     {
