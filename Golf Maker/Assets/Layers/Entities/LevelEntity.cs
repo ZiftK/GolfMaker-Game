@@ -1,17 +1,25 @@
-
 using System;
 
-public class LevelEntity {
-    public int? LevelId { get; set; }
-    public int UserId { get; set; }
-    public string Name { get; set; }
-    public DateTime? CreationDate { get; set; }
-    public string Difficulty { get; set; }
-    public int Par { get; set; }
-    public string Description { get; set; }
-    public float AverageRating { get; set; }
-    public int TimesPlayed { get; set; }
-    public int TimesCompleted { get; set; }
-    public int RewardCoins { get; set; }
-    public string LevelStructure { get; set; }
+public enum Dificultad
+{
+    Fácil,
+    Medio,
+    Difícil
+}
+
+public class LevelEntity
+{
+    public int? IdNivel { get; set; }
+    public int IdUsuario { get; set; }
+    public string Nombre { get; set; }
+    public DateTime? FechaCreacion { get; set; }
+    public Dificultad Dificultad { get; set; }
+    public string Descripcion { get; set; }
+    public float RatingPromedio { get; set; }
+    public int JugadoVeces { get; set; }
+    public int CompletadoVeces { get; set; }
+    public int CantidadMoneas { get; set; }
+    public string EstructuraNivel { get; set; }
+    public int AnchoNivel { get; set; }
+    public int AltoNivel { get; set; }
 }

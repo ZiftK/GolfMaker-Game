@@ -24,6 +24,13 @@ public class SquarePencilState : PencilState
     {
         // draw confirmation
         if (!this.IsDrawing) return;
+         this.IsDrawing = false;
+
+        if (context.tileId == 8)
+        {
+            Debug.LogWarning("You cannot use the square pencil with the initial tile.");
+            return;
+        }
 
         finalPoint = context.position;
 
@@ -34,7 +41,7 @@ public class SquarePencilState : PencilState
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         
-        this.IsDrawing = false;
+       
     }
 
     public override void OnRightClick(PencilContext context)
@@ -47,6 +54,7 @@ public class SquarePencilState : PencilState
     {
         // borrow confirmation
         if (!this.IsBorrowing) return;
+        this.IsBorrowing = false;
 
         finalPoint = context.position;
 
@@ -57,7 +65,7 @@ public class SquarePencilState : PencilState
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
 
-        this.IsBorrowing = false;
+        
     }
 
     public override void Update(PencilContext context)

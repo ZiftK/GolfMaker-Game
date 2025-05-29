@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,18 +12,24 @@ using UnityEngine.InputSystem;
     )]
 public class BallController : MonoBehaviour
 {
+    public LayerMask layerMask;
     private bool isHiteable;
 
-    [SerializeField]
-    private float forceMultiplier = 1f;
+
     Rigidbody2D rb;
     LineRenderer lineRenderer;
+
+    [SerializeField]
+    float lineDistance = 5f;
+    [SerializeField]
+    private float forceMultiplier = 1f;
 
 
     // Ball states
     private BallState currentState;
     private IBallLeftClickActor currentLeftClickState;
     private IBallUpdate currentUpdateState;
+
 
     void Awake()
     {
@@ -33,15 +40,16 @@ public class BallController : MonoBehaviour
         currentState = BalllIdleState.GetInstance();
         currentLeftClickState = BalllIdleState.GetInstance();
         currentUpdateState = BalllIdleState.GetInstance();
-        isHiteable = true; 
+        isHiteable = true;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+
         if (currentUpdateState != null)
         {
-            Debug.Log("Update");
+
             currentUpdateState.Update(
                 new BallContext(
                     Camera.main.ScreenToWorldPoint(Input.mousePosition),
@@ -52,18 +60,55 @@ public class BallController : MonoBehaviour
                 );
         }
 
-        
+
     }
 
+    #region Line Methods
     public void DrawLine(Vector3 start, Vector3 end)
     {
-        start.z = 0;
-        end.z = 0;
 
         lineRenderer.SetPosition(0, start);
         lineRenderer.SetPosition(1, end);
     }
 
+    public void ClearLine()
+    {
+        lineRenderer.SetPosition(0, Vector3.zero);
+        lineRenderer.SetPosition(1, Vector3.zero);
+    }
+    #endregion Line Methods
+
+    #region Behavior Methods
+    public void KillBall()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    public void ResetBall()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+        rb.linearVelocity = Vector2.zero;
+
+        transform.position = GameLevelHandler.Instance.initialBallPosition;
+        // EffectsEvents.ThrowEffect("ResetBall", transform.position);
+
+        GameLevelEvents.TriggerResetBall();
+    }
+
+    public void KillAndResetBall()
+    {
+        KillBall();
+        ResetBall();
+    }
+
+    #endregion Behavior Methods
+
+    #region State Methods
     public void SwitchBallState(BallState newState, BallContext context)
     {
         currentState.OnExitState(context);
@@ -80,8 +125,11 @@ public class BallController : MonoBehaviour
     {
         currentUpdateState = newState;
     }
+    #endregion State Methods
 
-    public void OnLeftClick(InputAction.CallbackContext context){
+    #region Event Methods
+    public void OnLeftClick(InputAction.CallbackContext context)
+    {
 
 
         if (currentLeftClickState == null)
@@ -90,12 +138,13 @@ public class BallController : MonoBehaviour
         }
 
         if (!isHiteable) return;
-        
-        if (context.started){
+
+        if (context.started)
+        {
 
             currentLeftClickState.OnLeftClick(
                 new BallContext(
-                    Vector3Int.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition)),
+                    Camera.main.ScreenToWorldPoint(Input.mousePosition),
                     this,
                     rb,
                     forceMultiplier
@@ -103,21 +152,47 @@ public class BallController : MonoBehaviour
                 );
         }
 
-        if (context.canceled){
-            
+        if (context.canceled)
+        {
+
             currentLeftClickState.OnLeftUnClick(
                 new BallContext(
-                    Vector3Int.RoundToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition)),
+                    Camera.main.ScreenToWorldPoint(Input.mousePosition),
                     this,
                     rb,
                     forceMultiplier
                     )
                 );
         }
-        
+
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.isTrigger) return;
+
+        if (other.CompareTag("water"))
+        {
+            EffectsEvents.ThrowEffect("WaterSplash", transform.position);
+            KillAndResetBall();
+        }
+
+        if (other.CompareTag("fall"))
+        {
+            Debug.Log("Win!!!");            
+        }     
+    }
+
+    #endregion Event Methods
+
+    #region Getters and Setters
     public bool IsHiteable() => isHiteable;
-    public void SetHiteable(bool value) => isHiteable = value; 
+    public void SetHiteable(bool value) => isHiteable = value;
+
+    public float GetLineDistance() => lineDistance;
+
+    public float GetForceMultiplier() => forceMultiplier;
+    
+    #endregion Getters and Setters
 
 }

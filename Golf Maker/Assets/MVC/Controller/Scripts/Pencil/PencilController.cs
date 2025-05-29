@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,10 +9,19 @@ public class PencilController : MonoBehaviour
 
     public float temporalTileOpacity = 0.5f;
 
+    private int tileId = 0;
+
+    private EditorLevelEvents editorLevelHandler;
+
     void Awake()
     {
         // currentState = PointPencilState.GetInstance();
         currentState = PointPencilState.GetInstance();
+        editorLevelHandler = EditorLevelEvents.GetInstance();
+
+        editorLevelHandler.SelectBlock += OnSelectBlock;
+        editorLevelHandler.SelectPencil += OnSelectPencil;
+
     }
 
     void Update()
@@ -20,26 +30,59 @@ public class PencilController : MonoBehaviour
         currentState.Update(
             new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
                 );
     }
-    public void OnLeftClick(InputAction.CallbackContext context){
 
-        if (context.started){
+    public void OnSelectBlock(object sender, SelectBlockArgs args)
+    {
+        tileId = TileMapsFactory.GetTileIdByName(args.blockName);
+    }
+
+    public void OnSelectPencil(object sender, SelectPencilArgs args)
+    {
+        // Handle the selection of different pencil types
+        switch (args.pincelName)
+        {
+            case "pen":
+                currentState = PointPencilState.GetInstance();
+                break;
+            case "fill":
+                currentState = BucketPencilState.GetInstance();
+                break;
+            case "brush":
+                currentState = SquarePencilState.GetInstance();
+                break;
+            case "ruler":
+                currentState = LinePencilState.GetInstance();
+                break;
+            default:
+                Debug.LogWarning("Unhandled pencil type: " + args.pincelName);
+                break;
+        }
+    }
+
+    
+    public void OnLeftClick(InputAction.CallbackContext context)
+    {
+
+        if (context.started)
+        {
             currentState.OnLeftClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
                 );
         }
 
-        if (context.canceled){
+        if (context.canceled)
+        {
             currentState.OnLeftUnClikc(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
             );
         }
@@ -50,7 +93,7 @@ public class PencilController : MonoBehaviour
             currentState.OnRightClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
             );
         }
@@ -59,7 +102,7 @@ public class PencilController : MonoBehaviour
             currentState.OnRightUnClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                0
+                tileId
                 )
             );
         }

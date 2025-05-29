@@ -24,6 +24,13 @@ public class BucketPencilState : PencilState
     public override void OnLeftUnClikc(PencilContext context)
     {
         if (!this.IsDrawing) return;
+        this.IsDrawing = false;
+
+        if (context.tileId == 8)
+        {
+            Debug.LogWarning("You cannot use the bucket pencil with the initial tile.");
+            return;
+        }
 
 
         int[,] mapIds = Grid2D.Instance.GetLevelIds();
@@ -33,7 +40,7 @@ public class BucketPencilState : PencilState
         DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, floodFillCoords);
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args); 
-        this.IsDrawing = false;
+        
     }
 
     public  Vector3Int[] GetFloodPoints(Vector3Int position, int[,] mapIds)
@@ -101,6 +108,10 @@ public class BucketPencilState : PencilState
         if (!this.IsBorrowing) return;
 
         this.IsBorrowing = false;
+
+        Vector3Int[] floodBorrowCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), Grid2D.Instance.GetLevelIds());
+        BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(floodBorrowCoords);
+        pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
     }
 
     public override void Update(PencilContext context)

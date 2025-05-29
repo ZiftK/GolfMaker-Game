@@ -64,6 +64,7 @@ public class Grid2D : MonoBehaviour
         // TestInitTileLevels();
     }
 
+    #region Initializing methods
     private void InitVariables()
     {
 
@@ -94,7 +95,7 @@ public class Grid2D : MonoBehaviour
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
 
-        
+
     }
 
     private void InitVisualGrid()
@@ -121,6 +122,9 @@ public class Grid2D : MonoBehaviour
         temporalTileLevelObj.AddComponent<TilemapRenderer>();
     }
 
+    #endregion Initializing methods
+
+    #region Expose Methods
     public void ActivateVisualGrid(bool activate)
     {
         if (visualGrid != null)
@@ -128,16 +132,36 @@ public class Grid2D : MonoBehaviour
             visualGrid.SetActive(activate);
         }
     }
-    
+
     public Vector2Int ConvertTileMapPositionToLevelIndex(Vector3Int position) => new Vector2Int(position.x + levelWidth / 2, position.y + levelHeight / 2);
+    public Vector2 ConvertLevelIndexToTileMapPosition(Vector2Int position) => new Vector2(position.x - levelWidth / 2, position.y - levelHeight / 2);
+    #endregion Expose Methods
+
+
+    #region Map ids
     private void SetIdAtPosition(Vector2Int idPosition, int newId)
     {
+        if (idPosition.x < 0 || idPosition.x >= levelWidth)
+            return;
+        if (idPosition.y < 0 || idPosition.y >= levelHeight)
+            return;
+
         levelIds[idPosition.x, idPosition.y] = newId;
     }
 
-    private int GetIdAtPosition(Vector2Int idPosition) => levelIds[idPosition.x, idPosition.y];
+    private int GetIdAtPosition(Vector2Int idPosition)
+    {
+        if (idPosition.x < 0 || idPosition.x >= levelWidth)
+            return -1;
+        if (idPosition.y < 0 || idPosition.y >= levelHeight)
+            return -1;
+
+        return levelIds[idPosition.x, idPosition.y];
+    }
+    #endregion Map ids
 
 
+    #region Alter tiles
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
         TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
@@ -146,6 +170,11 @@ public class Grid2D : MonoBehaviour
         foreach (Vector3Int position in args.positions)
         {
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
+
+            if (idPosition.x < 0 || idPosition.x >= levelWidth || idPosition.y < 0 || idPosition.y >= levelHeight)
+            {
+                break;
+            }
 
             temporalTileLevel.SetTile(position, tile);
 
@@ -164,18 +193,22 @@ public class Grid2D : MonoBehaviour
         {
             return;
         }
+        BorrowTileBaseAtPositionArgs borrowArgs = new BorrowTileBaseAtPositionArgs(args.positions);
+        BorrowTileBaseAtPositions(sender, borrowArgs);
 
         TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(args.tileBaseId, tileBaseWidth);
         TileBase tile = tileLevelComponent.config.tileBase;
-        Tilemap tilelevel = tileLevelComponent.obj.GetComponent<Tilemap>();
+        ITileHandler tilelevel = TileMapStorageConversions.GetTileHandler(tileLevelComponent.config, tileLevelComponent.obj);
 
         foreach (Vector3Int position in args.positions)
         {
-            
-            Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
-            SetIdAtPosition(idPosition, args.tileBaseId);
 
-            tilelevel.SetTile(position, tile);
+            Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
+
+            bool canSetTile = tilelevel.SetTile(position, tile);
+
+            if (canSetTile)
+                SetIdAtPosition(idPosition, args.tileBaseId);
 
         }
     }
@@ -194,8 +227,7 @@ public class Grid2D : MonoBehaviour
             }
             // recovery id tile level
             TileMapComponent tileLevelComponent = tileLevelsFactory.GetTileMapComponent(id, tileBaseWidth);
-            TileBase tile = tileLevelComponent.config.tileBase;
-            Tilemap tilelevel = tileLevelComponent.obj.GetComponent<Tilemap>();
+            ITileHandler tilelevel = TileMapStorageConversions.GetTileHandler(tileLevelComponent.config, tileLevelComponent.obj);
 
             tilelevel.SetTile(position, null);
             SetIdAtPosition(idPosition, -1);
@@ -214,7 +246,11 @@ public class Grid2D : MonoBehaviour
             }
         }
     }
-    public void LoadLevelFromParseLevel(int[,] levelIds){
+
+    #endregion Alter tiles
+
+    public void LoadLevelFromParseLevel(int[,] levelIds)
+    {
 
         ClearAllTiles();
 
@@ -222,23 +258,73 @@ public class Grid2D : MonoBehaviour
         {
             for (int j = 0; j < levelIds.GetLength(1); j++)
             {
+                if (levelIds[i, j] == -1)
+                {
+                    continue; // Skip empty tiles
+                }
+                if (levelIds[i, j] < 0)
+                {
+                    Debug.LogError($"Invalid tile ID at position ({i}, {j}): {levelIds[i, j]}");
+                    continue; // Skip invalid tile IDs
+                }
+
+                if (levelIds[i, j] == 8)
+                {
+                    Vector2 tilePosition = ConvertLevelIndexToTileMapPosition(new Vector2Int(i, j));
+                    GameLevelEvents.TriggerSetBallInitialPosition(tilePosition);
+                }
+
                 Vector3Int position = new Vector3Int(i - levelWidth / 2, j - levelHeight / 2, 0);
                 DrawTileBaseAtPositions(this, new DrawTileBaseAtPositionsArgs(levelIds[i, j], position));
             }
         }
 
         this.levelIds = levelIds;
-        
+
     }
 
-    private void LoadLevel(object sender, EventArgs e)
-    {
-        // Implement your load level logic here
-        Debug.Log("Level loaded.");
-    }
+    #region Getters and Setters
     public int[,] GetLevelIds()
     {
         return levelIds;
     }
+
+    public int GetLevelWidth()
+    {
+        return levelWidth;
+    }
+    public int GetLevelHeight()
+    {
+        return levelHeight;
+    }
+
+    public void SetLevelWidth(int newWidth)
+    {
+        if (newWidth < 0)
+        {
+            newWidth = Mathf.Abs(newWidth);
+        }
+
+        if (newWidth % 2 != 0)
+        {
+            newWidth++;
+        }
+        levelWidth = newWidth;
+    }
+
+    public void SetLevelHeight(int newHeight)
+    {
+        if (newHeight < 0)
+        {
+            newHeight = Mathf.Abs(newHeight);
+        }
+
+        if (newHeight % 2 != 0)
+        {
+            newHeight++;
+        }
+        levelHeight = newHeight;
+    }
+    #endregion Getters and Setters
 
 }

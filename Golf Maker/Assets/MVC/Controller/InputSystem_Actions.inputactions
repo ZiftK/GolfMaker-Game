@@ -2,31 +2,49 @@
     "name": "InputSystem_Actions",
     "maps": [
         {
-            "name": "Camera",
-            "id": "12166ab3-00ff-423f-8b21-870cdee8a4e8",
+            "name": "PlayerLevelEditor",
+            "id": "b695ac53-5c08-4738-a794-9bb8dfb54d6e",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "CameraMove",
                     "type": "Value",
-                    "id": "21121c53-3ebb-4e5d-8458-ee97c83e0197",
+                    "id": "1e73f952-dfd5-457e-b5b5-17d0b6bea32b",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Zoom",
+                    "name": "CameraZoom",
                     "type": "Value",
-                    "id": "33ab2612-62fb-484c-81a9-b4a06be447b9",
+                    "id": "f3a58129-26e0-40ab-8425-9ba53ced6bd2",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Run",
+                    "name": "CameraRun",
                     "type": "Button",
-                    "id": "f4e4c956-1207-4016-9ac7-7898665b3c27",
+                    "id": "490206e6-4ff3-4900-b2fb-b19e18a2f890",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "1bdf55e2-44e1-461f-aab4-edaefa878386",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightClick",
+                    "type": "Button",
+                    "id": "f57a5202-3ad4-49fa-b2e9-06938895edab",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -36,7 +54,172 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "586c55f2-df92-44f8-b08e-7358897d33e0",
+                    "id": "360169cd-9be0-4d35-b00a-0cbb91dfe8d4",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "f71f748a-0d6e-483b-ba5f-fb85ab2e3133",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "af73fb55-e51e-4fc9-b687-cb1a88ca4a47",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "81a59991-0f10-49de-bfdf-24d3073b004b",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b75bdf1c-182a-4668-b61c-8fcdae7dcbd6",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "44195dd7-999e-4dca-ba4d-725cac6938dd",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraZoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "511e1fd0-7c02-430b-9437-ab293b741484",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraZoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "516de259-efca-42cc-badc-998f07e5f4b8",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraZoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0ca07b15-736a-4259-963e-1088e872df0d",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb153df8-691a-4a83-ab57-2f1dbe3a49bf",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e150940-f5fc-4923-a7e3-8a278df3f2f2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PlayerGame",
+            "id": "331c41cf-bfd0-4f9d-9cde-9d4f623b63e5",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "a598122a-7afb-499c-8166-892e92df072a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "874a59a9-aeb6-44eb-9b1b-21aaf58d0896",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "1efca6ed-8e34-4ce0-9223-5049d8d8c142",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftClick",
+                    "type": "Button",
+                    "id": "c4b42b1d-df45-4668-8452-df241a22d534",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "c92bf64a-ca5d-4041-abf0-a2b166fefe91",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -47,7 +230,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "05953b8c-4d07-4dda-bcfc-cb2c9e79976c",
+                    "id": "240ee281-c080-4992-b364-a1d5ca9d47ec",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -58,7 +241,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "152c5bec-1ef4-4edd-86a4-e9accca9e6c4",
+                    "id": "e0a12ed2-29d2-4e86-9de4-a9da7810ea07",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -69,7 +252,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "764ec1a5-7f00-4d0c-9470-b27ebc2c913b",
+                    "id": "7f49412c-3b89-418c-99d1-96ed1000397e",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -80,7 +263,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "7e92b6e5-9b86-402b-9fcf-f64c4febc0c8",
+                    "id": "261c635e-d86d-4d27-b553-56a686fa3cc0",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -91,7 +274,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "2a8b5cd4-c67a-4eda-afd6-bf1c1169107f",
+                    "id": "a9b3b5dc-0600-46de-9be1-3f9a06888f2d",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -102,7 +285,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "2e8599fd-120f-49f9-9be3-e290d7dd3d7d",
+                    "id": "29153eb9-0abe-4778-867c-91596cdc1907",
                     "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
@@ -113,7 +296,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "4d268c37-df2a-4ab2-bc0d-34d910eba528",
+                    "id": "f25650a8-fb41-4641-b212-a03d6550165f",
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
@@ -124,7 +307,7 @@
                 },
                 {
                     "name": "",
-                    "id": "4acd58b8-7ad5-424b-b7fa-186a26e527dd",
+                    "id": "89d0dd9d-5e36-4a8b-b1f9-9afc1d7070f3",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
@@ -132,72 +315,15 @@
                     "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Map",
-            "id": "8aecfa7e-0b39-4f14-95c5-cdc82de93200",
-            "actions": [
-                {
-                    "name": "Save",
-                    "type": "Button",
-                    "id": "02296c97-39d9-4105-b87a-7c64b49dafa8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Load",
-                    "type": "Button",
-                    "id": "f2af7487-1065-4219-8dc4-fef26f81ce50",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Exit",
-                    "type": "Button",
-                    "id": "88656aa8-b097-4fce-82a0-cf7e0d4ef3f1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "30aacfcf-3e6f-49f4-aad1-9d8304b9f861",
-                    "path": "<Keyboard>/k",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Save",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d5917735-7e6d-4e11-8669-4cee94a623ec",
-                    "path": "<Keyboard>/l",
+                    "id": "813ce13e-8625-4746-8360-8c4a430ba778",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Load",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7f077c68-fc26-4fac-ae76-1661dd84660d",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Exit",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -714,135 +840,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Pencil",
-            "id": "0057ef4b-2e19-4c4e-80f8-4691bfa4c479",
-            "actions": [
-                {
-                    "name": "LeftClick",
-                    "type": "Button",
-                    "id": "1bae660a-29c4-4882-bdbf-86fd0d570a71",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightClick",
-                    "type": "Button",
-                    "id": "f265abd9-05a9-4e86-8103-29d937dd50e7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SwitchPencil",
-                    "type": "Button",
-                    "id": "162601e6-0702-44d5-a03f-74282841c572",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "76251c65-c93d-46e6-9862-866d0b9a04bd",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4aeae78d-9299-430c-8f27-97a85bde73ad",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e84a581d-bc05-4dae-a858-003631b1ad99",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchPencil",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "65eb7245-3f28-4d3f-94fc-931476c8e400",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchPencil",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9f766f4c-8523-4f36-862e-1d323bdfe208",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchPencil",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9a2ee299-a170-48f3-8167-2099dbe6961a",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwitchPencil",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Ball",
-            "id": "63d6c59a-8e69-4ae7-8a1e-74242aff9e2f",
-            "actions": [
-                {
-                    "name": "LeftClick",
-                    "type": "Button",
-                    "id": "7a5c4b4b-aa65-4bf2-b4b5-320ffc25e9b9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "25b28ab8-7a26-49fa-b82d-798eb686b205",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

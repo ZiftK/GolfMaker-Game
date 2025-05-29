@@ -47,7 +47,7 @@ public class LevelParser
     /// levelIds will be a 2D array with values { { 1, 2 }, { 3, 4 } }
     /// </example>
     public static int[,] DeSerializeLevelIds(string serializedLevel)
-    {
+    {       
         string[] rows = serializedLevel.Split(';');
         int rowCount = rows.Length;
         int colCount = rows[0].Split(',').Length;
@@ -59,6 +59,8 @@ public class LevelParser
             string[] cols = rows[i].Split(',');
             for (int j = 0; j < colCount; j++)
             {
+                
+
                 levelIds[i, j] = int.Parse(cols[j]);
             }
         }
