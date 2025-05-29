@@ -7,6 +7,16 @@ using System;
 
 public class ServerLevelRepository : ILevelRepository
 {
+    private static ServerLevelRepository Instance;
+    public static ServerLevelRepository GetInstance()
+    {
+        if (Instance is null)
+        {
+            Instance = new ServerLevelRepository();
+        }
+        return Instance;
+    }
+
     private readonly string baseUrl = ServerEnv.levelsServerUrl; // Adjust this URL to match your server
 
     public async Task<List<LevelEntity>> GetAll()
