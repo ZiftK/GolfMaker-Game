@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class RepositoryManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class RepositoryManager : MonoBehaviour
     private VisualElement saveButton;
     private VisualElement resetButton;
 
+    private VisualElement leaveButton;
+
     private EditorLevelEvents editorLevelEvents;
 
 
@@ -16,7 +19,7 @@ public class RepositoryManager : MonoBehaviour
         editorLevelEvents = EditorLevelEvents.GetInstance();
 
         var root = uIDocument.rootVisualElement;
-        
+
         saveButton = root.Q<Button>("save-tool");
         saveButton.RegisterCallback<ClickEvent>(_ =>
         {
@@ -27,6 +30,12 @@ public class RepositoryManager : MonoBehaviour
         resetButton.RegisterCallback<ClickEvent>(_ =>
         {
             editorLevelEvents.OnLoadLevel();
+        });
+
+        leaveButton = root.Q<Button>("leave-tool");
+        leaveButton.RegisterCallback<ClickEvent>(_ =>
+        {
+            SceneManager.LoadScene("Root");
         });
     }
 }
