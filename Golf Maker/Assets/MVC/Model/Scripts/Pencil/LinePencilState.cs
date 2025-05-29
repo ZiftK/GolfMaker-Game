@@ -1,12 +1,12 @@
 
 using UnityEngine;
-public class LinePencilState : PencilState
+public class LinePencilState : PencilState, IUpdatePencilState
 {
     Vector3Int initialPoint, finalPoint;
     
     private static LinePencilState instance;
 
-    public static PencilState GetInstance()
+    public static LinePencilState GetInstance()
     {
         if (instance == null){
             instance = new LinePencilState();
@@ -66,7 +66,7 @@ public class LinePencilState : PencilState
         this.IsBorrowing = false;
     }
 
-    public override void Update(PencilContext context)
+    public void Update(PencilContext context)
     {
 
 

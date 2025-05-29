@@ -6,6 +6,7 @@ public class PencilController : MonoBehaviour
 {
     
     private PencilState currentState;
+    private IUpdatePencilState currentUpdateState;
 
     public float temporalTileOpacity = 0.5f;
 
@@ -17,6 +18,7 @@ public class PencilController : MonoBehaviour
     {
         // currentState = PointPencilState.GetInstance();
         currentState = PointPencilState.GetInstance();
+        currentUpdateState = PointPencilState.GetInstance();
         editorLevelHandler = EditorLevelEvents.GetInstance();
 
         editorLevelHandler.SelectBlock += OnSelectBlock;
@@ -27,12 +29,16 @@ public class PencilController : MonoBehaviour
     void Update()
     {
 
-        currentState.Update(
+        Debug.Log(currentUpdateState);
+        if (currentUpdateState is not null)
+        {
+            currentUpdateState.Update(
             new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
                 tileId
                 )
                 );
+        }
     }
 
     public void OnSelectBlock(object sender, SelectBlockArgs args)
@@ -45,17 +51,22 @@ public class PencilController : MonoBehaviour
         // Handle the selection of different pencil types
         switch (args.pincelName)
         {
+
             case "pen":
                 currentState = PointPencilState.GetInstance();
-                break;
-            case "fill":
-                currentState = BucketPencilState.GetInstance();
-                break;
-            case "brush":
-                currentState = SquarePencilState.GetInstance();
+                currentUpdateState = PointPencilState.GetInstance();
                 break;
             case "ruler":
                 currentState = LinePencilState.GetInstance();
+                currentUpdateState = LinePencilState.GetInstance();
+                break;
+            case "brush":
+                currentState = SquarePencilState.GetInstance();
+                currentUpdateState = SquarePencilState.GetInstance();
+                break;
+            case "fill":
+                currentState = BucketPencilState.GetInstance();
+                currentUpdateState = null;
                 break;
             default:
                 Debug.LogWarning("Unhandled pencil type: " + args.pincelName);
@@ -105,31 +116,6 @@ public class PencilController : MonoBehaviour
                 tileId
                 )
             );
-        }
-    }
-
-    public void OnSwitchPencil(InputAction.CallbackContext context){
-        if (context.performed){
-            int bindingIndex = context.action.GetBindingIndexForControl(context.control);
-
-            // Handle the binding index to switch pencil states
-            switch (bindingIndex){
-                case 0:
-                    currentState = PointPencilState.GetInstance();
-                    break;
-                case 1:
-                    currentState = LinePencilState.GetInstance();
-                    break;
-                case 2:
-                    currentState = SquarePencilState.GetInstance();
-                    break;
-                case 3:
-                    currentState = BucketPencilState.GetInstance();
-                    break;
-                default:
-                    Debug.LogWarning("Unhandled binding index for SwitchPencil action");
-                    break;
-            }
         }
     }
 }

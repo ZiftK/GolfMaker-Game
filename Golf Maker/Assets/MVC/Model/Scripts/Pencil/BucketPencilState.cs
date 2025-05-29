@@ -8,7 +8,7 @@ public class BucketPencilState : PencilState
 {
     private static BucketPencilState instance;
     
-    public static PencilState GetInstance()
+    public static BucketPencilState GetInstance()
     {
         if (instance == null)
         {
@@ -112,10 +112,5 @@ public class BucketPencilState : PencilState
         Vector3Int[] floodBorrowCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), Grid2D.Instance.GetLevelIds());
         BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(floodBorrowCoords);
         pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
-    }
-
-    public override void Update(PencilContext context)
-    {
-        
     }
 }

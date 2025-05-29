@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PointPencilState : PencilState
+public class PointPencilState : PencilState, IUpdatePencilState
 {
 
     private static PointPencilState instance;
-    public static PencilState GetInstance()
+    public static PointPencilState GetInstance()
     {
         if (instance == null){
             instance = new PointPencilState();
@@ -23,7 +23,7 @@ public class PointPencilState : PencilState
         this.IsDrawing = false;
     }
 
-    public override void Update(PencilContext context)
+    public void Update(PencilContext context)
     {
         if (this.IsDrawing){
             DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, context.position);
