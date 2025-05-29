@@ -23,4 +23,8 @@ public class EnvDataHandler : MonoBehaviour
     {
         userData = user;
     }
+
+    public bool HasData() => !(userData is null);
+
+    public int GetCurrentUserId() => userData.id_usuario;
 }
