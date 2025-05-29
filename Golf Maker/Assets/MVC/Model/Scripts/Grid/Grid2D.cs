@@ -68,8 +68,8 @@ public class Grid2D : MonoBehaviour
     private void InitVariables()
     {
 
-        levelWidth = levelWidth % 2 == 0 ? levelWidth : levelWidth + 1;
-        levelHeight = levelHeight % 2 == 0 ? levelHeight : levelHeight + 1;
+        SetLevelWidth(levelWidth);
+        SetLevelHeight(levelHeight);
 
         levelIds = new int[levelWidth, levelHeight];
 
