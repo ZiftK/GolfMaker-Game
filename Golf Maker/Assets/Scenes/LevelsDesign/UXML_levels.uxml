@@ -18,6 +18,7 @@
                         <ui:VisualElement name="ruler-icon" class="tool-icon ruler-icon" />
                     </ui:Button>
                 </ui:VisualElement>
+                <ui:TextField placeholder-text="Level name" name="name-tool" password="false" style="justify-content: flex-start; align-self: stretch;" />
                 <ui:Button text="Save" name="save-tool" style="transform-origin: center; translate: 0 20px;" />
                 <ui:Button text="Reset" name="reset-tool" style="transform-origin: center; translate: 0 20px;" />
                 <ui:Button text="Leave" name="leave-tool" style="transform-origin: center; translate: 0 20px;" />
