@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bc1d0bd04c8074390df1f84c1c4381, type: 3}
   m_Name: PlaceObjectComponents
   m_EditorClassIdentifier: 
+  placeObjectConfigs:
+  - name: coin
+    prefab: {fileID: 5777477389580582283, guid: 8dcc715d314c57f5b9c8dafc33212d03, type: 3}

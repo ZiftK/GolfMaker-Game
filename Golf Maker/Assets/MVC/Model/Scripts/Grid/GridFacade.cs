@@ -69,7 +69,7 @@ public class GridFacade : MonoBehaviour
         gridRenderer.InitVisualGrid(levelWidth, levelHeight, globalTilingId);
         tilesRenderer.InitVisualGridTiles(tileBaseWidth);
         idStorage.InitGridIdStorage(levelWidth, levelHeight);
-        objectsPlacer.InitGridObjectsPlacer();
+        objectsPlacer.InitGridObjectsPlacer(tileBaseWidth);
 
     }
 
