@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Grid), typeof(Tilemap), typeof(VisualGridRenderer))]
@@ -79,11 +80,14 @@ public class GridFacade : MonoBehaviour
     private void SuscribeEvents()
     {
         PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
+        EditorLevelEvents editorLevelEvents = EditorLevelEvents.GetInstance();
 
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
         pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
+
+        editorLevelEvents.ResetLevel += ResetLevel;
 
 
     }
@@ -220,6 +224,11 @@ public class GridFacade : MonoBehaviour
 
         idStorage.SetAllIds(levelIds);
 
+    }
+
+    void ResetLevel(object sender, ResetLevelArgs args) {
+        int[,] levelIds = LevelParser.DeSerializeLevelIds(args.levelStruct);
+        LoadLevelFromParseLevel(levelIds);
     }
 
     #region Getters and Setters
