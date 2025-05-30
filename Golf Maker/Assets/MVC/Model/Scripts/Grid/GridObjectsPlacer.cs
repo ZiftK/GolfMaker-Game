@@ -58,17 +58,26 @@ public class GridObjectsPlacer : MonoBehaviour
         if (objectsPos.ContainsKey(position)) return;
 
         GameObject prefab = PlaceObjectsFactory.GetPlaceObjectByName(placeObjectName);
+        if (prefab == null)
+        {
+            Debug.LogError($"[GridObjectsPlacer] El prefab para '{placeObjectName}' es null. Revisa PlaceObjectsFactory y el storage.");
+            return;
+        }
         GameObject instance = Instantiate(prefab, transform);
 
         instance.transform.position = FixPosition(position);
         RecordObject(position, instance, placeObjectName);
-
     }
     public void PlaceObjectAtPosition(Vector3Int position, int id)
     {
         if (objectsPos.ContainsKey(position)) return;
 
         GameObject prefab = PlaceObjectsFactory.GetPlaceObjectById(id, out string name);
+        if (prefab == null)
+        {
+            Debug.LogError($"[GridObjectsPlacer] El prefab para id '{id}' (nombre: {name}) es null. Revisa PlaceObjectsFactory y el storage.");
+            return;
+        }
         GameObject instance = Instantiate(prefab, transform);
 
         instance.transform.position = FixPosition(position);
