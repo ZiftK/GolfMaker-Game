@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -37,9 +38,19 @@ public class BucketPencilState : PencilState
 
         Vector3Int[] floodFillCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), mapIds);
 
-        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, floodFillCoords);
-        pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
-        pencilEventsHandler.OnDrawTileBaseAtPosition(args); 
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, floodFillCoords);
+                pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
+                pencilEventsHandler.OnDrawTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Bucket pencil can't use objects");
+                break;
+        }
         
     }
 
@@ -109,8 +120,20 @@ public class BucketPencilState : PencilState
 
         this.IsBorrowing = false;
 
-        Vector3Int[] floodBorrowCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), GridFacade.Instance.GetLevelIds());
-        BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(floodBorrowCoords);
-        pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+        
+
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                Vector3Int[] floodBorrowCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), GridFacade.Instance.GetLevelIds());
+                BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(floodBorrowCoords);
+                pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Bucket pencil can't use objects");
+                break;
+        }
     }
 }
