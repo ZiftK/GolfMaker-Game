@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // ✅ Métodos semánticos (más legibles para llamar desde otros scripts)
+    
     public void ShowLogin() => SwitchCanvas(0);
     public void ShowMainMenu() => SwitchCanvas(1);
     public void ShowPlayDesignMenu() => SwitchCanvas(2);

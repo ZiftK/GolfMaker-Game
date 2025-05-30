@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class PrimalLoginHandler : MonoBehaviour
+public class LoginButtonsController : MonoBehaviour
 {
     private VisualElement root;
     private VisualElement formContainer;
@@ -21,7 +21,7 @@ public class PrimalLoginHandler : MonoBehaviour
 
         if (EnvDataHandler.Instance.HasData())
         {
-            UIManager.Instance.ShowMainMenu(); // ✅ Más claro
+            UIManager.Instance.ShowMainMenu(); 
         }
     }
 
@@ -179,7 +179,7 @@ public class PrimalLoginHandler : MonoBehaviour
         }
 
         EnvDataHandler.Instance.SetUserData(user);
-        UIManager.Instance.ShowMainMenu(); // ✅ Cambio limpio
+        UIManager.Instance.ShowMainMenu(); 
     }
 
     public void OnCreateLevelButtonClickEvent()
@@ -189,7 +189,7 @@ public class PrimalLoginHandler : MonoBehaviour
 
     // public void OnLevelListButtonClickEvent()
     // {
-    //     UIManager.Instance.ShowLevelList(); // ✅ Cambio limpio
+    //     UIManager.Instance.ShowLevelList(); 
 
     //     foreach (Transform child in content.transform)
     //     {
