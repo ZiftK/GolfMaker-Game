@@ -42,6 +42,14 @@ public class PlaceObjectsFactory : MonoBehaviour
         return configs[0].prefab;
     }
 
+    public static GameObject GetPlaceObjectById(int id, out string name)
+    {
+
+        List<PlaceObjectConfig> configs = map.Values.Where(config => config.id == id).ToList();
+        name = configs[0].name;
+        return configs[0].prefab;
+    }
+
     public static int GetPlaceObjectIdByName(string name)
     {
         if (!map.ContainsKey(name))
