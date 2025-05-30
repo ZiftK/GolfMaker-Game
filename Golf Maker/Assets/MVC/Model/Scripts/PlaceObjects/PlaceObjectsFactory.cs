@@ -37,8 +37,9 @@ public class PlaceObjectsFactory : MonoBehaviour
     public static GameObject GetPlaceObjectById(int id)
     {
 
-        PlaceObjectConfig config = map.Values.Where(config => config.id == id).ToList()[0];
-        return config.prefab;
+        List<PlaceObjectConfig> configs = map.Values.Where(config => config.id == id).ToList();
+
+        return configs[0].prefab;
     }
 
     public static int GetPlaceObjectIdByName(string name)

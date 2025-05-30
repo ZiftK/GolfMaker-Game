@@ -26,7 +26,7 @@ public class BucketPencilState : PencilState
         if (!this.IsDrawing) return;
         this.IsDrawing = false;
 
-        if (context.tileId == 8)
+        if (context.id == 8)
         {
             Debug.LogWarning("You cannot use the bucket pencil with the initial tile.");
             return;
@@ -37,7 +37,7 @@ public class BucketPencilState : PencilState
 
         Vector3Int[] floodFillCoords = this.GetFloodPoints(Vector3Int.RoundToInt(context.position), mapIds);
 
-        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, floodFillCoords);
+        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, floodFillCoords);
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args); 
         
