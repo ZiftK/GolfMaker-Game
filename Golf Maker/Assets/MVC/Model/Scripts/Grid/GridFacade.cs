@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -66,10 +67,7 @@ public class GridFacade : MonoBehaviour
         GetComponents();
         SuscribeEvents();
 
-        gridRenderer.InitVisualGrid(levelWidth, levelHeight, globalTilingId);
-        tilesRenderer.InitVisualGridTiles(tileBaseWidth);
-        idStorage.InitGridIdStorage(levelWidth, levelHeight);
-        objectsPlacer.InitGridObjectsPlacer(tileBaseWidth);
+        InitComponents();
 
     }
 
