@@ -1,9 +1,26 @@
+/**
+ * @fileoverview Controlador de usuarios que maneja todas las operaciones relacionadas con usuarios.
+ * Este módulo proporciona funciones para crear, leer, actualizar y eliminar usuarios,
+ * así como para obtener información relacionada con sus niveles y estadísticas.
+ * 
+ * @module controllers/usuariosController
+ * @requires express
+ * @requires ./controllersRepository
+ */
+
 import { Request, Response } from 'express';
 import controllersRepository from './controllersRepository';
 import { Usuario } from '../repository/abstract/UsuarioRepository';
 
 const { usuarioRepository, nivelRepository, estadisticaRepository } = controllersRepository;
 
+/**
+ * Obtiene todos los usuarios registrados en el sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de usuarios o un error
+ */
 export const getAllUsuarios = async (req: Request, res: Response): Promise<void> => {
   try {
     const usuarios = await usuarioRepository.getAll();
@@ -13,6 +30,13 @@ export const getAllUsuarios = async (req: Request, res: Response): Promise<void>
   }
 };
 
+/**
+ * Crea un nuevo usuario en el sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con los datos del usuario en el body
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con el usuario creado o un error
+ */
 export const createUsuario = async (req: Request, res: Response): Promise<void> => {
   try {
     const usuarioData: Omit<Usuario, 'id_usuario' | 'fecha_registro'> = {
@@ -30,6 +54,13 @@ export const createUsuario = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+/**
+ * Actualiza la información de un usuario existente
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario en params y datos actualizados en body
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con el usuario actualizado o un error
+ */
 export const updateUsuario = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -54,6 +85,13 @@ export const updateUsuario = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+/**
+ * Elimina un usuario del sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con código 204 si se elimina correctamente o un error
+ */
 export const deleteUsuario = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -69,6 +107,13 @@ export const deleteUsuario = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+/**
+ * Obtiene un usuario por su ID
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con el usuario encontrado o un error
+ */
 export const getUsuarioById = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -88,6 +133,13 @@ export const getUsuarioById = async (req: Request, res: Response): Promise<void>
   }
 };
 
+/**
+ * Obtiene todos los niveles creados por un usuario específico
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de niveles o un error
+ */
 export const getNivelesCreadosPorUsuario = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -103,6 +155,13 @@ export const getNivelesCreadosPorUsuario = async (req: Request, res: Response): 
   }
 };
 
+/**
+ * Obtiene todos los niveles jugados por un usuario específico
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de niveles jugados o un error
+ */
 export const getNivelesJugadosPorUsuario = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -118,6 +177,13 @@ export const getNivelesJugadosPorUsuario = async (req: Request, res: Response): 
   }
 };
 
+/**
+ * Obtiene un usuario por su nombre de usuario
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el nombre de usuario en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con el usuario encontrado o un error
+ */
 export const getUsuarioByUsername = async (req: Request, res: Response): Promise<void> => {
   try {
     const { nombreUsuario } = req.params;

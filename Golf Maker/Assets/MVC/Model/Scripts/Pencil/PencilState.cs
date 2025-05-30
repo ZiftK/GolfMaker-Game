@@ -1,18 +1,26 @@
 
 using UnityEngine;
-
+public enum PencilSetType
+{
+    Tile,
+    PlaceObject
+}
 
 public struct PencilContext
 {
 
 
-    public PencilContext(Vector3Int position, int tileId)
+    public PencilContext(Vector3Int position, int id, PencilSetType setType)
     {
         this.position = position;
-        this.tileId = tileId;
+        this.id = id;
+        this.setType = setType;
     }
     public Vector3Int position;
-    public int tileId;
+    public int id;
+
+    public PencilSetType setType;
+
 }
 
 public interface IUpdatePencilState

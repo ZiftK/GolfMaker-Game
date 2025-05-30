@@ -25,14 +25,29 @@ public class PointPencilState : PencilState, IUpdatePencilState
 
     public void Update(PencilContext context)
     {
-        if (this.IsDrawing){
-            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, context.position);
-            pencilEventsHandler.OnDrawTileBaseAtPosition(args);
-        }
-        if (this.IsBorrowing){
-            
-            BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(context.position);
-            pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                if (this.IsDrawing)
+                {
+                    DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, context.position);
+                    pencilEventsHandler.OnDrawTileBaseAtPosition(args);
+                }
+                if (this.IsBorrowing)
+                {
+
+                    BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(context.position);
+                    pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+                }
+                break;
+
+            case PencilSetType.PlaceObject:
+                if (this.IsDrawing)
+                {
+                    PlaceObjectAtPositionsArgs args = new PlaceObjectAtPositionsArgs(context.id, context.position);
+                    pencilEventsHandler.OnPlaceObjectAtPosition(args);
+                }
+                break;
         }
     }
 

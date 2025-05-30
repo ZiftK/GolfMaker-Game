@@ -26,7 +26,7 @@ public class SquarePencilState : PencilState, IUpdatePencilState
         if (!this.IsDrawing) return;
          this.IsDrawing = false;
 
-        if (context.tileId == 8)
+        if (context.id == 8)
         {
             Debug.LogWarning("You cannot use the square pencil with the initial tile.");
             return;
@@ -37,7 +37,7 @@ public class SquarePencilState : PencilState, IUpdatePencilState
         // get positions between initial and final point
         Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, finalPoint);
         // draw tile base at positions
-        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, squareCoords);
+        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, squareCoords);
         pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         
@@ -75,7 +75,7 @@ public class SquarePencilState : PencilState, IUpdatePencilState
             pencilEventsHandler.OnClearTemporalTiles();
 
             Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, context.position);
-            DrawTileBaseAtPositionsArgs args = new(context.tileId, squareCoords);
+            DrawTileBaseAtPositionsArgs args = new(context.id, squareCoords);
             pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
         }
 

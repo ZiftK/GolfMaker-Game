@@ -1,9 +1,26 @@
+/**
+ * @fileoverview Controlador de estadísticas que maneja todas las operaciones relacionadas con las estadísticas del juego.
+ * Este módulo proporciona funciones para crear, leer, actualizar y eliminar estadísticas de jugadores,
+ * así como para obtener información relacionada con el rendimiento en niveles específicos.
+ * 
+ * @module controllers/estadisticasController
+ * @requires express
+ * @requires ./controllersRepository
+ */
+
 import { Request, Response } from 'express';
 import controllersRepository from './controllersRepository';
 import { Estadistica } from '../repository/abstract/EstadisticaRepository';
 
 const { estadisticaRepository } = controllersRepository;
 
+/**
+ * Obtiene todas las estadísticas registradas en el sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de estadísticas o un error
+ */
 export const getAllEstadisticas = async (req: Request, res: Response): Promise<void> => {
   try {
     const estadisticas = await estadisticaRepository.getAll();
@@ -13,6 +30,14 @@ export const getAllEstadisticas = async (req: Request, res: Response): Promise<v
   }
 };
 
+/**
+ * Crea un nuevo registro de estadísticas en el sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con los datos de estadística en el body
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con la estadística creada o un error
+ * @throws {Error} Si la calificación general está fuera del rango válido (0-5)
+ */
 export const createEstadistica = async (req: Request, res: Response): Promise<void> => {
   try {
     const estadisticaData = {
@@ -39,6 +64,14 @@ export const createEstadistica = async (req: Request, res: Response): Promise<vo
   }
 };
 
+/**
+ * Actualiza un registro de estadísticas existente
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID de la estadística en params y datos actualizados en body
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con la estadística actualizada o un error
+ * @throws {Error} Si la calificación general está fuera del rango válido (0-5)
+ */
 export const updateEstadistica = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -70,6 +103,13 @@ export const updateEstadistica = async (req: Request, res: Response): Promise<vo
   }
 };
 
+/**
+ * Elimina un registro de estadísticas del sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID de la estadística en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con código 204 si se elimina correctamente o un error
+ */
 export const deleteEstadistica = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -85,6 +125,13 @@ export const deleteEstadistica = async (req: Request, res: Response): Promise<vo
   }
 };
 
+/**
+ * Obtiene todas las estadísticas de un usuario específico
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de estadísticas del usuario o un error
+ */
 export const getEstadisticasByUsuario = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -100,6 +147,13 @@ export const getEstadisticasByUsuario = async (req: Request, res: Response): Pro
   }
 };
 
+/**
+ * Obtiene todas las estadísticas de un nivel específico
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del nivel en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de estadísticas del nivel o un error
+ */
 export const getEstadisticasByNivel = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -115,6 +169,13 @@ export const getEstadisticasByNivel = async (req: Request, res: Response): Promi
   }
 };
 
+/**
+ * Obtiene las estadísticas específicas de un usuario en un nivel particular
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del usuario y del nivel en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con las estadísticas encontradas o un error
+ */
 export const getEstadisticasByUsuarioAndNivel = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = parseInt(req.params.userId);

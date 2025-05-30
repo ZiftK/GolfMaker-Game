@@ -1,9 +1,26 @@
+/**
+ * @fileoverview Controlador de calificaciones que maneja todas las operaciones relacionadas con las valoraciones de niveles.
+ * Este módulo proporciona funciones para crear, leer, actualizar y eliminar calificaciones,
+ * así como para calcular promedios de calificaciones por nivel.
+ * 
+ * @module controllers/ratingController
+ * @requires express
+ * @requires ./controllersRepository
+ */
+
 import { Request, Response } from 'express';
 import controllersRepository from './controllersRepository';
 import { Rating } from '../repository/abstract/RatingRepository';
 
 const { ratingRepository } = controllersRepository;
 
+/**
+ * Obtiene todas las calificaciones registradas en el sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con un array de calificaciones o un error
+ */
 export const getAllRatings = async (req: Request, res: Response): Promise<void> => {
   try {
     const ratings = await ratingRepository.getAll();
@@ -13,6 +30,14 @@ export const getAllRatings = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+/**
+ * Crea una nueva calificación en el sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con los datos de la calificación en el body
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con la calificación creada o un error
+ * @throws {Error} Si la calificación está fuera del rango válido (1-5)
+ */
 export const createRating = async (req: Request, res: Response): Promise<void> => {
   try {
     const ratingData: Omit<Rating, 'id_rating' | 'fecha_rating'> = {
@@ -35,6 +60,14 @@ export const createRating = async (req: Request, res: Response): Promise<void> =
   }
 };
 
+/**
+ * Actualiza una calificación existente
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID de la calificación en params y datos actualizados en body
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con la calificación actualizada o un error
+ * @throws {Error} Si la calificación está fuera del rango válido (1-5)
+ */
 export const updateRating = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -63,6 +96,13 @@ export const updateRating = async (req: Request, res: Response): Promise<void> =
   }
 };
 
+/**
+ * Elimina una calificación del sistema
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID de la calificación en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con código 204 si se elimina correctamente o un error
+ */
 export const deleteRating = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
@@ -78,6 +118,13 @@ export const deleteRating = async (req: Request, res: Response): Promise<void> =
   }
 };
 
+/**
+ * Obtiene el promedio de calificaciones de un nivel específico
+ * @async
+ * @param {Request} req - Objeto de solicitud Express con el ID del nivel en params
+ * @param {Response} res - Objeto de respuesta Express
+ * @returns {Promise<void>} Responde con el promedio de calificaciones del nivel o un error
+ */
 export const getAverageRatingByLevel = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);

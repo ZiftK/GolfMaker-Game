@@ -1,3 +1,17 @@
+/**
+ * @fileoverview Pruebas de integración para las rutas de la API.
+ * Este módulo contiene pruebas end-to-end para todas las rutas HTTP de la API,
+ * verificando el comportamiento correcto de los endpoints y sus respuestas.
+ * 
+ * @module tests/routes.test
+ * @requires supertest
+ * @requires express
+ * @requires ../routes/usuarios
+ * @requires ../routes/niveles
+ * @requires ../routes/rating
+ * @requires ../routes/estadisticas
+ */
+
 import request from 'supertest';
 import express from 'express';
 import usuariosRoutes from '../routes/usuarios';
@@ -5,7 +19,10 @@ import nivelesRoutes from '../routes/niveles';
 import ratingRoutes from '../routes/rating';
 import estadisticasRoutes from '../routes/estadisticas';
 
-// Mock repositories
+/**
+ * Mocks de repositorios comentados para referencia futura
+ * Estos mocks pueden ser descomentados y modificados según las necesidades de prueba
+ */
 // jest.mock('../repository/concrete/SupabaseUsuarioRepository', () => ({
 //   SupabaseUsuarioRepository: jest.fn().mockImplementation(() => ({
 //     getAll: jest.fn().mockResolvedValue([]),
@@ -47,17 +64,30 @@ import estadisticasRoutes from '../routes/estadisticas';
 //   }))
 // }));
 
+/**
+ * Configuración de la aplicación Express para pruebas
+ * @constant {express.Application} app
+ */
 const app = express();
 app.use(express.json());
 
-// Mount routes
+/**
+ * Montaje de rutas para pruebas
+ */
 app.use('/usuarios', usuariosRoutes);
 app.use('/niveles', nivelesRoutes);
 app.use('/rating', ratingRoutes);
 app.use('/estadisticas', estadisticasRoutes);
 
+/**
+ * Suite principal de pruebas de la API
+ * @description Prueba todos los endpoints principales de la API
+ */
 describe('API Routes Tests', () => {
-  // Usuarios Routes
+  /**
+   * Pruebas de rutas de Usuarios
+   * @description Verifica todas las operaciones CRUD y endpoints específicos de usuarios
+   */
   describe('Usuarios Routes', () => {
     it('GET /usuarios should return all users', async () => {
       const response = await request(app).get('/usuarios');
@@ -89,7 +119,10 @@ describe('API Routes Tests', () => {
     });
   });
 
-  // Niveles Routes
+  /**
+   * Pruebas de rutas de Niveles
+   * @description Verifica todas las operaciones CRUD y endpoints específicos de niveles
+   */
   describe('Niveles Routes', () => {
     it('GET /niveles should return all levels', async () => {
       const response = await request(app).get('/niveles');
@@ -121,7 +154,10 @@ describe('API Routes Tests', () => {
     });
   });
 
-  // Rating Routes
+  /**
+   * Pruebas de rutas de Calificaciones
+   * @description Verifica operaciones de calificación y cálculo de promedios
+   */
   describe('Rating Routes', () => {
     it('GET /rating should return all ratings', async () => {
       const response = await request(app).get('/rating');
@@ -143,7 +179,10 @@ describe('API Routes Tests', () => {
     });
   });
 
-  // Estadisticas Routes
+  /**
+   * Pruebas de rutas de Estadísticas
+   * @description Verifica operaciones CRUD y consultas específicas de estadísticas
+   */
   describe('Estadisticas Routes', () => {
     it('GET /estadisticas should return all statistics', async () => {
       const response = await request(app).get('/estadisticas');
