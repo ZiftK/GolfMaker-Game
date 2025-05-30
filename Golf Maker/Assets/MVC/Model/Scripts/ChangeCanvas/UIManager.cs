@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     [Header("Level List Canvas")]
     public UIDocument levelList;
 
+    [Header("Level Play")]
+    public UIDocument levelPlayCanvas;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -70,7 +73,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    
+
     public void ShowLogin() => SwitchCanvas(0);
     public void ShowMainMenu() => SwitchCanvas(1);
     public void ShowPlayDesignMenu() => SwitchCanvas(2);
