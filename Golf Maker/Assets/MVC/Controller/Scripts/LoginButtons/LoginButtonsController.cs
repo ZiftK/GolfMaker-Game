@@ -21,7 +21,7 @@ public class LoginButtonsController : MonoBehaviour
 
         if (EnvDataHandler.Instance.HasData())
         {
-            UIManager.Instance.ShowMainMenu(); 
+            UIManager.Instance.ShowPlayDesignMenu(); 
         }
     }
 
@@ -152,7 +152,7 @@ public class LoginButtonsController : MonoBehaviour
         await userRepository.Create(user);
         EnvDataHandler.Instance.SetUserData(user);
         Debug.Log("Usuario registrado y logueado");
-        UIManager.Instance.ShowMainMenu(); // ✅ Usando el UIManager
+        UIManager.Instance.ShowPlayDesignMenu(); 
     }
 
     public async void OnLoginButtonClickEvent()
@@ -179,7 +179,7 @@ public class LoginButtonsController : MonoBehaviour
         }
 
         EnvDataHandler.Instance.SetUserData(user);
-        UIManager.Instance.ShowMainMenu(); 
+        UIManager.Instance.ShowPlayDesignMenu(); 
     }
 
     public void OnCreateLevelButtonClickEvent()

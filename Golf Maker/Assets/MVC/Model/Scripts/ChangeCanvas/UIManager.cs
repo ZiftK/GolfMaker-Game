@@ -42,8 +42,9 @@ public class UIManager : MonoBehaviour
         mainCanvas.gameObject.SetActive(false);
         playOrDesignCanvas.gameObject.SetActive(false);
         levelList.gameObject.SetActive(false);
-        myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
-        levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
+        //todo: add levels canvas
+        // myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
+        // levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
 
         switch (id)
         {
