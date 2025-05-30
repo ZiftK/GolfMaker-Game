@@ -154,6 +154,7 @@ MonoBehaviour:
   myLevelsCanvas: {fileID: 211875537}
   newLevelCanvas: {fileID: 961204449}
   levelList: {fileID: 211875537}
+  levelPlayCanvas: {fileID: 0}
 --- !u!4 &61946010
 Transform:
   m_ObjectHideFlags: 0
@@ -1012,7 +1013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &684148801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &961204448
 Transform:
   m_ObjectHideFlags: 0
@@ -1438,7 +1439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1274683207
 Transform:
   m_ObjectHideFlags: 0
