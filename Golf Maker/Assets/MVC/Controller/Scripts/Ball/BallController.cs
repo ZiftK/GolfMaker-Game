@@ -184,6 +184,7 @@ public class BallController : MonoBehaviour
 
         if (other.CompareTag("coin"))
         {
+            EffectsEvents.ThrowEffect("TakeCoin", other.transform.position);
             GameLevelEvents.TriggerTakeCoin();
             other.gameObject.SetActive(false);
         }

@@ -10,6 +10,7 @@ TagManager:
   - fall
   - lava
   - bricks-diagonal
+  - coin
   layers:
   - Default
   - TransparentFX
