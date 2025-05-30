@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -121,19 +122,26 @@ public class PrimalLoginHandler : MonoBehaviour
 
     public async Task ShowLevelsList()
     {
-        ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
-        List<LevelEntity> levels = await levelRepository.GetAll();
-
-        if (levels.Count == 0)
+        try
         {
-            Debug.Log("Sin niveles");
-            return;
+            ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
+            List<LevelEntity> levels = await levelRepository.GetAll();
+
+            if (levels == null || levels.Count == 0)
+            {
+                Debug.Log("Sin niveles");
+                return;
+            }
+
+            foreach (LevelEntity level in levels)
+            {
+                GameObject button = Instantiate(buttonPrefab, content.transform);
+                button.GetComponent<LevelButton>().Customize(level);
+            }
         }
-
-        foreach (LevelEntity level in levels)
+        catch (Exception ex)
         {
-            GameObject button = Instantiate(buttonPrefab, content.transform);
-            button.GetComponent<LevelButton>().Customize(level);
+            Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
         }
     }
 
