@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using UnityEngine;
 
 public class PlaceObjectsFactory : MonoBehaviour
@@ -30,6 +32,13 @@ public class PlaceObjectsFactory : MonoBehaviour
 
         map.TryGetValue(name, out PlaceObjectConfig val);
         return val.prefab;
+    }
+
+    public static GameObject GetPlaceObjectById(int id)
+    {
+
+        PlaceObjectConfig config = map.Values.Where(config => config.id == id).ToList()[0];
+        return config.prefab;
     }
 
     public static int GetPlaceObjectIdByName(string name)

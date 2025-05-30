@@ -34,6 +34,13 @@ public class GridObjectsPlacer : MonoBehaviour
 
         instance.transform.position = position;
     }
+    public void PlaceObjectAtPosition(Vector3Int position, int id)
+    {
+        GameObject prefab = PlaceObjectsFactory.GetPlaceObjectById(id);
+        GameObject instance = Instantiate(prefab);
+
+        instance.transform.position = position;
+    }
 
     public string GetParsedStructure() => LevelParser.SerializeLevelObjects(objectsInGrid);
     public void SetFromParsedStructure(string serializedStruct)
