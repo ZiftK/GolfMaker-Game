@@ -66,6 +66,7 @@ public class GridObjectsPlacer : MonoBehaviour
         objectsPos.TryGetValue(position, out GameObject instance);
 
         Destroy(instance);
+        objectsPos.Remove(position);
     }
 
     public string GetParsedStructure() => LevelParser.SerializeLevelObjects(objectsInGrid);
