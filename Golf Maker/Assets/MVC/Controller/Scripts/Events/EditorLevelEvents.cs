@@ -29,6 +29,26 @@ public class SaveLevelArgs : EventArgs
     }
 }
 
+public class LoadLevelArgs : EventArgs
+{
+    public int levelId;
+
+    public LoadLevelArgs(int levelId)
+    {
+        this.levelId = levelId;
+    }
+}
+
+public class ResetLevelArgs : EventArgs
+{
+    public string levelStruct;
+
+    public ResetLevelArgs(string levelStruct)
+    {
+        this.levelStruct = levelStruct;
+    }
+}
+
 public class EditorLevelEvents
 {
 
@@ -44,7 +64,9 @@ public class EditorLevelEvents
     }
 
     public event EventHandler<SaveLevelArgs> SaveLevel;
-    public event EventHandler LoadLevel;
+    public event EventHandler<LoadLevelArgs> LoadLevel;
+
+    public event EventHandler<ResetLevelArgs> ResetLevel;
     public event EventHandler ExitEditLevel;
     public event EventHandler EnterEditLevel;
 
@@ -55,9 +77,14 @@ public class EditorLevelEvents
     {
         SaveLevel?.Invoke(this, new SaveLevelArgs(levelData));
     }
-    public void OnLoadLevel()
+    public void OnLoadLevel(int levelId)
     {
-        LoadLevel?.Invoke(this, new EventArgs());
+        LoadLevel?.Invoke(this, new LoadLevelArgs(levelId));
+    }
+
+    public void OnResetLevel(string levelStruct)
+    {
+        ResetLevel?.Invoke(this, new ResetLevelArgs(levelStruct));
     }
 
     public void OnExitEditLevel()
