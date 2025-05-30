@@ -30,7 +30,7 @@ public class ServerLevelRepository : ILevelRepository
         return Instance;
     }
 
-    private readonly string baseUrl = ServerEnv.levelsServerUrl; // Adjust this URL to match your server
+    private readonly string baseUrl = ServerEnv.levelsServerUrl;
 
     public async Task<List<LevelEntity>> GetAll()
     {
@@ -40,7 +40,8 @@ public class ServerLevelRepository : ILevelRepository
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = request.downloadHandler.text;
-                return JsonUtility.FromJson<List<LevelEntity>>(jsonResponse);
+                Debug.Log($"Received JSON: {jsonResponse}"); // Para debug
+                return JsonConvert.DeserializeObject<List<LevelEntity>>(jsonResponse);
             }
             throw new Exception($"Error getting levels: {request.error}");
         }
@@ -77,6 +78,7 @@ public class ServerLevelRepository : ILevelRepository
             }
 
             string jsonResponse = request.downloadHandler.text;
+            Debug.Log($"Received JSON: {jsonResponse}"); // Para debug
             return JsonConvert.DeserializeObject<LevelEntity>(jsonResponse);
         }
     }
@@ -113,6 +115,7 @@ public class ServerLevelRepository : ILevelRepository
             }
 
             string jsonResponse = request.downloadHandler.text;
+            Debug.Log($"Received JSON: {jsonResponse}"); // Para debug
             return JsonConvert.DeserializeObject<LevelEntity>(jsonResponse);
         }
     }
@@ -137,7 +140,8 @@ public class ServerLevelRepository : ILevelRepository
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = request.downloadHandler.text;
-                return JsonUtility.FromJson<List<LevelEntity>>(jsonResponse);
+                Debug.Log($"Received JSON: {jsonResponse}"); // Para debug
+                return JsonConvert.DeserializeObject<List<LevelEntity>>(jsonResponse);
             }
             throw new Exception($"Error getting user levels: {request.error}");
         }
@@ -151,7 +155,8 @@ public class ServerLevelRepository : ILevelRepository
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = request.downloadHandler.text;
-                return JsonUtility.FromJson<LevelEntity>(jsonResponse);
+                Debug.Log($"Received JSON: {jsonResponse}"); // Para debug
+                return JsonConvert.DeserializeObject<LevelEntity>(jsonResponse);
             }
             throw new Exception($"Error getting level: {request.error}");
         }
