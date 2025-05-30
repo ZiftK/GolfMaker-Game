@@ -55,7 +55,7 @@ public class LevelEditorButtonsController : MonoBehaviour
 
             string saveLevelStruct = GridFacade.Instance.GetStructure();
 
-             LevelEntity levelData = new LevelEntity
+            LevelEntity levelData = new LevelEntity
             {
                 id_nivel = EnvDataHandler.Instance.GetCurrentLevelInEditionId(),
                 id_usuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
@@ -78,7 +78,6 @@ public class LevelEditorButtonsController : MonoBehaviour
         {
             Debug.LogWarning(ex.Message);
         }
-       
     }
 
     void ResetLevel()
@@ -96,5 +95,10 @@ public class LevelEditorButtonsController : MonoBehaviour
     void LoadLevel()
     {
         editorLevelEvents.OnLoadLevel(EnvDataHandler.Instance.GetCurrentLevelIdToLoad());
+    }
+
+    void SaveMiddleData()
+    {
+
     }
 }

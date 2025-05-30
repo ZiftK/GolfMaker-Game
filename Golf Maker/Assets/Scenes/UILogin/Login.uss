@@ -1,0 +1,46 @@
+.formTitle {
+    /* -unity-font-definition: url("Fonts/PixelifySans-VariableFont_wght.ttf"); */
+    -unity-text-align: upper-center;
+    font-size: 71px;
+    color: white;
+    align-self: center;
+    margin-bottom: 40px;
+}
+
+.inputField {
+    width: 754px;
+    height: 66px;
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: white;
+    align-self: center;
+    color: rgb(104, 104, 104);
+}
+
+.btnLogin {
+    width: 375px;
+    height: 120px;
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: rgb(93, 93, 93);
+    background-image: resource("buttons/broder_btn");
+    background-color: rgba(255, 255, 255, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.formContainer {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-around;
+    height: 784px;
+    align-self: center;
+    padding-top: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+    padding-left: 32px;
+    width: 1048px;
+    background-color: rgba(0, 0, 0, 0.12);
+}

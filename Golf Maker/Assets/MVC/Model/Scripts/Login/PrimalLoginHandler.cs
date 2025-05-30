@@ -1,95 +1,167 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PrimalLoginHandler : MonoBehaviour
 {
-
-    [Header("Login form")]
-    public Canvas loginCanvas;
-    public TMP_InputField usernameInputField;
-    public TMP_InputField passwordInputField;
-
-    [Header("Main form")]
-    public Canvas mainCanvas;
-
-    [Header("Level list canvas")]
-    public Canvas levelList;
-    public GameObject content;
-    public GameObject buttonPrefab;
+    private VisualElement root;
+    private VisualElement formContainer;
 
 
-    void Awake()
+    void OnEnable()
     {
+        root = GetComponent<UIDocument>().rootVisualElement;
+        formContainer = root.Q<VisualElement>("formContainer");
+        formContainer.AddToClassList("formContainer");
+
+        LoadLoginForm();
+
         if (EnvDataHandler.Instance.HasData())
         {
-            SwitchCambas(1);
+            UIManager.Instance.ShowMainMenu(); // ✅ Más claro
         }
-
     }
 
-    public void OnLoginButtonClickEvent()
+    private void LoadLoginForm()
     {
-        _ = TryLogin();
-    }
+        formContainer.Clear();
 
-    public void OnCreateLevelButtonClickEvent()
-    {
-        SceneManager.LoadScene("LevelCreator");
-    }
+        var title = new Label("Inicia Sesión");
+        title.AddToClassList("formTitle");
+        formContainer.Add(title);
 
+        var usernameField = new TextField("Email") { name = "usernameInputField" };
+        usernameField.AddToClassList("inputField");
+        formContainer.Add(usernameField);
 
-    public void OnLevelListButtonClickEvent()
-    {
-        SwitchCambas(2);
-        foreach (Transform child in content.transform)
+        var passwordField = new TextField("Contraseña") { name = "passwordInputField", isPasswordField = true };
+        passwordField.AddToClassList("inputField");
+        formContainer.Add(passwordField);
+
+        var buttonRow = new VisualElement
         {
-            Destroy(child.gameObject);
-        }
-        _ = ShowLevelsList();
-    }
+            style =
+            {
+                flexDirection = FlexDirection.RowReverse,
+                justifyContent = Justify.SpaceBetween,
+                alignItems = Align.FlexEnd,
+                alignSelf = Align.Center,
+                width = 828,
+                flexGrow = 1
+            }
+        };
 
-    public void OnReturnFromLevelListClickEvent()
-    {
-        SwitchCambas(1);
-    }
-
-    public void SwitchCambas(int id)
-    {
-        mainCanvas.gameObject.SetActive(false);
-        loginCanvas.gameObject.SetActive(false);
-        levelList.gameObject.SetActive(false);
-
-        switch (id)
+        var loginBtn = new Button(OnLoginButtonClickEvent)
         {
-            case 0:
+            name = "loginButton",
+            text = "Iniciar"
+        };
+        loginBtn.AddToClassList("btnLogin");
 
-                loginCanvas.gameObject.SetActive(true);
-                break;
-            case 1:
-                mainCanvas.gameObject.SetActive(true);
-                break;
+        var signInBtn = new Button(LoadRegisterForm)
+        {
+            name = "signInButton",
+            text = "Registrate"
+        };
+        signInBtn.AddToClassList("btnLogin");
 
-            case 2:
-                levelList.gameObject.SetActive(true);
-                break;
-            default:
-                break;
-
-        }
+        buttonRow.Add(signInBtn);
+        buttonRow.Add(loginBtn);
+        formContainer.Add(buttonRow);
     }
 
-    public async Task TryLogin()
+    private void LoadRegisterForm()
     {
+        formContainer.Clear();
 
-        string username = usernameInputField.text;
-        string password = passwordInputField.text;
+        var title = new Label("Registrarse");
+        title.AddToClassList("formTitle");
+        formContainer.Add(title);
+
+        var usernameField = new TextField("Username") { name = "registerUsername" };
+        usernameField.AddToClassList("inputField");
+        formContainer.Add(usernameField);
+
+        var emailField = new TextField("Correo") { name = "registerEmail" };
+        emailField.AddToClassList("inputField");
+        formContainer.Add(emailField);
+
+        var passwordField = new TextField("Contraseña") { name = "registerPassword", isPasswordField = true };
+        passwordField.AddToClassList("inputField");
+        formContainer.Add(passwordField);
+
+        var registerBtn = new Button(async () =>
+        {
+            var user = new UserEntity
+            {
+                id_usuario = -1,
+                nombre_usuario = usernameField.value,
+                email = emailField.value,
+                contrasenna = passwordField.value,
+                fecha_registro = DateTime.Now,
+                niveles_creados = 0,
+                niveles_completados = 0,
+                puntuacion_promedio_recibida = 0
+            };
+
+            await RegisterNewUser(user);
+        })
+        {
+            text = "Registrar"
+        };
+        registerBtn.AddToClassList("btnLogin");
+
+        var backBtn = new Button(LoadLoginForm)
+        {
+            text = "Volver"
+        };
+        backBtn.AddToClassList("btnLogin");
+
+        var buttonRow = new VisualElement
+        {
+            style =
+            {
+                flexDirection = FlexDirection.RowReverse,
+                justifyContent = Justify.SpaceBetween,
+                alignItems = Align.FlexEnd,
+                alignSelf = Align.Center,
+                width = 828,
+                flexGrow = 1
+            }
+        };
+
+        buttonRow.Add(backBtn);
+        buttonRow.Add(registerBtn);
+        formContainer.Add(buttonRow);
+    }
+
+    public async Task RegisterNewUser(UserEntity user)
+    {
+        IUserRepository userRepository = ServerUserRepository.GetInstance();
+        var existing = await userRepository.GetByUsername(user.nombre_usuario);
+
+        if (existing != null)
+        {
+            Debug.LogError("Usuario ya existe");
+            return;
+        }
+
+        await userRepository.Create(user);
+        EnvDataHandler.Instance.SetUserData(user);
+        Debug.Log("Usuario registrado y logueado");
+        UIManager.Instance.ShowMainMenu(); // ✅ Usando el UIManager
+    }
+
+    public async void OnLoginButtonClickEvent()
+    {
+        var usernameField = root.Q<TextField>("usernameInputField");
+        var passwordField = root.Q<TextField>("passwordInputField");
+
+        string username = usernameField?.value;
+        string password = passwordField?.value;
 
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
@@ -98,51 +170,62 @@ public class PrimalLoginHandler : MonoBehaviour
         }
 
         IUserRepository userRepository = ServerUserRepository.GetInstance();
-        UserEntity user = await userRepository.GetByUsername(username);
+        var user = await userRepository.GetByUsername(username);
 
-        if (user == null)
+        if (user == null || user.contrasenna != password)
         {
-            Debug.LogError("User not found.");
-            return;
-        }
-
-        if (user.contrasenna != password)
-        {
-            Debug.LogError("Invalid password.");
+            Debug.LogError("Usuario no encontrado o contraseña inválida.");
             return;
         }
 
         EnvDataHandler.Instance.SetUserData(user);
-        // Reset input fields after submission
-        usernameInputField.text = string.Empty;
-        passwordInputField.text = string.Empty;
-        SwitchCambas(1);
-
+        UIManager.Instance.ShowMainMenu(); // ✅ Cambio limpio
     }
 
-    public async Task ShowLevelsList()
+    public void OnCreateLevelButtonClickEvent()
     {
-        try
-        {
-            ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
-            List<LevelEntity> levels = await levelRepository.GetAll();
-
-            if (levels == null || levels.Count == 0)
-            {
-                Debug.Log("Sin niveles");
-                return;
-            }
-
-            foreach (LevelEntity level in levels)
-            {
-                GameObject button = Instantiate(buttonPrefab, content.transform);
-                button.GetComponent<LevelButton>().Customize(level);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
-        }
+        SceneManager.LoadScene("LevelCreator");
     }
 
+    // public void OnLevelListButtonClickEvent()
+    // {
+    //     UIManager.Instance.ShowLevelList(); // ✅ Cambio limpio
+
+    //     foreach (Transform child in content.transform)
+    //     {
+    //         Destroy(child.gameObject);
+    //     }
+
+    //     _ = ShowLevelsList();
+    // }
+
+    // public void OnReturnFromLevelListClickEvent()
+    // {
+    //     UIManager.Instance.ShowMainMenu();
+    // }
+
+    // public async Task ShowLevelsList()
+    // {
+    //     try
+    //     {
+    //         ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
+    //         List<LevelEntity> levels = await levelRepository.GetAll();
+
+    //         if (levels == null || levels.Count == 0)
+    //         {
+    //             Debug.Log("Sin niveles");
+    //             return;
+    //         }
+
+    //         foreach (LevelEntity level in levels)
+    //         {
+    //             GameObject button = Instantiate(buttonPrefab, content.transform);
+    //             button.GetComponent<LevelButton>().Customize(level);
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
+    //     }
+    // }
 }

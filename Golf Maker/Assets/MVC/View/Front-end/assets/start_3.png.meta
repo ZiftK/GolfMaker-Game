@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 71fa8f7904a77c6438e491052dcd45cc
+guid: 8078cb604dfb3cb40886e7f0cd99019a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9125137442824636090
-    second: options_btnpng_0
-  - first:
-      213: -7839965822730099156
-    second: options_btnpng_1
-  - first:
-      213: 8767741862664228791
-    second: options_btnpng_2
+      213: 1390056864176142894
+    second: start_3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -81,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: options_btnpng_0
+      name: start_3_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 45
-        width: 50
-        height: 10
+        x: 0
+        y: 1
+        width: 63
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 64932d1c7dffc5180800000000000000
-      internalID: -9125137442824636090
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: options_btnpng_1
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 29
-        width: 50
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2628f44f98d23390800000000000000
-      internalID: -7839965822730099156
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: options_btnpng_2
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 13
-        width: 50
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7bf4c6645c64da970800000000000000
-      internalID: 8767741862664228791
+      spriteID: e2affc66a597a4310800000000000000
+      internalID: 1390056864176142894
       vertices: []
       indices: 
       edges: []
@@ -198,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      options_btnpng_0: -9125137442824636090
-      options_btnpng_1: -7839965822730099156
-      options_btnpng_2: 8767741862664228791
+      start_3_0: 1390056864176142894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
