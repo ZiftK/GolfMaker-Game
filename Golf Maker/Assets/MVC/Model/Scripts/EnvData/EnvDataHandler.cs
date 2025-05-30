@@ -48,20 +48,10 @@ public class EnvDataHandler : MonoBehaviour
 
     public int GetCurrentUserId() => userData.id_usuario;
 
-    public int GetCurrentLevelInEditionId()
-    {
-        if (levelInEdition is null) return -1;
-        return levelInEdition.id_nivel;
-    }
-
     public int GetCurrentLevelIdToLoad()
     {
         return levelToPlay;
     }
 
-    public string GetCurrentLevelInEditionStructure()
-    {
-        if (levelInEdition is null) return "";
-        return levelInEdition.estructura_nivel;
-    }
+    public LevelEntity GetCurrentInEditionLevel() => levelInEdition;
 }

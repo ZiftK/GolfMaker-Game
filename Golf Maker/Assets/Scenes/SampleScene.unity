@@ -152,7 +152,7 @@ MonoBehaviour:
   mainCanvas: {fileID: 1992263526}
   playOrDesignCanvas: {fileID: 218928893}
   myLevelsCanvas: {fileID: 211875537}
-  levelDesignCanvas: {fileID: 2146080866}
+  newLevelCanvas: {fileID: 961204449}
   levelList: {fileID: 211875537}
 --- !u!4 &61946010
 Transform:
@@ -255,7 +255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 660, y: -1060}
+  m_AnchoredPosition: {x: 550.43036, y: -950.43036}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &168763916
@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 218928893}
   - component: {fileID: 218928892}
   - component: {fileID: 218928891}
+  - component: {fileID: 218928895}
   m_Layer: 5
   m_Name: UIMenuCanvas
   m_TagString: Untagged
@@ -452,6 +453,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &218928895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218928890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211ff1ea98087bb2abccef45597d0bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +641,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 840}
+  m_SizeDelta: {x: 0, y: 620.8607}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &552410156
 MonoBehaviour:
@@ -1120,6 +1133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961204448}
   - component: {fileID: 961204449}
+  - component: {fileID: 961204450}
   m_Layer: 0
   m_Name: UINewLevel
   m_TagString: Untagged
@@ -1161,6 +1175,19 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &961204450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961204447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fef02f95fe077deba7b7be2f7be7687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIDocument: {fileID: 961204449}
 --- !u!1 &1161717712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1269,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1161717715}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 218928895}
+        m_TargetAssemblyTypeName: PlayDesignButtonsController, Assembly-CSharp
+        m_MethodName: OnClickDesign
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1161717715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,7 +1734,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1534467849}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 218928895}
+        m_TargetAssemblyTypeName: PlayDesignButtonsController, Assembly-CSharp
+        m_MethodName: OnClickPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1534467849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,7 +1820,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1060, y: -1060}
+  m_AnchoredPosition: {x: 950.43036, y: -950.43036}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1695446257

@@ -17,8 +17,8 @@ public class UIManager : MonoBehaviour
     [Header("My Levels Canvas")]
     public UIDocument myLevelsCanvas;
 
-    [Header("Levels Design Canvas")]
-    public UIDocument levelDesignCanvas;
+    [Header("New level canvas")]
+    public UIDocument newLevelCanvas;
 
     [Header("Level List Canvas")]
     public UIDocument levelList;
@@ -64,7 +64,8 @@ public class UIManager : MonoBehaviour
                 myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.Flex;
                 break;
             case 5:
-                levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.Flex;
+                // levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.Flex;
+                newLevelCanvas.gameObject.SetActive(true);
                 break;
         }
     }
@@ -75,5 +76,5 @@ public class UIManager : MonoBehaviour
     public void ShowPlayDesignMenu() => SwitchCanvas(2);
     public void ShowLevelList() => SwitchCanvas(3);
     public void ShowMyLevels() => SwitchCanvas(4);
-    public void ShowLevelDesigner() => SwitchCanvas(5);
+    public void ShowNewLevel() => SwitchCanvas(5);
 }

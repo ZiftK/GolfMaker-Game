@@ -1,4 +1,5 @@
 using System;
+using NUnit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -45,32 +46,14 @@ public class LevelEditorButtonsController : MonoBehaviour
     {
         try
         {
-            string levelName = root.Q<TextField>().value;
-
-            if (string.IsNullOrWhiteSpace(levelName))
-            {
-                Debug.LogError("Level name empty");
-                return;
-            }
-
             string saveLevelStruct = GridFacade.Instance.GetStructure();
+            var levelInEdition = EnvDataHandler.Instance.GetCurrentInEditionLevel();
 
-            LevelEntity levelData = new LevelEntity
-            {
-                id_nivel = EnvDataHandler.Instance.GetCurrentLevelInEditionId(),
-                id_usuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
-                nombre = levelName,
-                fecha_creacion = "",
-                dificultad = Dificultad.Medio.ToString(),
-                descripcion = "A challenging level with obstacles.",
-                rating_promedio = 0f,
-                jugado_veces = 0,
-                completado_veces = 0,
-                cantidad_monedas = 0,
-                alto_nivel = GridFacade.Instance.GetLevelHeight(),
-                ancho_nivel = GridFacade.Instance.GetLevelWidth(),
-                estructura_nivel = saveLevelStruct,
-            };
+            LevelEntity levelData = levelInEdition;
+
+            levelData.estructura_nivel = saveLevelStruct;
+            levelData.id_usuario = EnvDataHandler.Instance.GetCurrentUserId();
+
 
             editorLevelEvents.OnSaveLevel(levelData);
         }
@@ -82,7 +65,7 @@ public class LevelEditorButtonsController : MonoBehaviour
 
     void ResetLevel()
     {
-        string levelStruct = EnvDataHandler.Instance.GetCurrentLevelInEditionStructure();
+        string levelStruct = EnvDataHandler.Instance.GetCurrentInEditionLevel().estructura_nivel;
         if (string.IsNullOrEmpty(levelStruct))
         {
             return;
