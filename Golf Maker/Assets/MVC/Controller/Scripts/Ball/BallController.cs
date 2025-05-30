@@ -41,6 +41,45 @@ public class BallController : MonoBehaviour
         currentLeftClickState = BalllIdleState.GetInstance();
         currentUpdateState = BalllIdleState.GetInstance();
         isHiteable = true;
+
+        // Subscribe to the initial position event
+        GameLevelEvents.SetBallInitialPositionEvent += SetInitialPosition;
+        Debug.Log("BallController: Subscribed to SetBallInitialPositionEvent");
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from the event when destroyed
+        GameLevelEvents.SetBallInitialPositionEvent -= SetInitialPosition;
+    }
+
+    private void SetInitialPosition(Vector3 position)
+    {
+        Debug.Log($"BallController: Setting initial position to {position}");
+        
+        // Set the ball's position
+        transform.position = new Vector3(position.x + 0.5f, position.y + 0.5f, transform.position.z);
+        
+        // Update the GameLevelHandler's initial position
+        if (GameLevelHandler.Instance != null)
+        {
+            GameLevelHandler.Instance.initialBallPosition = position;
+            Debug.Log($"BallController: Updated GameLevelHandler initial position to {position}");
+        }
+        else
+        {
+            Debug.LogWarning("BallController: GameLevelHandler.Instance is null");
+        }
+    }
+
+    void Start()
+    {
+        // If there is a pending initial position, set it
+        if (GameLevelEvents.PendingBallInitialPosition.HasValue)
+        {
+            Debug.Log("BallController: Applying pending initial position");
+            SetInitialPosition(GameLevelEvents.PendingBallInitialPosition.Value);
+        }
     }
 
     // Update is called once per frame

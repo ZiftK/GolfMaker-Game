@@ -9,6 +9,8 @@ public class EditorEventHandler : MonoBehaviour
     EditorLevelEvents levelEventsHandler;
     ILevelRepository levelRepository;
 
+    public GameObject grid;
+
     void Awake()
     {
         levelRepository = ServerLevelRepository.GetInstance(); 
@@ -16,6 +18,10 @@ public class EditorEventHandler : MonoBehaviour
 
         levelEventsHandler.SaveLevel += OnSaveLevel;
         levelEventsHandler.LoadLevel += OnLoadLevel;
+
+        Instantiate(grid);
+
+        
     }
 
     private void OnSaveLevel(object sender, SaveLevelArgs e)

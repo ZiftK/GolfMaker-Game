@@ -36,7 +36,6 @@ public class GridFacade : MonoBehaviour
     [SerializeField]
     private float tileBaseWidth;
 
-
     #endregion Level config
 
     #region Visuals
@@ -48,7 +47,6 @@ public class GridFacade : MonoBehaviour
 
     #region Funcionals
     GridIdStorage idStorage;
-
     GridObjectsPlacer objectsPlacer;
     #endregion
 
@@ -57,22 +55,55 @@ public class GridFacade : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+            GetComponents();
+            SuscribeEvents();
+            InitComponents();
         }
         else
         {
-            Destroy(gameObject); // Evita duplicados
+            // If we already have an instance, destroy this one
+            Destroy(gameObject);
             return;
         }
+    }
 
-        GetComponents();
+    private void OnEnable()
+    {
+        // Re-subscribe to events when the object is enabled
         SuscribeEvents();
+    }
 
-        InitComponents();
+    private void OnDisable()
+    {
+        // Unsubscribe from events when the object is disabled
+        UnsubscribeEvents();
+    }
 
+    private void UnsubscribeEvents()
+    {
+        PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
+        EditorLevelEvents editorLevelEvents = EditorLevelEvents.GetInstance();
+
+        if (pencilEventsHandler != null)
+        {
+            pencilEventsHandler.DrawTileBaseAtPosition -= DrawTileBaseAtPositions;
+            pencilEventsHandler.PlaceObjectAtPosition -= PlaceObjectAtPositions;
+            pencilEventsHandler.BorrowTileBaseAtPosition -= BorrowTileBaseAtPositions;
+            pencilEventsHandler.RemoveObjectAtPositions -= RemoveObjectAtPositions;
+            pencilEventsHandler.TemporalDrawTileBaseAtPositions -= TemporalDrawTileBaseAtPositions;
+            pencilEventsHandler.ClearTemporalTiles -= ClearTemporalTiles;
+        }
+
+        if (editorLevelEvents != null)
+        {
+            editorLevelEvents.ResetLevel -= ResetLevel;
+        }
+
+        GameLevelEvents.OnSetLevelStruct -= SetStructure;
     }
 
     #region Initializing methods
-
 
     private void GetComponents()
     {
@@ -104,8 +135,6 @@ public class GridFacade : MonoBehaviour
 
         editorLevelEvents.ResetLevel += ResetLevel;
         GameLevelEvents.OnSetLevelStruct += SetStructure;
-
-
     }
 
     #endregion Initializing methods
@@ -123,18 +152,12 @@ public class GridFacade : MonoBehaviour
     public Vector2 ConvertLevelIndexToTileMapPosition(Vector2Int position) => new Vector2(position.x - levelWidth / 2, position.y - levelHeight / 2);
     #endregion Expose Methods
 
-
     #region Map ids
-
-
-
     #endregion Map ids
-
 
     #region Alter tiles
     private void TemporalDrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
-
         foreach (Vector3Int position in args.positions)
         {
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
@@ -145,7 +168,6 @@ public class GridFacade : MonoBehaviour
             }
 
             tilesRenderer.TemporalDrawTileBaseAtPosition(tileBaseWidth, position, args.tileBaseId);
-
         }
     }
 
@@ -156,7 +178,6 @@ public class GridFacade : MonoBehaviour
 
     private void DrawTileBaseAtPositions(object sender, DrawTileBaseAtPositionsArgs args)
     {
-
         if (args.tileBaseId == -1)
         {
             return;
@@ -166,13 +187,11 @@ public class GridFacade : MonoBehaviour
 
         foreach (Vector3Int position in args.positions)
         {
-
             bool canSetTile = tilesRenderer.DrawTileBaseAtPosition(args.tileBaseId, tileBaseWidth, position);
             if (!canSetTile) break;
 
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             idStorage.SetIdAtPosition(idPosition, args.tileBaseId);
-
         }
     }
 
@@ -186,10 +205,8 @@ public class GridFacade : MonoBehaviour
 
     private void BorrowTileBaseAtPositions(object sender, BorrowTileBaseAtPositionArgs args)
     {
-
         foreach (Vector3Int position in args.positions)
         {
-
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             int id = idStorage.GetIdAtPosition(idPosition);
             if (id == -1)
@@ -199,7 +216,6 @@ public class GridFacade : MonoBehaviour
             tilesRenderer.BorrowTileBaseAtPosition(id, tileBaseWidth, position);
             idStorage.SetIdAtPosition(idPosition, -1);
         }
-
     }
 
     private void RemoveObjectAtPositions(object sender, RemoveObjectAtPositionsArgs args)
@@ -221,12 +237,10 @@ public class GridFacade : MonoBehaviour
             }
         }
     }
-
     #endregion Alter tiles
 
     public void LoadTilesFromParseLevel(int[,] levelIds)
     {
-
         ClearAllTiles();
 
         for (int i = 0; i < levelIds.GetLength(0); i++)
@@ -246,6 +260,7 @@ public class GridFacade : MonoBehaviour
                 if (levelIds[i, j] == 8)
                 {
                     Vector2 tilePosition = ConvertLevelIndexToTileMapPosition(new Vector2Int(i, j));
+                    Debug.Log($"Found initial ball position at tile coordinates ({i}, {j}), converted to world position: {tilePosition}");
                     GameLevelEvents.TriggerSetBallInitialPosition(tilePosition);
                 }
 
@@ -255,7 +270,6 @@ public class GridFacade : MonoBehaviour
         }
 
         idStorage.SetAllIds(levelIds);
-
     }
 
     void ResetLevel(object sender, ResetLevelArgs args)
@@ -329,5 +343,4 @@ public class GridFacade : MonoBehaviour
         objectsPlacer.SetFromParsedStructure(structures[1]);
     }
     #endregion Getters and Setters
-
 }

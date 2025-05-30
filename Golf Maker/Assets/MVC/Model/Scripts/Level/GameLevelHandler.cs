@@ -29,21 +29,21 @@ public class GameLevelHandler : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject); // Destroy duplicate instances
+            return;
         }
 
         GameLevelEvents.OnLoadLevelEvent += OnLoadLevel;
-        GameLevelEvents.SetBallInitialPositionEvent += SetInitialBallPosition;
         GameLevelEvents.OnHitBallEvent += AddHit;
         GameLevelEvents.OnResetBallEvent += AddReset;
         GameLevelEvents.OnTakeCoin += TakeCoin;
         GameLevelEvents.OnResetCoins += ResetCoins;
 
         levelRepository = ServerLevelRepository.GetInstance();
-
 
         GridFacade.Instance.ActivateVisualGrid(false);
         OnLoadLevel(1); // Load the default level with ID 1
@@ -82,11 +82,6 @@ public class GameLevelHandler : MonoBehaviour
         EnvDataHandler.Instance.SetLevelToPlayData(levelData);
 
         GameLevelEvents.TriggerOnSetLevelStruct(levelData.estructura_nivel);
-    }
-
-    public void SetInitialBallPosition(Vector3 position)
-    {
-        initialBallPosition = position + new Vector3(0.5f, 0.5f, 0); // Adjusting position to center the ball on the tile
     }
 
     #region Controls

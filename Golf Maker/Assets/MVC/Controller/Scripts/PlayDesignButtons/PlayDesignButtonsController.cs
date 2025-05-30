@@ -12,6 +12,6 @@ public class PlayDesignButtonsController : MonoBehaviour
 
     public void OnClickPlay()
     {
-        Debug.Log("Esto lleva a la pantalla de lista de niveles");
+        UIManager.Instance.ShowLevelList();
     }
 }

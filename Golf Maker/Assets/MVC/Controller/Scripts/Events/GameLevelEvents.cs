@@ -5,6 +5,8 @@ public class GameLevelEvents
     public delegate void LoadLevel(int levelId);
     public static event LoadLevel OnLoadLevelEvent;
 
+    // Store the pending initial ball position
+    public static Vector3? PendingBallInitialPosition = null;
 
     public static void TriggerLoadLevel(int levelId)
     {
@@ -16,6 +18,8 @@ public class GameLevelEvents
     public static event SetVector3 SetBallInitialPositionEvent;
     public static void TriggerSetBallInitialPosition(Vector3 position)
     {
+        Debug.Log($"GameLevelEvents: Triggering SetBallInitialPositionEvent with position {position}");
+        PendingBallInitialPosition = position;
         SetBallInitialPositionEvent?.Invoke(position);
     }
 

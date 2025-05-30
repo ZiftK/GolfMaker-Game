@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class FillLevels : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class FillLevels : MonoBehaviour
         {
             int userId = EnvDataHandler.Instance.GetCurrentUserId();
             List<LevelEntity> userLevels = await ServerLevelRepository.GetInstance().GetByUserId(userId);
-            RenderLevels(userLevels);
+            await RenderLevels(userLevels);
         }
         catch (System.Exception ex)
         {
@@ -42,7 +43,7 @@ public class FillLevels : MonoBehaviour
         }
     }
 
-    public void RenderLevels(List<LevelEntity> levels)
+    public async Task RenderLevels(List<LevelEntity> levels)
     {
         levelsGrid.Clear();
 
@@ -50,14 +51,36 @@ public class FillLevels : MonoBehaviour
         {
             var card = blockLevelCardTemplate.CloneTree();
             var levelName = card.Q<Label>("LevelName");
+            var levelIdLabel = card.Q<Label>("LevelIdLabel");
+            var creatorLabel = card.Q<Label>("CreatorLabel");
+            var playButton = card.Q<Button>("PlayButton");
 
             if (levelName != null)
                 levelName.text = level.nombre;
 
+            if (levelIdLabel != null)
+                levelIdLabel.text = $"ID: {level.id_nivel}";
+
+            if (creatorLabel != null)
+                creatorLabel.text = $"Creator: {level.id_usuario}";
+
+            if (playButton != null)
+            {
+                int levelId = level.id_nivel;
+                playButton.RegisterCallback<ClickEvent>(_ =>
+                {
+                    Debug.Log("Play level: " + level.nombre + " id " + levelId);
+                    EnvDataHandler.Instance.SetLevelToPlayData(level);
+                    GameLevelEvents.TriggerLoadLevel(levelId);
+                    GameLevelEvents.TriggerOnSetLevelStruct(level.estructura_nivel);
+                    SceneManager.LoadScene("Game");
+                    UIManager.Instance.DeacTiveAll();
+                });
+            }
+
             card.RegisterCallback<ClickEvent>(_ =>
             {
-                Debug.Log("Level clicked: " + level.nombre);
-
+                Debug.Log("Level clicked: " + level.nombre + " id " + level.id_nivel);
             });
 
             levelsGrid.Add(card);
