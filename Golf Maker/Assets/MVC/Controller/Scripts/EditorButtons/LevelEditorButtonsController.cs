@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class RepositoryManager : MonoBehaviour
+public class LevelEditorButtonsController : MonoBehaviour
 {
     public UIDocument uIDocument;
 
@@ -30,7 +30,7 @@ public class RepositoryManager : MonoBehaviour
         resetButton = root.Q<Button>("reset-tool");
         resetButton.RegisterCallback<ClickEvent>(_ =>
         {
-
+            ResetLevel();
         });
 
         leaveButton = root.Q<Button>("leave-tool");
@@ -70,9 +70,20 @@ public class RepositoryManager : MonoBehaviour
         editorLevelEvents.OnSaveLevel(levelData);
     }
 
+    void ResetLevel()
+    {
+        string levelStruct = EnvDataHandler.Instance.GetCurrentLevelInEditionStructure();
+        if (string.IsNullOrEmpty(levelStruct))
+        {
+            return;
+        }
+
+        editorLevelEvents.OnResetLevel(levelStruct);
+
+    }
+
     void LoadLevel()
     {
-
-        editorLevelEvents.OnLoadLevel();
+        editorLevelEvents.OnLoadLevel(EnvDataHandler.Instance.GetCurrentLevelIdToLoad());
     }
 }
