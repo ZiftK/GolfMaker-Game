@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEditor;
+using System;
 
 public class BlockManager : MonoBehaviour
 {
@@ -56,8 +57,14 @@ public class BlockManager : MonoBehaviour
             button.RegisterCallback<ClickEvent>(_ =>
             {
 
-                
-                editorLevelEvents.OnSelectBlock(new SelectBlockArgs(block.name));
+                string[] names = block.name.Split("@");
+                if (names.Length < 2)
+                {
+                    Debug.LogError("The name element must be splitted for a @");
+                }
+
+                PencilSetType type = Enum.Parse<PencilSetType>(names[1]);
+                editorLevelEvents.OnSelectBlock(new SelectBlockArgs(names[0],type) );
             });
 
             blocksGrid.Add(button);
