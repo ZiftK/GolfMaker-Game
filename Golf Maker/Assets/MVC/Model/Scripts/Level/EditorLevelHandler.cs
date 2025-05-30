@@ -56,6 +56,7 @@ public class EditorEventHandler : MonoBehaviour
 
     private void OnLoadLevel(object sender, System.EventArgs e)
     {
+        //todo: este es el todo del load level, se necesita agregar codigo en caso que se busque editar niveles ya creados
         // LevelEntity level = levelRepository.LoadLevelRecord(1);
 
         // if (level == null)
