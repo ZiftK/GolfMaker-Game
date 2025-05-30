@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Grid), typeof(Tilemap), typeof(VisualGridRenderer))]
