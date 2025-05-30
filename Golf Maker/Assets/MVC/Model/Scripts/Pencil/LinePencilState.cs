@@ -31,7 +31,7 @@ public class LinePencilState : PencilState, IUpdatePencilState
 
         this.IsDrawing = false;
 
-        if (context.tileId == 8)
+        if (context.id == 8)
         {
             Debug.LogWarning("You cannot use the line pencil with the initial tile.");
             return;
@@ -39,7 +39,7 @@ public class LinePencilState : PencilState, IUpdatePencilState
         
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
-        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
+        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, lineCoords);
         pencilEventsHandler.OnClearTemporalTiles();
         pencilEventsHandler.OnDrawTileBaseAtPosition(args);
 
@@ -74,7 +74,7 @@ public class LinePencilState : PencilState, IUpdatePencilState
             pencilEventsHandler.OnClearTemporalTiles();
 
             Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, context.position);
-            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.tileId, lineCoords);
+            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, lineCoords);
             pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
             
         }
