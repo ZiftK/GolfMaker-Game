@@ -19,34 +19,148 @@ import {
   getEstadisticasByUsuarioAndNivel
 } from '../controllers/estadisticasController';
 
-/**
- * Router para la gestión de estadísticas
- * @constant {Router} router
- */
 const router = Router();
 
 /**
- * Operaciones CRUD básicas para estadísticas
- * @route GET / - Obtiene todas las estadísticas
- * @route POST / - Crea un nuevo registro de estadísticas
- * @route GET /:id - Obtiene estadísticas por ID
- * @route PUT /:id - Actualiza un registro de estadísticas
- * @route DELETE /:id - Elimina un registro de estadísticas
+ * @openapi
+ * /estadisticas:
+ *   get:
+ *     summary: Obtener todas las estadísticas
+ *     tags: [Estadisticas]
+ *     responses:
+ *       200:
+ *         description: Lista de estadísticas
  */
-router.get('/', getAllEstadisticas);                                    // Get all statistics
-router.post('/', createEstadistica);                                    // Create new statistics
-router.get('/:id', getEstadisticasByUsuario);                          // Get statistics by ID
-router.put('/:id', updateEstadistica);                                 // Update statistics
-router.delete('/:id', deleteEstadistica);                              // Delete statistics
+router.get('/', getAllEstadisticas);
 
 /**
- * Operaciones específicas por usuario y nivel
- * @route GET /usuario/:id - Obtiene estadísticas de un usuario específico
- * @route GET /nivel/:id - Obtiene estadísticas de un nivel específico
- * @route GET /usuario/:userId/nivel/:levelId - Obtiene estadísticas específicas de un usuario en un nivel
+ * @openapi
+ * /estadisticas:
+ *   post:
+ *     summary: Crear una nueva estadística
+ *     tags: [Estadisticas]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               usuarioId:
+ *                 type: string
+ *               nivelId:
+ *                 type: string
+ *               tiempo:
+ *                 type: number
+ *     responses:
+ *       201:
+ *         description: Estadística creada
  */
-router.get('/usuario/:id', getEstadisticasByUsuario);                  // Get statistics by user ID
-router.get('/nivel/:id', getEstadisticasByNivel);                      // Get statistics by level ID
-router.get('/usuario/:userId/nivel/:levelId', getEstadisticasByUsuarioAndNivel); // Get statistics by user and level
+router.post('/', createEstadistica);
+
+/**
+ * @openapi
+ * /estadisticas/{id}:
+ *   put:
+ *     summary: Actualizar una estadística
+ *     tags: [Estadisticas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la estadística
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tiempo:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Estadística actualizada
+ */
+router.put('/:id', updateEstadistica);
+
+/**
+ * @openapi
+ * /estadisticas/{id}:
+ *   delete:
+ *     summary: Eliminar una estadística
+ *     tags: [Estadisticas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Estadística eliminada
+ */
+router.delete('/:id', deleteEstadistica);
+
+/**
+ * @openapi
+ * /estadisticas/usuario/{id}:
+ *   get:
+ *     summary: Obtener estadísticas por usuario
+ *     tags: [Estadisticas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Estadísticas del usuario
+ */
+router.get('/usuario/:id', getEstadisticasByUsuario);
+
+/**
+ * @openapi
+ * /estadisticas/nivel/{id}:
+ *   get:
+ *     summary: Obtener estadísticas por nivel
+ *     tags: [Estadisticas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Estadísticas del nivel
+ */
+router.get('/nivel/:id', getEstadisticasByNivel);
+
+/**
+ * @openapi
+ * /estadisticas/usuario/{userId}/nivel/{levelId}:
+ *   get:
+ *     summary: Obtener estadísticas por usuario y nivel
+ *     tags: [Estadisticas]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: levelId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Estadísticas del usuario en el nivel
+ */
+router.get('/usuario/:userId/nivel/:levelId', getEstadisticasByUsuarioAndNivel);
 
 export default router;
