@@ -33,11 +33,27 @@ public class NewLevelButtonsController : MonoBehaviour
 
     public void CreateLevel()
     {
+
+        string levelName = nameTextBox.text;
+        string levelDescription = descriptionTextBox.text;
+
+        if (string.IsNullOrEmpty(levelName))
+        {
+            Debug.LogError("El nombre no puede estar vacio");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(levelName))
+        {
+            Debug.LogError("El nombre no puede estar vacio");
+            return;
+        }
+
         var level = new LevelEntity
         {
             id_nivel = -1,
-            nombre = nameTextBox.text,
-            descripcion = descriptionTextBox.text,
+            nombre = levelName,
+            descripcion = levelDescription,
             dificultad = difficultEnum.value.ToString()
         };
         EnvDataHandler.Instance.SetLevelInEditionData(level);
