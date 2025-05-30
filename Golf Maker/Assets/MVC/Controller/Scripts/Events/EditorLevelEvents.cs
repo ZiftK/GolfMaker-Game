@@ -14,9 +14,11 @@ public class SelectPencilArgs : EventArgs
 public class SelectBlockArgs : EventArgs
 {
     public string blockName { get; }
-    public SelectBlockArgs(string blockName)
+    public PencilSetType pencilSetType;
+    public SelectBlockArgs(string blockName, PencilSetType pencilSetType)
     {
         this.blockName = blockName;
+        this.pencilSetType = pencilSetType;
     }
 }
 
