@@ -82,15 +82,15 @@ public class LevelParser
         return levelIds;
     }
 
-    public static string SerializeLevelObjects(List<ObjectInGrid> objectsInGrid)
+    public static string SerializeLevelObjects(List<PlaceObject> objectsInGrid)
     {
         string serializeObjects = JsonConvert.SerializeObject(objectsInGrid);
         return serializeObjects;
     }
 
-    public static List<ObjectInGrid> DeserializeLevelObjects(string serializedLevel)
+    public static List<PlaceObject> DeserializeLevelObjects(string serializedLevel)
     {
-        List<ObjectInGrid> objectsInGrid = JsonConvert.DeserializeObject<List<ObjectInGrid>>(serializedLevel);
+        List<PlaceObject> objectsInGrid = JsonConvert.DeserializeObject<List<PlaceObject>>(serializedLevel);
         return objectsInGrid;
     }
 }
