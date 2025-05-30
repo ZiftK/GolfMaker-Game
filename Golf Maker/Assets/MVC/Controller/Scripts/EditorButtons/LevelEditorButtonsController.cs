@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -42,32 +43,42 @@ public class LevelEditorButtonsController : MonoBehaviour
 
     void SaveLevel()
     {
-        string levelName = root.Q<TextField>().value;
-
-        if (string.IsNullOrWhiteSpace(levelName))
+        try
         {
-            Debug.LogError("Level name empty");
-            return;
+            string levelName = root.Q<TextField>().value;
+
+            if (string.IsNullOrWhiteSpace(levelName))
+            {
+                Debug.LogError("Level name empty");
+                return;
+            }
+
+            string saveLevelStruct = LevelParser.SerializeLevelIds(GridFacade.Instance.GetLevelIds());
+
+             LevelEntity levelData = new LevelEntity
+            {
+                id_nivel = EnvDataHandler.Instance.GetCurrentLevelInEditionId(),
+                id_usuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
+                nombre = levelName,
+                fecha_creacion = "",
+                dificultad = Dificultad.Medio.ToString(),
+                descripcion = "A challenging level with obstacles.",
+                rating_promedio = 0f,
+                jugado_veces = 0,
+                completado_veces = 0,
+                cantidad_monedas = 0,
+                alto_nivel = GridFacade.Instance.GetLevelHeight(),
+                ancho_nivel = GridFacade.Instance.GetLevelWidth(),
+                estructura_nivel = saveLevelStruct,
+            };
+
+            editorLevelEvents.OnSaveLevel(levelData);
         }
-
-        LevelEntity levelData = new LevelEntity
+        catch (Exception ex)
         {
-            id_nivel = EnvDataHandler.Instance.GetCurrentLevelInEditionId(),
-            id_usuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
-            nombre = levelName,
-            fecha_creacion = "",
-            dificultad = Dificultad.Medio.ToString(),
-            descripcion = "A challenging level with obstacles.",
-            rating_promedio = 0f,
-            jugado_veces = 0,
-            completado_veces = 0,
-            cantidad_monedas = 0,
-            alto_nivel = GridFacade.Instance.GetLevelHeight(),
-            ancho_nivel = GridFacade.Instance.GetLevelWidth(),
-            estructura_nivel = LevelParser.SerializeLevelIds(GridFacade.Instance.GetLevelIds()),
-        };
-
-        editorLevelEvents.OnSaveLevel(levelData);
+            Debug.LogWarning(ex.Message);
+        }
+       
     }
 
     void ResetLevel()
