@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Text;
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class LevelParser
 {
@@ -78,5 +80,17 @@ public class LevelParser
             }
         }
         return levelIds;
+    }
+
+    public static string SerializeLevelObjects(List<ObjectInGrid> objectsInGrid)
+    {
+        string serializeObjects = JsonConvert.SerializeObject(objectsInGrid);
+        return serializeObjects;
+    }
+
+    public static List<ObjectInGrid> DeserializeLevelObjects(string serializedLevel)
+    {
+        List<ObjectInGrid> objectsInGrid = JsonConvert.DeserializeObject<List<ObjectInGrid>>(serializedLevel);
+        return objectsInGrid;
     }
 }
