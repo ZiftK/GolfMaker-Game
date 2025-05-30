@@ -50,7 +50,7 @@ const router = Router();
  *       201:
  *         description: Calificación creada
  */
-router.route('/ratings')
+router.route('/')
   .get(getAllRatings)
   .post(createRating);
 
@@ -93,7 +93,7 @@ router.route('/ratings')
  *       204:
  *         description: Calificación eliminada
  */
-router.route('/ratings/:id')
+router.route('/:id')
   .put(updateRating)
   .delete(deleteRating);
 
@@ -115,6 +115,6 @@ router.route('/ratings/:id')
  *       200:
  *         description: Promedio de calificaciones del nivel
  */
-router.get('/ratings/nivel/:id/promedio', getAverageRatingByLevel);
+router.get('/nivel/:id/promedio', getAverageRatingByLevel);
 
 export default router;

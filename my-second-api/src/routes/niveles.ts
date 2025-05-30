@@ -56,7 +56,7 @@ const router = Router();
  *       201:
  *         description: Nivel creado exitosamente
  */
-router.route('/niveles')
+router.route('/')
   .get(getAllNiveles)
   .post(createNivel);
 
@@ -117,7 +117,7 @@ router.route('/niveles')
  *       204:
  *         description: Nivel eliminado
  */
-router.route('/niveles/:id')
+router.route('/:id')
   .get(getNivelById)
   .put(updateNivel)
   .delete(deleteNivel);
@@ -140,7 +140,7 @@ router.route('/niveles/:id')
  *       200:
  *         description: Lista de niveles del usuario
  */
-router.get('/niveles/usuario/:id', getNivelesByUsuario);
+router.get('/usuario/:id', getNivelesByUsuario);
 
 /**
  * @openapi
@@ -160,6 +160,6 @@ router.get('/niveles/usuario/:id', getNivelesByUsuario);
  *       200:
  *         description: Comentarios y calificaciones del nivel
  */
-router.get('/niveles/:id/comentarios', getComentariosDeNivel);
+router.get('/:id/comentarios', getComentariosDeNivel);
 
 export default router;
