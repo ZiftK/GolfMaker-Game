@@ -14,6 +14,10 @@ import dotenv from 'dotenv';
 import routes from './routes/';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
+import ratingRoutes from './routes/rating';
+import nivelesRoutes from './routes/niveles';
+import usuariosRoutes from './routes/usuarios';
+import estadisticasRoutes from './routes/estadisticas';
 
 /**
  * Carga las variables de entorno desde el archivo .env
@@ -63,6 +67,10 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  * @description Monta todas las rutas de la API bajo la ruta raíz '/'
  */
 app.use('/', routes);
+app.use('/api', ratingRoutes);
+app.use('/api', nivelesRoutes);
+app.use('/api', usuariosRoutes);
+app.use('/api', estadisticasRoutes);
 
 /**
  * Inicia el servidor HTTP
