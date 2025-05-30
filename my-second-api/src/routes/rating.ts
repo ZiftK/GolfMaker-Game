@@ -17,28 +17,104 @@ import {
   getAverageRatingByLevel
 } from '../controllers/ratingController';
 
-/**
- * Router para la gestión de calificaciones
- * @constant {Router} router
- */
 const router = Router();
 
 /**
- * Endpoints CRUD básicos para calificaciones
- * @route GET / - Obtiene todas las calificaciones
- * @route POST / - Crea una nueva calificación
- * @route PUT /:id - Actualiza una calificación existente
- * @route DELETE /:id - Elimina una calificación
+ * @openapi
+ * /ratings:
+ *   get:
+ *     summary: Obtiene todas las calificaciones
+ *     tags:
+ *       - Ratings
+ *     responses:
+ *       200:
+ *         description: Lista de calificaciones
+ *   post:
+ *     summary: Crea una nueva calificación
+ *     tags:
+ *       - Ratings
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nivelId:
+ *                 type: string
+ *               usuarioId:
+ *                 type: string
+ *               puntuacion:
+ *                 type: number
+ *     responses:
+ *       201:
+ *         description: Calificación creada
  */
-router.get('/', getAllRatings);
-router.post('/', createRating);
-router.put('/:id', updateRating);
-router.delete('/:id', deleteRating);
+router.route('/ratings')
+  .get(getAllRatings)
+  .post(createRating);
 
 /**
- * Endpoints adicionales para cálculos y estadísticas
- * @route GET /nivel/:id/promedio - Obtiene el promedio de calificaciones de un nivel específico
+ * @openapi
+ * /ratings/{id}:
+ *   put:
+ *     summary: Actualiza una calificación existente
+ *     tags:
+ *       - Ratings
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               puntuacion:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Calificación actualizada
+ *   delete:
+ *     summary: Elimina una calificación
+ *     tags:
+ *       - Ratings
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Calificación eliminada
  */
-router.get('/nivel/:id/promedio', getAverageRatingByLevel);
+router.route('/ratings/:id')
+  .put(updateRating)
+  .delete(deleteRating);
+
+/**
+ * @openapi
+ * /ratings/nivel/{id}/promedio:
+ *   get:
+ *     summary: Obtiene el promedio de calificaciones de un nivel específico
+ *     tags:
+ *       - Ratings
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del nivel
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Promedio de calificaciones del nivel
+ */
+router.get('/ratings/nivel/:id/promedio', getAverageRatingByLevel);
 
 export default router;

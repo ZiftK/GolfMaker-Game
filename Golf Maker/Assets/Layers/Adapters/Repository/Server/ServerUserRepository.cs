@@ -47,7 +47,7 @@ public class ServerUserRepository : IUserRepository
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = request.downloadHandler.text;
-                return JsonUtility.FromJson<UserEntity>(jsonResponse);
+                return JsonConvert.DeserializeObject<UserEntity>(jsonResponse);
             }
             throw new Exception($"Error creating user: {request.error}");
         }

@@ -19,36 +19,147 @@ import {
   getComentariosDeNivel
 } from '../controllers/nivelesController';
 
-/**
- * Router para la gestión de niveles
- * @constant {Router} router
- */
 const router = Router();
 
 /**
- * Operaciones CRUD básicas para niveles
- * @route GET / - Obtiene todos los niveles
- * @route POST / - Crea un nuevo nivel
- * @route GET /:id - Obtiene un nivel específico por ID
- * @route PUT /:id - Actualiza un nivel existente
- * @route DELETE /:id - Elimina un nivel
+ * @openapi
+ * /niveles:
+ *   get:
+ *     summary: Obtiene todos los niveles
+ *     tags:
+ *       - Niveles
+ *     responses:
+ *       200:
+ *         description: Lista de niveles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *   post:
+ *     summary: Crea un nuevo nivel
+ *     tags:
+ *       - Niveles
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               dificultad:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Nivel creado exitosamente
  */
-router.get('/', getAllNiveles);                    // Get all levels
-router.post('/', createNivel);                     // Create a new level
-router.get('/:id', getNivelById);                  // Get a specific level by ID
-router.put('/:id', updateNivel);                   // Update a level
-router.delete('/:id', deleteNivel);                // Delete a level
+router.route('/niveles')
+  .get(getAllNiveles)
+  .post(createNivel);
 
 /**
- * Operaciones relacionadas con usuarios
- * @route GET /usuario/:id - Obtiene todos los niveles creados por un usuario específico
+ * @openapi
+ * /niveles/{id}:
+ *   get:
+ *     summary: Obtiene un nivel específico por ID
+ *     tags:
+ *       - Niveles
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID del nivel
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Nivel encontrado
+ *   put:
+ *     summary: Actualiza un nivel existente
+ *     tags:
+ *       - Niveles
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID del nivel
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               dificultad:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Nivel actualizado exitosamente
+ *   delete:
+ *     summary: Elimina un nivel
+ *     tags:
+ *       - Niveles
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID del nivel
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Nivel eliminado
  */
-router.get('/usuario/:id', getNivelesByUsuario);   // Get all levels created by a user
+router.route('/niveles/:id')
+  .get(getNivelById)
+  .put(updateNivel)
+  .delete(deleteNivel);
 
 /**
- * Operaciones de calificaciones y comentarios
- * @route GET /:id/comentarios - Obtiene los comentarios y calificaciones de un nivel específico
+ * @openapi
+ * /niveles/usuario/{id}:
+ *   get:
+ *     summary: Obtiene todos los niveles creados por un usuario específico
+ *     tags:
+ *       - Niveles
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID del usuario
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de niveles del usuario
  */
-router.get('/:id/comentarios', getComentariosDeNivel); // Get comments and ratings for a level
+router.get('/niveles/usuario/:id', getNivelesByUsuario);
+
+/**
+ * @openapi
+ * /niveles/{id}/comentarios:
+ *   get:
+ *     summary: Obtiene los comentarios y calificaciones de un nivel específico
+ *     tags:
+ *       - Niveles
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID del nivel
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Comentarios y calificaciones del nivel
+ */
+router.get('/niveles/:id/comentarios', getComentariosDeNivel);
 
 export default router;

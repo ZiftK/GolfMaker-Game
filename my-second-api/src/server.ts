@@ -11,7 +11,9 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import routes from './routes';
+import routes from './routes/';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 
 /**
  * Carga las variables de entorno desde el archivo .env
@@ -38,6 +40,25 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 /**
+ * Swagger: configuración de opciones y ruta de documentación
+ * @description Expone la documentación de la API en /docs
+ */
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Golf Maker API',
+      version: '1.0.0',
+      description: 'Documentación de la API de Golf Maker',
+    },
+  },
+  apis: ['./routes/**/*.ts'], // Asegúrate de que coincida con tu estructura real
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+/**
  * Configuración de rutas
  * @description Monta todas las rutas de la API bajo la ruta raíz '/'
  */
@@ -49,5 +70,6 @@ app.use('/', routes);
  * @listens {number} port - Puerto en el que escucha el servidor
  */
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`✅ Server is running on http://localhost:${port}`);
+  console.log(`📚 Swagger docs available at http://localhost:${port}/docs`);
 });

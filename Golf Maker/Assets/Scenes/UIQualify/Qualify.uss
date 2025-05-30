@@ -1,0 +1,88 @@
+.Navbar {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    height: 130px;
+    max-height: 130px;
+
+}
+
+.title{
+    flex-grow: 1;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    -unity-text-align: middle-center;
+    text-shadow: 1px 1px 2px black;
+}
+
+.form-container {
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    width: 600px;
+    padding: 30px;
+    margin:  auto;
+    border-radius: 12px;
+    justify-content: center;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+}
+
+.input-field {
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+.star-container {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.star {
+    width: 48px;
+    height: 48px;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-scale-mode: scale-to-fit;
+    border-width: 0;
+}
+
+.star.selected {
+    background-image: resource('icons/star_filled');
+}
+
+.button-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+}
+
+.cancel {
+    background-color: #ccc;
+    color: #000;
+}
+
+.submit {
+    background-color: #4CAF50;
+    color: white;
+}

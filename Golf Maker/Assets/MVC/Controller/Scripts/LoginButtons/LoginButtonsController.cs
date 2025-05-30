@@ -140,6 +140,8 @@ public class LoginButtonsController : MonoBehaviour
 
     public async Task RegisterNewUser(UserEntity user)
     {
+        Debug.Log($"Registrando usuario: {user.nombre_usuario}");
+
         IUserRepository userRepository = ServerUserRepository.GetInstance();
         var existing = await userRepository.GetByUsername(user.nombre_usuario);
 
