@@ -35,6 +35,16 @@
                                 </ui:Button>
                             </ui:VisualElement>
 
+                                                        <ui:Button name="CommentButton" style="background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);">
+                                <ui:Image style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/Resources/buttons/comment_icon.png&quot;); height: 46px; width: 46px;" />
+                                <ui:Label text="Comment" style="-unity-font-definition: url(&quot;project://database/Assets/Resources/Fonts/PixelifySans-VariableFont_wght.ttf&quot;); font-size: 25px; background-color: rgba(255, 255, 255, 0); color: rgb(206, 207, 206);" />
+                            </ui:Button>
+                            
+                            <ui:Button name="DetailsButton" style="background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);">
+                                <ui:Image style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/Resources/buttons/details_icon.png&quot;); height: 46px; width: 46px;" />
+                                <ui:Label text="Details" style="-unity-font-definition: url(&quot;project://database/Assets/Resources/Fonts/PixelifySans-VariableFont_wght.ttf&quot;); font-size: 25px; background-color: rgba(255, 255, 255, 0); color: rgb(206, 207, 206);" />
+                            </ui:Button>
+
                         </ui:VisualElement>
 
                         <!-- ID del nivel -->
