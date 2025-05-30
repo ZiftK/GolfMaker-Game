@@ -103,6 +103,7 @@ public class GridFacade : MonoBehaviour
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
 
         editorLevelEvents.ResetLevel += ResetLevel;
+        GameLevelEvents.OnSetLevelStruct += SetStructure;
 
 
     }

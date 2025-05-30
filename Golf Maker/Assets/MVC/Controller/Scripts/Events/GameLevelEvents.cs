@@ -32,4 +32,12 @@ public class GameLevelEvents
     {
         OnResetBallEvent?.Invoke();
     }
+
+    public delegate void StringDelegate(string value);
+    public static event StringDelegate OnSetLevelStruct;
+
+    public static void TriggerOnSetLevelStruct(string levelStruct)
+    {
+        OnSetLevelStruct?.Invoke(levelStruct);
+    }
 }

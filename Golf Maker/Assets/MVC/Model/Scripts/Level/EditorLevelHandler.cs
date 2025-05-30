@@ -23,7 +23,7 @@ public class EditorEventHandler : MonoBehaviour
         Debug.Log("Saving level...");
         LevelEntity levelToSave = e.levelData;
 
-        EnvDataHandler.Instance.SetLevelInEditionUserData(ref levelToSave);
+        levelToSave.id_usuario = EnvDataHandler.Instance.GetCurrentUserId();
 
         _ = AsyncOnSaveLevel(levelToSave);
         

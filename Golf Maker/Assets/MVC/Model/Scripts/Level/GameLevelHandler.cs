@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameLevelHandler : MonoBehaviour
 {
+
 
     #region Repository
     private ILevelRepository levelRepository;
@@ -36,6 +38,8 @@ public class GameLevelHandler : MonoBehaviour
         GameLevelEvents.OnHitBallEvent += AddHit;
         GameLevelEvents.OnResetBallEvent += AddReset;
 
+        levelRepository = ServerLevelRepository.GetInstance();
+
 
         GridFacade.Instance.ActivateVisualGrid(false);
         OnLoadLevel(1); // Load the default level with ID 1
@@ -65,6 +69,15 @@ public class GameLevelHandler : MonoBehaviour
 
         // // Activate the visual grid
         // Grid2D.Instance.ActivateVisualGrid(false);
+        _ = AsyncLoadLevel(levelId);
+    }
+
+    async Task AsyncLoadLevel(int levelId)
+    {
+        var levelData = await levelRepository.GetById(levelId);
+        EnvDataHandler.Instance.SetLevelToPlayData(levelData);
+
+        GameLevelEvents.TriggerOnSetLevelStruct(levelData.estructura_nivel);
     }
 
     public void SetInitialBallPosition(Vector3 position)

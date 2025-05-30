@@ -7,7 +7,7 @@ public class EnvDataHandler : MonoBehaviour
 
     private LevelEntity levelInEdition;
 
-    private int levelToPlay;
+    private LevelEntity levelToPlay;
 
     public static EnvDataHandler Instance;
     void Awake()
@@ -29,14 +29,14 @@ public class EnvDataHandler : MonoBehaviour
         userData = user;
     }
 
+    public void SetLevelToPlayData(LevelEntity level)
+    {
+        levelToPlay = level;
+    }
+
     public void SetLevelInEditionData(LevelEntity level)
     {
         levelInEdition = level;
-    }
-
-    public void SetLevelInEditionUserData(ref LevelEntity level)
-    {
-        level.id_usuario = this.userData.id_usuario;
     }
 
     public void ClearLevelInEditionData()
@@ -48,10 +48,7 @@ public class EnvDataHandler : MonoBehaviour
 
     public int GetCurrentUserId() => userData.id_usuario;
 
-    public int GetCurrentLevelIdToLoad()
-    {
-        return levelToPlay;
-    }
+    public LevelEntity GetCurrentLevelToPlay() => levelToPlay;
 
     public LevelEntity GetCurrentInEditionLevel() => levelInEdition;
 }

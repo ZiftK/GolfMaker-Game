@@ -78,7 +78,7 @@ public class LevelEditorButtonsController : MonoBehaviour
 
     void LoadLevel()
     {
-        editorLevelEvents.OnLoadLevel(EnvDataHandler.Instance.GetCurrentLevelIdToLoad());
+        editorLevelEvents.OnLoadLevel(EnvDataHandler.Instance.GetCurrentLevelToPlay().id_nivel);
     }
 
     void SaveMiddleData()
