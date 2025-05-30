@@ -27,6 +27,14 @@ public class GridObjectsPlacer : MonoBehaviour
         // string json = JsonConvert.SerializeObject(objectInGrid);
     }
 
+    public void PlaceObjectAtPosition(Vector3Int position, string placeObjectName)
+    {
+        GameObject prefab = placeObjectsFactory.GetPlaceObjectByName(placeObjectName);
+        GameObject instance = Instantiate(prefab);
+
+        instance.transform.position = position;
+    }
+
     public string GetParsedStructure() => LevelParser.SerializeLevelObjects(objectsInGrid);
     public void SetFromParsedStructure(string serializedStruct)
     {
@@ -34,10 +42,7 @@ public class GridObjectsPlacer : MonoBehaviour
 
         foreach (PlaceObject placeObject in objectsInGrid)
         {
-            GameObject prefab = placeObjectsFactory.GetPlaceObjectByName(placeObject.name);
-            GameObject instance = Instantiate(prefab);
-
-            instance.transform.position = placeObject.position;
+            PlaceObjectAtPosition(placeObject.position, placeObject.name);
         }
     }
 }

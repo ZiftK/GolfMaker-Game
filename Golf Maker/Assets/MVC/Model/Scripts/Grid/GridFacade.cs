@@ -89,6 +89,7 @@ public class GridFacade : MonoBehaviour
         EditorLevelEvents editorLevelEvents = EditorLevelEvents.GetInstance();
 
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
+        pencilEventsHandler.PlaceObjectAtPosition += PlaceObjectAtPositions;
         pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
@@ -163,6 +164,14 @@ public class GridFacade : MonoBehaviour
             Vector2Int idPosition = ConvertTileMapPositionToLevelIndex(position);
             idStorage.SetIdAtPosition(idPosition, args.tileBaseId);
 
+        }
+    }
+
+    private void PlaceObjectAtPositions(object sender, PlaceObjectAtPositionsArgs args)
+    {
+        foreach (Vector3Int position in args.positions)
+        {
+            objectsPlacer.PlaceObjectAtPosition(position, args.placeObjectName);
         }
     }
 

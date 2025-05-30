@@ -1,33 +1,45 @@
 using System;
 using UnityEngine;
 
-public class DrawTileBaseAtPositionsArgs: EventArgs{
+public class DrawTileBaseAtPositionsArgs : EventArgs {
 
-    public Vector3Int[] positions {get;}
-    public int tileBaseId {get;}
+    public Vector3Int[] positions { get; }
+    public int tileBaseId { get; }
 
-    public DrawTileBaseAtPositionsArgs(int tileBaseId, Vector3Int[] positions){
+    public DrawTileBaseAtPositionsArgs(int tileBaseId, Vector3Int[] positions) {
         this.positions = positions;
         this.tileBaseId = tileBaseId;
     }
 
-    public DrawTileBaseAtPositionsArgs(int tileBaseId, Vector3Int position){
-        this.positions = new Vector3Int[] {position};
+    public DrawTileBaseAtPositionsArgs(int tileBaseId, Vector3Int position) {
+        this.positions = new Vector3Int[] { position };
         this.tileBaseId = tileBaseId;
     }
 
 }
 
+public class PlaceObjectAtPositionsArgs : EventArgs {
 
-public class BorrowTileBaseAtPositionArgs: EventArgs{
-    public Vector3Int[] positions {get;}
+    public Vector3Int[] positions;
+    public string placeObjectName;
 
-    public BorrowTileBaseAtPositionArgs(Vector3Int[] positions){
+    public PlaceObjectAtPositionsArgs(string placeObjectName, Vector3Int[] positions)
+    {
+        this.placeObjectName = placeObjectName;
+        this.positions = positions;
+    }
+}
+
+
+public class BorrowTileBaseAtPositionArgs : EventArgs {
+    public Vector3Int[] positions { get; }
+
+    public BorrowTileBaseAtPositionArgs(Vector3Int[] positions) {
         this.positions = positions;
     }
 
-    public BorrowTileBaseAtPositionArgs(Vector3Int position){
-        this.positions = new Vector3Int[]{position};
+    public BorrowTileBaseAtPositionArgs(Vector3Int position) {
+        this.positions = new Vector3Int[] { position };
     }
 }
 
@@ -37,6 +49,8 @@ public class PencilEventsHandler{
     static PencilEventsHandler instance;
 
     public event EventHandler<DrawTileBaseAtPositionsArgs> DrawTileBaseAtPosition;
+
+    public event EventHandler<PlaceObjectAtPositionsArgs> PlaceObjectAtPosition;
 
     public event EventHandler<DrawTileBaseAtPositionsArgs> TemporalDrawTileBaseAtPositions;
 
@@ -57,8 +71,14 @@ public class PencilEventsHandler{
         DrawTileBaseAtPosition?.Invoke(this, e);
     }
 
-    public void OnBorrowTileBaseAtPosition(BorrowTileBaseAtPositionArgs e){
-        
+    public void OnPlaceObjectAtPosition(PlaceObjectAtPositionsArgs e)
+    {
+        PlaceObjectAtPosition?.Invoke(this, e);
+    }
+
+    public void OnBorrowTileBaseAtPosition(BorrowTileBaseAtPositionArgs e)
+    {
+
         BorrowTileBaseAtPosition?.Invoke(this, e);
     }
 
