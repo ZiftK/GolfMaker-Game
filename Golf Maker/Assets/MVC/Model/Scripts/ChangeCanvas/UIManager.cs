@@ -42,8 +42,9 @@ public class UIManager : MonoBehaviour
         mainCanvas.gameObject.SetActive(false);
         playOrDesignCanvas.gameObject.SetActive(false);
         levelList.gameObject.SetActive(false);
-        myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
-        levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
+        //todo: add levels canvas
+        // myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
+        // levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
 
         switch (id)
         {
@@ -68,7 +69,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // ✅ Métodos semánticos (más legibles para llamar desde otros scripts)
+    
     public void ShowLogin() => SwitchCanvas(0);
     public void ShowMainMenu() => SwitchCanvas(1);
     public void ShowPlayDesignMenu() => SwitchCanvas(2);

@@ -35,7 +35,7 @@ public class ServerUserRepository : IUserRepository
 
     public async Task<UserEntity> Create(UserEntity user)
     {
-        string jsonData = JsonUtility.ToJson(user);
+        string jsonData = JsonConvert.SerializeObject(user);
         using (UnityWebRequest request = new UnityWebRequest(baseUrl, "POST"))
         {
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
