@@ -10,11 +10,20 @@ public class PrimalLoginHandler : MonoBehaviour
     private VisualElement root;
     private VisualElement formContainer;
 
-    [Header("Main form")]
+    [Header("Main menu")]
     public Canvas mainCanvas;
 
+    [Header("Canvas Play or Design")]
+    public Canvas playOrDesignCanvas;
+
+    [Header("My Levesl Canvas")]
+    public UIDocument myLevelsCanvas;
+
+    [Header("Leves design Canvas")]
+    public UIDocument levelDesignCanvas;
+
     [Header("Level list canvas")]
-    public Canvas levelList;
+    public UIDocument levelList;
     public GameObject content;
     public GameObject buttonPrefab;
 
@@ -104,13 +113,25 @@ public class PrimalLoginHandler : MonoBehaviour
 
             await RegisterNewUser(user);
         })
+
+
+
         { text = "Registrar" };
         registerBtn.AddToClassList("btnLogin");
-        formContainer.Add(registerBtn);
 
         var backBtn = new Button(LoadLoginForm) { text = "Volver" };
         backBtn.AddToClassList("btnLogin");
-        formContainer.Add(backBtn);
+
+        var buttonRow = new VisualElement();
+        buttonRow.style.flexDirection = FlexDirection.RowReverse;
+        buttonRow.style.justifyContent = Justify.SpaceBetween;
+        buttonRow.style.alignItems = Align.FlexEnd;
+        buttonRow.style.alignSelf = Align.Center;
+        buttonRow.style.width = 828;
+        buttonRow.style.flexGrow = 1;
+
+        buttonRow.Add(backBtn);
+        buttonRow.Add(registerBtn);
     }
 
     public async Task RegisterNewUser(UserEntity user)
@@ -181,6 +202,10 @@ public class PrimalLoginHandler : MonoBehaviour
     {
         mainCanvas.gameObject.SetActive(false);
         levelList.gameObject.SetActive(false);
+        playOrDesignCanvas.gameObject.SetActive(false);
+        myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
+        levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
+
 
         switch (id)
         {
@@ -188,8 +213,12 @@ public class PrimalLoginHandler : MonoBehaviour
                 mainCanvas.gameObject.SetActive(true);
                 break;
             case 2:
+                playOrDesignCanvas.gameObject.SetActive(true);
+                break;
+            case 3:
                 levelList.gameObject.SetActive(true);
                 break;
+
         }
     }
 
