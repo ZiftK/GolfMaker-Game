@@ -11,7 +11,7 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
-import routes from './routes';
+import routes from './routes/';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 

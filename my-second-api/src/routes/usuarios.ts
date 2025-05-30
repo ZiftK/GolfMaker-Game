@@ -43,19 +43,76 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nombre:
+ *               nombre_usuario:
  *                 type: string
- *               correo:
+ *               email:
  *                 type: string
- *               contraseña:
+ *               contrasenna:
  *                 type: string
  *     responses:
  *       201:
  *         description: Usuario creado
  */
-router.route('/usuarios')
-  .get(getAllUsuarios)
-  .post(createUsuario);
+// Rutas básicas - EXACTAMENTE como antes
+router.get('/', getAllUsuarios);
+router.post('/', createUsuario);
+
+/**
+ * @openapi
+ * /usuarios/nombre/{nombreUsuario}:
+ *   get:
+ *     summary: Busca un usuario por su nombre de usuario
+ *     tags:
+ *       - Usuarios
+ *     parameters:
+ *       - in: path
+ *         name: nombreUsuario
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado
+ */
+router.get('/nombre/:nombreUsuario', getUsuarioByUsername);
+
+/**
+ * @openapi
+ * /usuarios/{id}/niveles-creados:
+ *   get:
+ *     summary: Obtiene los niveles creados por un usuario
+ *     tags:
+ *       - Usuarios
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de niveles creados
+ */
+router.get('/:id/niveles-creados', getNivelesCreadosPorUsuario);
+
+/**
+ * @openapi
+ * /usuarios/{id}/niveles-jugados:
+ *   get:
+ *     summary: Obtiene los niveles jugados por un usuario
+ *     tags:
+ *       - Usuarios
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lista de niveles jugados
+ */
+router.get('/:id/niveles-jugados', getNivelesJugadosPorUsuario);
 
 /**
  * @openapi
@@ -111,66 +168,8 @@ router.route('/usuarios')
  *       204:
  *         description: Usuario eliminado
  */
-router.route('/usuarios/:id')
-  .get(getUsuarioById)
-  .put(updateUsuario)
-  .delete(deleteUsuario);
-
-/**
- * @openapi
- * /usuarios/{id}/niveles-creados:
- *   get:
- *     summary: Obtiene los niveles creados por un usuario
- *     tags:
- *       - Usuarios
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Lista de niveles creados
- */
-router.get('/usuarios/:id/niveles-creados', getNivelesCreadosPorUsuario);
-
-/**
- * @openapi
- * /usuarios/{id}/niveles-jugados:
- *   get:
- *     summary: Obtiene los niveles jugados por un usuario
- *     tags:
- *       - Usuarios
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Lista de niveles jugados
- */
-router.get('/usuarios/:id/niveles-jugados', getNivelesJugadosPorUsuario);
-
-/**
- * @openapi
- * /usuarios/nombre/{nombreUsuario}:
- *   get:
- *     summary: Busca un usuario por su nombre de usuario
- *     tags:
- *       - Usuarios
- *     parameters:
- *       - in: path
- *         name: nombreUsuario
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Usuario encontrado
- */
-router.get('/usuarios/nombre/:nombreUsuario', getUsuarioByUsername);
+router.get('/:id', getUsuarioById);
+router.put('/:id', updateUsuario);
+router.delete('/:id', deleteUsuario);
 
 export default router;
