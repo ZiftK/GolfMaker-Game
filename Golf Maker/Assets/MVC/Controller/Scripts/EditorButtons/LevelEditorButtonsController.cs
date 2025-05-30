@@ -53,7 +53,7 @@ public class LevelEditorButtonsController : MonoBehaviour
                 return;
             }
 
-            string saveLevelStruct = LevelParser.SerializeLevelIds(GridFacade.Instance.GetLevelIds());
+            string saveLevelStruct = GridFacade.Instance.GetStructure();
 
              LevelEntity levelData = new LevelEntity
             {
