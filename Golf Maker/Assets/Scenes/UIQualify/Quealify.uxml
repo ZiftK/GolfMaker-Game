@@ -1,0 +1,7 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scenes/UIQualify/Qualify.uss?fileID=7433441132597879392&amp;guid=f1950274eec16e849b92a5f2f01feda2&amp;type=3#Qualify" />
+    <engine:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/land.png?fileID=2800000&amp;guid=ea8a5d1c980af734fb9a4b33a3346387&amp;type=3#land&quot;); -unity-background-scale-mode: scale-and-crop;">
+        <engine:Button style="background-image: resource(&apos;buttons/arrow_btn&apos;); background-color: rgba(87, 87, 87, 0); -unity-background-scale-mode: scale-to-fit; width: 102px; height: 94px; margin-top: 42px; margin-left: 42px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+        <engine:Label text="Label" />
+    </engine:VisualElement>
+</engine:UXML>
