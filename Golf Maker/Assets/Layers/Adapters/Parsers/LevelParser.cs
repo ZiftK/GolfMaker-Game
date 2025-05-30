@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Text;
+using System;
+
 public class LevelParser
 {
     /// <summary>
@@ -16,6 +18,8 @@ public class LevelParser
     public static string SerializeLevelIds(int[,] levelIds)
     {
         StringBuilder sb = new StringBuilder();
+        bool hasInitial = false;
+        bool hasFinal = false;
 
         for (int i = 0; i < levelIds.GetLength(0); i++)
         {
@@ -26,12 +30,21 @@ public class LevelParser
                 {
                     sb.Append(",");
                 }
+
+                // check if has initial and final tiles
+                if (levelIds[i, j] == 8)// todo remove hardcode
+                    hasInitial = true;
+                if (levelIds[i, j] == 9)//todo remove harcode
+                    hasFinal = true;
             }
             if (i < levelIds.GetLength(0) - 1)
             {
                 sb.Append(";");
             }
         }
+
+        if (!hasInitial) throw new Exception("The level must contain one initial tile");
+        if (!hasFinal) throw new Exception("The level must contain almost one final tile");
         return sb.ToString();
     }
 
@@ -47,7 +60,7 @@ public class LevelParser
     /// levelIds will be a 2D array with values { { 1, 2 }, { 3, 4 } }
     /// </example>
     public static int[,] DeSerializeLevelIds(string serializedLevel)
-    {       
+    {
         string[] rows = serializedLevel.Split(';');
         int rowCount = rows.Length;
         int colCount = rows[0].Split(',').Length;
@@ -59,7 +72,7 @@ public class LevelParser
             string[] cols = rows[i].Split(',');
             for (int j = 0; j < colCount; j++)
             {
-                
+
 
                 levelIds[i, j] = int.Parse(cols[j]);
             }
