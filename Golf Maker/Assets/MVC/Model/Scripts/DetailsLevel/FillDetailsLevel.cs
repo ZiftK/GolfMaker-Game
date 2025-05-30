@@ -68,8 +68,12 @@ public class LevelDetailView : MonoBehaviour
 
             if (i < fullStars)
                 spritePath = $"{baseStarPath}5.png"; // full star
+            else if (i == fullStars && !hasHalfStar)
+                spritePath = $"{baseStarPath}4.png"; // empty star (no half star)
             else if (i == fullStars && hasHalfStar)
                 spritePath = $"{baseStarPath}3.png"; // half star (you should have this asset)
+            else if (i < fullStars + 1)
+                spritePath = $"{baseStarPath}2.png"; // quarter star (you should have this asset)
             else
                 spritePath = $"{baseStarPath}1.png"; // empty star
 
