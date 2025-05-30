@@ -52,4 +52,11 @@ public class GridIdStorage : MonoBehaviour
 
     public void SetAllIds(int[,] levelIds) => this.levelIds = levelIds;
     public int[,] GetAllIds() => this.levelIds;
+
+    public string GetParsedStructure() => LevelParser.SerializeLevelIds(levelIds);
+
+    public void SetFromParsedStructure(string serializedStruct)
+    {
+        levelIds = LevelParser.DeSerializeLevelIds(serializedStruct);
+    }
 }
