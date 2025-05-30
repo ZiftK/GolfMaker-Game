@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
-using System.Linq;
+using System.Threading.Tasks;
 
 public class FillLevels : MonoBehaviour
 {
@@ -10,13 +9,8 @@ public class FillLevels : MonoBehaviour
     public UIDocument uIDocument;
 
     private VisualElement levelsGrid;
-    public class LevelData
-    {
-        public string name;
-    }
 
-
-    void Start()
+    async void Start()
     {
         if (uIDocument == null)
         {
@@ -31,20 +25,24 @@ public class FillLevels : MonoBehaviour
         var root = uIDocument.rootVisualElement;
         levelsGrid = root.Q<VisualElement>("card-container");
 
-
-        List<LevelData> levels = new List<LevelData>
-        {
-            new() { name = "Level 1" },
-            new() { name = "Level 2" },
-            new() { name = "Level 3" },
-            new() { name = "Level 4" },
-            new() { name = "Level 5" }
-        };
-
-        RenderLevels(levels);
+        await LoadUserLevelsAsync();
     }
 
-    public void RenderLevels(List<LevelData> levels)
+    private async Task LoadUserLevelsAsync()
+    {
+        try
+        {
+            int userId = EnvDataHandler.Instance.GetCurrentUserId();
+            List<LevelEntity> userLevels = await ServerLevelRepository.GetInstance().GetByUserId(userId);
+            RenderLevels(userLevels);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Failed to load user levels: {ex.Message}");
+        }
+    }
+
+    public void RenderLevels(List<LevelEntity> levels)
     {
         levelsGrid.Clear();
 
@@ -52,12 +50,14 @@ public class FillLevels : MonoBehaviour
         {
             var card = blockLevelCardTemplate.CloneTree();
             var levelName = card.Q<Label>("LevelName");
-            Debug.Log(card);
-            levelName.text = level.name;
+
+            if (levelName != null)
+                levelName.text = level.nombre;
 
             card.RegisterCallback<ClickEvent>(_ =>
             {
-                Debug.Log("Level clicked: " + level.name);
+                Debug.Log("Level clicked: " + level.nombre);
+
             });
 
             levelsGrid.Add(card);
