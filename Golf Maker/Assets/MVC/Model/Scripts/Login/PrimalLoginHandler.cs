@@ -1,148 +1,111 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class PrimalLoginHandler : MonoBehaviour
+public class ChangeLoginRegister : MonoBehaviour
 {
+    private VisualElement root;
+    private VisualElement formContainer;
 
-    [Header("Login form")]
-    public Canvas loginCanvas;
-    public TMP_InputField usernameInputField;
-    public TMP_InputField passwordInputField;
-
-    [Header("Main form")]
-    public Canvas mainCanvas;
-
-    [Header("Level list canvas")]
-    public Canvas levelList;
-    public GameObject content;
-    public GameObject buttonPrefab;
-
-
-    void Awake()
+    void OnEnable()
     {
-        if (EnvDataHandler.Instance.HasData())
-        {
-            SwitchCambas(1);
-        }
+        var uiDocument = GetComponent<UIDocument>();
+        root = uiDocument.rootVisualElement;
 
+        formContainer = root.Q<VisualElement>("formContainer");
+        formContainer.AddToClassList("formContainer");
+
+        var loginButton = root.Q<Button>("loginButton");
+        var signInButton = root.Q<Button>("signInButton");
+
+        loginButton.clicked += ReloadLoginForm;
+        signInButton.clicked += ShowRegisterForm;
     }
 
-    public void OnLoginButtonClickEvent()
+    private void ReloadLoginForm()
     {
-        _ = TryLogin();
+        formContainer.Clear();
+
+        // Label
+        var titleLabel = new Label("Inicia Sesión");
+        titleLabel.style.fontSize = 71;
+        titleLabel.style.unityTextAlign = TextAnchor.UpperCenter;
+        titleLabel.style.color = Color.white;
+        formContainer.Add(titleLabel);
+
+        // Email input
+        var usernameField = new TextField("Email") { name = "usernameInputField" };
+        usernameField.AddToClassList("inputField");
+        formContainer.Add(usernameField);
+
+        // Password input
+        var passwordField = new TextField("Contraseña") { name = "passwordInputField", isPasswordField = true };
+        passwordField.AddToClassList("inputField");
+        formContainer.Add(passwordField);
+
+        // Buttons row
+        var buttonRow = new VisualElement();
+        buttonRow.style.flexDirection = FlexDirection.RowReverse;
+        buttonRow.style.justifyContent = Justify.SpaceBetween;
+        buttonRow.style.alignItems = Align.FlexEnd;
+        buttonRow.style.alignSelf = Align.Center;
+        buttonRow.style.width = 828;
+        buttonRow.style.flexGrow = 1;
+
+        var signInButton = new Button(ShowRegisterForm) { name = "signInButton", text = "Registrate" };
+        signInButton.AddToClassList("btnLogin");
+
+        var loginButton = new Button(() =>
+        {
+            // Este botón puede disparar un evento si es necesario
+            Debug.Log("Iniciar sesión desde reload");
+        })
+        { name = "loginButton", text = "Iniciar" };
+        loginButton.AddToClassList("btnLogin");
+
+        buttonRow.Add(signInButton);
+        buttonRow.Add(loginButton);
+
+        formContainer.Add(buttonRow);
     }
 
-    public void OnCreateLevelButtonClickEvent()
+    private void ShowRegisterForm()
     {
-        SceneManager.LoadScene("LevelCreator");
+        formContainer.Clear();
+
+        var title = new Label("Registrarse");
+        title.style.fontSize = 60;
+        title.style.unityTextAlign = TextAnchor.MiddleCenter;
+        title.style.color = Color.white;
+        title.style.marginBottom = 40;
+        formContainer.Add(title);
+
+        var usernameField = new TextField("Username");
+        usernameField.AddToClassList("inputField");
+        formContainer.Add(usernameField);
+
+        var emailField = new TextField("Correo");
+        emailField.AddToClassList("inputField");
+        formContainer.Add(emailField);
+
+        var passwordField = new TextField("Contraseña") { isPasswordField = true };
+        passwordField.AddToClassList("inputField");
+        formContainer.Add(passwordField);
+
+        var registerButton = new Button(() =>
+        {
+            Debug.Log("Simulación de registro...");
+        })
+        {
+            text = "Registrar"
+        };
+        registerButton.AddToClassList("btnLogin");
+        formContainer.Add(registerButton);
+
+        var returnButton = new Button(ReloadLoginForm)
+        {
+            text = "Volver"
+        };
+        returnButton.AddToClassList("btnLogin");
+        formContainer.Add(returnButton);
     }
-
-
-    public void OnLevelListButtonClickEvent()
-    {
-        SwitchCambas(2);
-        foreach (Transform child in content.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        _ = ShowLevelsList();
-    }
-
-    public void OnReturnFromLevelListClickEvent()
-    {
-        SwitchCambas(1);
-    }
-
-    public void SwitchCambas(int id)
-    {
-        mainCanvas.gameObject.SetActive(false);
-        loginCanvas.gameObject.SetActive(false);
-        levelList.gameObject.SetActive(false);
-
-        switch (id)
-        {
-            case 0:
-
-                loginCanvas.gameObject.SetActive(true);
-                break;
-            case 1:
-                mainCanvas.gameObject.SetActive(true);
-                break;
-
-            case 2:
-                levelList.gameObject.SetActive(true);
-                break;
-            default:
-                break;
-
-        }
-    }
-
-    public async Task TryLogin()
-    {
-
-        string username = usernameInputField.text;
-        string password = passwordInputField.text;
-
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-        {
-            Debug.LogError("Username or password cannot be empty.");
-            return;
-        }
-
-        IUserRepository userRepository = ServerUserRepository.GetInstance();
-        UserEntity user = await userRepository.GetByUsername(username);
-
-        if (user == null)
-        {
-            Debug.LogError("User not found.");
-            return;
-        }
-
-        if (user.contrasenna != password)
-        {
-            Debug.LogError("Invalid password.");
-            return;
-        }
-
-        EnvDataHandler.Instance.SetUserData(user);
-        // Reset input fields after submission
-        usernameInputField.text = string.Empty;
-        passwordInputField.text = string.Empty;
-        SwitchCambas(1);
-
-    }
-
-    public async Task ShowLevelsList()
-    {
-        try
-        {
-            ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
-            List<LevelEntity> levels = await levelRepository.GetAll();
-
-            if (levels == null || levels.Count == 0)
-            {
-                Debug.Log("Sin niveles");
-                return;
-            }
-
-            foreach (LevelEntity level in levels)
-            {
-                GameObject button = Instantiate(buttonPrefab, content.transform);
-                button.GetComponent<LevelButton>().Customize(level);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
-        }
-    }
-
 }
