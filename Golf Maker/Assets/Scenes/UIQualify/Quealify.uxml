@@ -10,11 +10,11 @@
             <engine:TextField name="commentField" multiline="true" class="input-field" />
             <engine:Label text="Calificación" class="label" style="margin-top: 42px; -unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;);" />
             <engine:VisualElement name="starContainer" class="star-container">
-                <engine:Button name="star1" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
-                <engine:Button name="star2" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
-                <engine:Button name="star3" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
-                <engine:Button name="star4" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
-                <engine:Button name="star5" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
+                <engine:Button name="star1" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_1.png?fileID=2800000&amp;guid=225321bcc9ebf8a4ca8f1138662ac13f&amp;type=3#start_1&quot;);" />
+                <engine:Button name="star2" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_1.png?fileID=2800000&amp;guid=225321bcc9ebf8a4ca8f1138662ac13f&amp;type=3#start_1&quot;);" />
+                <engine:Button name="star3" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_1.png?fileID=2800000&amp;guid=225321bcc9ebf8a4ca8f1138662ac13f&amp;type=3#start_1&quot;);" />
+                <engine:Button name="star4" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_1.png?fileID=2800000&amp;guid=225321bcc9ebf8a4ca8f1138662ac13f&amp;type=3#start_1&quot;);" />
+                <engine:Button name="star5" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_1.png?fileID=2800000&amp;guid=225321bcc9ebf8a4ca8f1138662ac13f&amp;type=3#start_1&quot;);" />
             </engine:VisualElement>
             <engine:VisualElement class="button-row">
                 <engine:Button name="cancelButton" text="Cancelar" class="btn cancel" style="-unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;);" />
