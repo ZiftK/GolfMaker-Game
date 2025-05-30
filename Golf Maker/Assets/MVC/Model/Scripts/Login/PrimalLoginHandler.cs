@@ -10,8 +10,6 @@ public class PrimalLoginHandler : MonoBehaviour
     private VisualElement root;
     private VisualElement formContainer;
 
-    public GameObject content;
-    public GameObject buttonPrefab;
 
     void OnEnable()
     {
@@ -189,45 +187,45 @@ public class PrimalLoginHandler : MonoBehaviour
         SceneManager.LoadScene("LevelCreator");
     }
 
-    public void OnLevelListButtonClickEvent()
-    {
-        UIManager.Instance.ShowLevelList(); // ✅ Cambio limpio
+    // public void OnLevelListButtonClickEvent()
+    // {
+    //     UIManager.Instance.ShowLevelList(); // ✅ Cambio limpio
 
-        foreach (Transform child in content.transform)
-        {
-            Destroy(child.gameObject);
-        }
+    //     foreach (Transform child in content.transform)
+    //     {
+    //         Destroy(child.gameObject);
+    //     }
 
-        _ = ShowLevelsList();
-    }
+    //     _ = ShowLevelsList();
+    // }
 
-    public void OnReturnFromLevelListClickEvent()
-    {
-        UIManager.Instance.ShowMainMenu();
-    }
+    // public void OnReturnFromLevelListClickEvent()
+    // {
+    //     UIManager.Instance.ShowMainMenu();
+    // }
 
-    public async Task ShowLevelsList()
-    {
-        try
-        {
-            ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
-            List<LevelEntity> levels = await levelRepository.GetAll();
+    // public async Task ShowLevelsList()
+    // {
+    //     try
+    //     {
+    //         ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
+    //         List<LevelEntity> levels = await levelRepository.GetAll();
 
-            if (levels == null || levels.Count == 0)
-            {
-                Debug.Log("Sin niveles");
-                return;
-            }
+    //         if (levels == null || levels.Count == 0)
+    //         {
+    //             Debug.Log("Sin niveles");
+    //             return;
+    //         }
 
-            foreach (LevelEntity level in levels)
-            {
-                GameObject button = Instantiate(buttonPrefab, content.transform);
-                button.GetComponent<LevelButton>().Customize(level);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
-        }
-    }
+    //         foreach (LevelEntity level in levels)
+    //         {
+    //             GameObject button = Instantiate(buttonPrefab, content.transform);
+    //             button.GetComponent<LevelButton>().Customize(level);
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
+    //     }
+    // }
 }
