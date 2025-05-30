@@ -1,10 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="root" class="root"> 
-
-    <ui:Button name="backButton" class="button_back button" style="-unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0); width: 79px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); max-width: 100px; background-image: resource(&apos;buttons/arrow_btn&apos;); height: 63px; max-height: 100px; margin-top: 20px; margin-left: 40px;" />
-
-        <ui:VisualElement name="form_container">
-            <ui:InputField name="namInput" class="input_field" /> 
-        </ui:VisualElement>
+    <ui:VisualElement name="root" class="root" style="flex-basis: auto;">
+        <ui:Button name="backButton" class="button_back button" style="-unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0); width: 79px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); max-width: 100px; background-image: resource(&apos;buttons/arrow_btn&apos;); height: 63px; max-height: 100px; margin-top: 20px; margin-left: 40px;" />
+        <ui:TextField label="nombre" name="name" style="color: rgb(0, 0, 0); font-size: 20px; -unity-text-outline-color: rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.43);" />
+        <ui:EnumField label="Dificultad" value="Read" type="Dificultad, Assembly-CSharp" name="dificult" style="-unity-text-outline-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-size: 20px; background-color: rgba(247, 247, 247, 0.54);" />
+        <ui:TextField label="Descripcion" name="description" multiline="true" style="color: rgb(0, 0, 0); font-size: 20px; -unity-text-outline-color: rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.53);" />
+        <ui:Button text="Crear" name="create-button" />
     </ui:VisualElement>
 </ui:UXML>
