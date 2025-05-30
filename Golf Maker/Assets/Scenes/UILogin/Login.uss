@@ -1,3 +1,12 @@
+.formTitle {
+    /* -unity-font-definition: url("Fonts/PixelifySans-VariableFont_wght.ttf"); */
+    -unity-text-align: upper-center;
+    font-size: 71px;
+    color: white;
+    align-self: center;
+    margin-bottom: 40px;
+}
+
 .inputField {
     width: 754px;
     height: 66px;
@@ -5,6 +14,7 @@
     margin-bottom: 20px;
     color: white;
     align-self: center;
+    color: rgb(104, 104, 104);
 }
 
 .btnLogin {
