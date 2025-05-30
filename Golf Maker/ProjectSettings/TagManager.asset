@@ -9,6 +9,7 @@ TagManager:
   - initial
   - fall
   - lava
+  - bricks-diagonal
   layers:
   - Default
   - TransparentFX

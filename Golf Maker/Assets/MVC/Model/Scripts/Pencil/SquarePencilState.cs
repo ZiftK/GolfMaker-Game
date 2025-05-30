@@ -24,7 +24,7 @@ public class SquarePencilState : PencilState, IUpdatePencilState
     {
         // draw confirmation
         if (!this.IsDrawing) return;
-         this.IsDrawing = false;
+        this.IsDrawing = false;
 
         if (context.id == 8)
         {
@@ -36,11 +36,22 @@ public class SquarePencilState : PencilState, IUpdatePencilState
 
         // get positions between initial and final point
         Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, finalPoint);
-        // draw tile base at positions
-        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, squareCoords);
-        pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
-        pencilEventsHandler.OnDrawTileBaseAtPosition(args);
         
+        
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                // draw tile base at positions
+                DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, squareCoords);
+                pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
+                pencilEventsHandler.OnDrawTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Bucket pencil can't use objects");
+                break;
+        }
        
     }
 
@@ -60,12 +71,22 @@ public class SquarePencilState : PencilState, IUpdatePencilState
 
         // get positions between initial and final point
         Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, finalPoint);
-        // borrow tile base at positions
-        BorrowTileBaseAtPositionArgs args = new(squareCoords);
-        pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
-        pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
-
         
+
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                // borrow tile base at positions
+                BorrowTileBaseAtPositionArgs args = new(squareCoords);
+                pencilEventsHandler.OnClearTemporalTiles(); // remove temporal tiles
+                pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Square pencil can't use objects");
+                break;
+        }
     }
 
     public void Update(PencilContext context)
@@ -74,9 +95,20 @@ public class SquarePencilState : PencilState, IUpdatePencilState
         {
             pencilEventsHandler.OnClearTemporalTiles();
 
-            Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, context.position);
-            DrawTileBaseAtPositionsArgs args = new(context.id, squareCoords);
-            pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
+            switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                Vector3Int[] squareCoords = Vector3IntOperations.InterpolateVectorsAsSquare(initialPoint, context.position);
+            
+                DrawTileBaseAtPositionsArgs args = new(context.id, squareCoords);
+                pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Square pencil can't use objects");
+                break;
+        }
         }
 
         lastPosition = context.position;

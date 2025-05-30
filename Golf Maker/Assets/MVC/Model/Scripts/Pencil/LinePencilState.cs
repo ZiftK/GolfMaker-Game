@@ -36,12 +36,23 @@ public class LinePencilState : PencilState, IUpdatePencilState
             Debug.LogWarning("You cannot use the line pencil with the initial tile.");
             return;
         }
-        
+
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
-        DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, lineCoords);
-        pencilEventsHandler.OnClearTemporalTiles();
-        pencilEventsHandler.OnDrawTileBaseAtPosition(args);
+
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, lineCoords);
+                pencilEventsHandler.OnClearTemporalTiles();
+                pencilEventsHandler.OnDrawTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Line pencil can't use objects");
+                break;
+        }
 
     }
 
@@ -60,8 +71,19 @@ public class LinePencilState : PencilState, IUpdatePencilState
 
         finalPoint = context.position;
         Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, finalPoint);
-        BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(lineCoords);
-        pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+
+        switch (context.setType)
+        {
+            case PencilSetType.Tile:
+                BorrowTileBaseAtPositionArgs args = new BorrowTileBaseAtPositionArgs(lineCoords);
+                pencilEventsHandler.OnBorrowTileBaseAtPosition(args);
+                break;
+
+            case PencilSetType.PlaceObject:
+                //todo: implement
+                Debug.LogWarning("Line pencil can't use objects");
+                break;
+        }
 
         this.IsBorrowing = false;
     }
@@ -70,12 +92,25 @@ public class LinePencilState : PencilState, IUpdatePencilState
     {
 
 
-        if (this.IsDrawing && lastPosition != context.position){
+        if (this.IsDrawing && lastPosition != context.position)
+        {
             pencilEventsHandler.OnClearTemporalTiles();
 
-            Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, context.position);
-            DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, lineCoords);
-            pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
+            
+            switch (context.setType)
+            {
+                case PencilSetType.Tile:
+                   Vector3Int[] lineCoords = Vector3IntOperations.InterpolateVectors(initialPoint, context.position);
+                    DrawTileBaseAtPositionsArgs args = new DrawTileBaseAtPositionsArgs(context.id, lineCoords);
+                    pencilEventsHandler.OnTemporalDrawTileBaseAtPosition(args);
+            
+                    break;
+
+                case PencilSetType.PlaceObject:
+                    //todo: implement
+                    Debug.LogWarning("Line pencil can't use objects");
+                    break;
+            }
             
         }
 

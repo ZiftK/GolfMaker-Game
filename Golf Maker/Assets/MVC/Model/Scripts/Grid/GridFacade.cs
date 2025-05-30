@@ -69,7 +69,7 @@ public class GridFacade : MonoBehaviour
         gridRenderer.InitVisualGrid(levelWidth, levelHeight, globalTilingId);
         tilesRenderer.InitVisualGridTiles(tileBaseWidth);
         idStorage.InitGridIdStorage(levelWidth, levelHeight);
-        objectsPlacer.InitGridObjectsPlacer();
+        objectsPlacer.InitGridObjectsPlacer(tileBaseWidth);
 
     }
 
@@ -91,6 +91,8 @@ public class GridFacade : MonoBehaviour
         pencilEventsHandler.DrawTileBaseAtPosition += DrawTileBaseAtPositions;
         pencilEventsHandler.PlaceObjectAtPosition += PlaceObjectAtPositions;
         pencilEventsHandler.BorrowTileBaseAtPosition += BorrowTileBaseAtPositions;
+        pencilEventsHandler.RemoveObjectAtPositions += RemoveObjectAtPositions;
+
         pencilEventsHandler.TemporalDrawTileBaseAtPositions += TemporalDrawTileBaseAtPositions;
         pencilEventsHandler.ClearTemporalTiles += ClearTemporalTiles;
 
@@ -191,6 +193,14 @@ public class GridFacade : MonoBehaviour
             idStorage.SetIdAtPosition(idPosition, -1);
         }
 
+    }
+
+    private void RemoveObjectAtPositions(object sender, RemoveObjectAtPositionsArgs args)
+    {
+        foreach (Vector3Int position in args.positions)
+        {
+            objectsPlacer.RemoveObjectAtPosition(position);
+        }
     }
 
     public void ClearAllTiles()

@@ -38,20 +38,39 @@ public class PlaceObjectAtPositionsArgs : EventArgs
 }
 
 
-public class BorrowTileBaseAtPositionArgs : EventArgs {
+public class BorrowTileBaseAtPositionArgs : EventArgs
+{
     public Vector3Int[] positions { get; }
 
-    public BorrowTileBaseAtPositionArgs(Vector3Int[] positions) {
+    public BorrowTileBaseAtPositionArgs(Vector3Int[] positions)
+    {
         this.positions = positions;
     }
 
-    public BorrowTileBaseAtPositionArgs(Vector3Int position) {
+    public BorrowTileBaseAtPositionArgs(Vector3Int position)
+    {
+        this.positions = new Vector3Int[] { position };
+    }
+}
+
+public class RemoveObjectAtPositionsArgs : EventArgs
+{
+    public Vector3Int[] positions;
+
+    public RemoveObjectAtPositionsArgs(Vector3Int[] positions)
+    {
+        this.positions = positions;
+    }
+
+    public RemoveObjectAtPositionsArgs(Vector3Int position)
+    {
         this.positions = new Vector3Int[] { position };
     }
 }
 
 
-public class PencilEventsHandler{
+public class PencilEventsHandler
+{
 
     static PencilEventsHandler instance;
 
@@ -65,16 +84,21 @@ public class PencilEventsHandler{
 
     public event EventHandler<BorrowTileBaseAtPositionArgs> BorrowTileBaseAtPosition;
 
+    public event EventHandler<RemoveObjectAtPositionsArgs> RemoveObjectAtPositions;
 
-    public static PencilEventsHandler GetInstance(){
-        if (instance == null){
+
+    public static PencilEventsHandler GetInstance()
+    {
+        if (instance == null)
+        {
             instance = new PencilEventsHandler();
         }
 
         return instance;
     }
 
-    public void OnDrawTileBaseAtPosition(DrawTileBaseAtPositionsArgs e){
+    public void OnDrawTileBaseAtPosition(DrawTileBaseAtPositionsArgs e)
+    {
         DrawTileBaseAtPosition?.Invoke(this, e);
     }
 
@@ -89,11 +113,18 @@ public class PencilEventsHandler{
         BorrowTileBaseAtPosition?.Invoke(this, e);
     }
 
-    public void OnTemporalDrawTileBaseAtPosition(DrawTileBaseAtPositionsArgs e){
+    public void OnRemoveObjectAtPositions(RemoveObjectAtPositionsArgs e)
+    {
+        RemoveObjectAtPositions?.Invoke(this, e);
+    }
+
+    public void OnTemporalDrawTileBaseAtPosition(DrawTileBaseAtPositionsArgs e)
+    {
         TemporalDrawTileBaseAtPositions?.Invoke(this, e);
     }
 
-    public void OnClearTemporalTiles(){
+    public void OnClearTemporalTiles()
+    {
         ClearTemporalTiles?.Invoke(this, new EventArgs());
     }
 

@@ -47,6 +47,11 @@ public class PointPencilState : PencilState, IUpdatePencilState
                     PlaceObjectAtPositionsArgs args = new PlaceObjectAtPositionsArgs(context.id, context.position);
                     pencilEventsHandler.OnPlaceObjectAtPosition(args);
                 }
+                if (this.IsBorrowing)
+                {
+                    RemoveObjectAtPositionsArgs args = new RemoveObjectAtPositionsArgs(context.position);
+                    pencilEventsHandler.OnRemoveObjectAtPositions(args);   
+                }
                 break;
         }
     }
