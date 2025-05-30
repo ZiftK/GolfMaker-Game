@@ -1,7 +1,25 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scenes/UIQualify/Qualify.uss?fileID=7433441132597879392&amp;guid=f1950274eec16e849b92a5f2f01feda2&amp;type=3#Qualify" />
-    <engine:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/land.png?fileID=2800000&amp;guid=ea8a5d1c980af734fb9a4b33a3346387&amp;type=3#land&quot;); -unity-background-scale-mode: scale-and-crop;">
-        <engine:Button style="background-image: resource(&apos;buttons/arrow_btn&apos;); background-color: rgba(87, 87, 87, 0); -unity-background-scale-mode: scale-to-fit; width: 102px; height: 94px; margin-top: 42px; margin-left: 42px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
-        <engine:Label text="Label" />
+    <engine:VisualElement name="VisualElement" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/land.png?fileID=2800000&amp;guid=ea8a5d1c980af734fb9a4b33a3346387&amp;type=3#land&quot;); -unity-background-scale-mode: scale-and-crop;">
+        <engine:VisualElement name="navbar" class="Navbar" style="flex-grow: 1; background-image: none; -unity-background-scale-mode: scale-and-crop; height: 162px; align-items: center; justify-content: space-between; flex-direction: row; align-self: stretch;">
+            <engine:Button style="background-image: resource(&apos;buttons/arrow_btn&apos;); background-color: rgba(87, 87, 87, 0); -unity-background-scale-mode: scale-to-fit; width: 74px; height: 70px; margin-top: 4px; margin-left: 4px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; -unity-text-align: upper-center;" />
+            <engine:Label text="Calificando" name="Label" enable-rich-text="true" class="title" style="-unity-text-align: middle-right; white-space: pre-wrap; text-overflow: clip; justify-content: flex-end; align-self: center; align-content: flex-start; align-items: flex-end; -unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;); font-size: 65px; height: 82px; color: rgb(255, 255, 255); margin-left: 824px;" />
+        </engine:VisualElement>
+        <engine:VisualElement name="formContainer" class="form-container" style="height: 446px; width: 588px;">
+            <engine:Label text="Comentario" class="label" style="font-size: 44px; -unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;);" />
+            <engine:TextField name="commentField" multiline="true" class="input-field" />
+            <engine:Label text="Calificación" class="label" style="margin-top: 42px; -unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;);" />
+            <engine:VisualElement name="starContainer" class="star-container">
+                <engine:Button name="star1" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
+                <engine:Button name="star2" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
+                <engine:Button name="star3" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
+                <engine:Button name="star4" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
+                <engine:Button name="star5" class="star" style="background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/start_5.png?fileID=2800000&amp;guid=e8de99e320f82fa47a1eb9f2bf0ece2c&amp;type=3#start_5&quot;);" />
+            </engine:VisualElement>
+            <engine:VisualElement class="button-row">
+                <engine:Button name="cancelButton" text="Cancelar" class="btn cancel" style="-unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;);" />
+                <engine:Button name="submitButton" text="Calificar" class="btn submit" style="-unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;);" />
+            </engine:VisualElement>
+        </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
