@@ -18,15 +18,22 @@ public class DrawTileBaseAtPositionsArgs : EventArgs {
 
 }
 
-public class PlaceObjectAtPositionsArgs : EventArgs {
+public class PlaceObjectAtPositionsArgs : EventArgs
+{
 
     public Vector3Int[] positions;
-    public string placeObjectName;
+    public int id;
 
-    public PlaceObjectAtPositionsArgs(string placeObjectName, Vector3Int[] positions)
+    public PlaceObjectAtPositionsArgs(int id, Vector3Int[] positions)
     {
-        this.placeObjectName = placeObjectName;
+        this.id = id;
         this.positions = positions;
+    }
+
+    public PlaceObjectAtPositionsArgs(int id, Vector3Int position)
+    {
+        this.id = id;
+        this.positions = new Vector3Int[] { position };
     }
 }
 

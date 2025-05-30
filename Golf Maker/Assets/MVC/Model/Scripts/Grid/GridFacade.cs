@@ -171,7 +171,7 @@ public class GridFacade : MonoBehaviour
     {
         foreach (Vector3Int position in args.positions)
         {
-            objectsPlacer.PlaceObjectAtPosition(position, args.placeObjectName);
+            objectsPlacer.PlaceObjectAtPosition(position, args.id);
         }
     }
 
