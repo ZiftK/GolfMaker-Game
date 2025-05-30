@@ -6,7 +6,12 @@ public class ProvisionalGameLoader : MonoBehaviour
 {
     void Awake()
     {
-        _ = AsyncLoadLevel(40);
+        GameLevelEvents.OnLoadLevelEvent += LoadLevel;
+    }
+
+    public void LoadLevel(int levelId)
+    {
+        _ = AsyncLoadLevel(levelId);
     }
 
     async Task AsyncLoadLevel(int levelId)

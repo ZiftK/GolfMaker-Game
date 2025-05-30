@@ -27,7 +27,8 @@ public class PlaceObjectsFactory : MonoBehaviour
     {
         if (!map.ContainsKey(name))
         {
-            Debug.Log($"Not exist an object with name: {name}");
+            Debug.LogError($"[PlaceObjectsFactory] No existe un objeto con el nombre: {name} en el diccionario. Revisa el storage.");
+            return null;
         }
 
         map.TryGetValue(name, out PlaceObjectConfig val);
@@ -36,16 +37,24 @@ public class PlaceObjectsFactory : MonoBehaviour
 
     public static GameObject GetPlaceObjectById(int id)
     {
-
         List<PlaceObjectConfig> configs = map.Values.Where(config => config.id == id).ToList();
-
+        if (configs.Count == 0)
+        {
+            Debug.LogError($"[PlaceObjectsFactory] No existe un objeto con el id: {id} en el diccionario. Revisa el storage.");
+            return null;
+        }
         return configs[0].prefab;
     }
 
     public static GameObject GetPlaceObjectById(int id, out string name)
     {
-
         List<PlaceObjectConfig> configs = map.Values.Where(config => config.id == id).ToList();
+        if (configs.Count == 0)
+        {
+            Debug.LogError($"[PlaceObjectsFactory] No existe un objeto con el id: {id} en el diccionario. Revisa el storage.");
+            name = null;
+            return null;
+        }
         name = configs[0].name;
         return configs[0].prefab;
     }

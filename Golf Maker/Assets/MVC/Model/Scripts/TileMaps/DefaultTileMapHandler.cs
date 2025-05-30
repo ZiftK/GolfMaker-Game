@@ -20,6 +20,7 @@ public class MultipleTileMapHandler : MonoBehaviour, ITileHandler
     public bool SetTile(Vector3Int position, TileBase tilebase)
     {
         tilemap = GetTilemap();
+        Debug.Log(tilemap.cellBounds.size);
         tilemap.SetTile(position, tilebase);
         return true;
     }

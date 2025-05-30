@@ -17,6 +17,11 @@ public class VisualGridRenderer : MonoBehaviour
     {
         if (visualGridInstance is null)
         {
+            if (visualGridPrefab == null)
+            {
+                Debug.LogError("[VisualGridRenderer] visualGridPrefab is null. Asigna el prefab en el inspector.");
+                return;
+            }
             visualGridInstance = Instantiate(visualGridPrefab);
         }
 
