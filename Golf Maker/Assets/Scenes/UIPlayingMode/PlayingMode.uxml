@@ -8,5 +8,12 @@
                 <engine:Button name="ExitButton" text="Salir" style="font-size: 38px;" />
             </engine:VisualElement>
         </engine:VisualElement>
+        <engine:VisualElement name="WinOverlay" class="win-overlay" style="display: none; width: 100%; height: 100%; -unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;); top: 0; bottom: 0; right: 4px; left: -4px;">
+            <engine:VisualElement class="win-menu">
+                <engine:Label name="WinMessage" text="¡Ganaste!" class="win-title" />
+                <engine:Label name="CoinsLabel" text="Monedas obtenidas: 0" class="win-coins" />
+                <engine:Button name="ContinueButton" text="Continuar" class="continue-button" />
+            </engine:VisualElement>
+        </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

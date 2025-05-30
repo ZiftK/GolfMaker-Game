@@ -1,44 +1,33 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class GameUIController : MonoBehaviour
 {
     private VisualElement root;
-    private VisualElement pauseMenu;
-    private Button pauseButton;
-    private Button resumeButton;
-    private Button exitButton;
-    private VisualElement pauseOverlay;
+    private VisualElement winOverlay;
+    private Label coinsLabel;
+    private Button continueButton;
 
     void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
+        winOverlay = root.Q<VisualElement>("WinOverlay");
+        coinsLabel = root.Q<Label>("CoinsLabel");
+        continueButton = root.Q<Button>("ContinueButton");
 
-        pauseButton = root.Q<Button>("PauseButton");
-        pauseOverlay = root.Q<VisualElement>("PauseOverlay");
-        resumeButton = root.Q<Button>("ResumeButton");
-        exitButton = root.Q<Button>("ExitButton");
-
-        pauseButton.clicked += PauseGame;
-        resumeButton.clicked += ResumeGame;
-        exitButton.clicked += ExitGame;
+        continueButton.clicked += OnContinue;
     }
 
-    void PauseGame()
+    public void ShowWinScreen(int coinsEarned)
     {
-        Time.timeScale = 0;
-        pauseOverlay.style.display = DisplayStyle.Flex;
+        coinsLabel.text = $"Monedas obtenidas: {coinsEarned}";
+        winOverlay.style.display = DisplayStyle.Flex;
     }
 
-    void ResumeGame()
+    private void OnContinue()
     {
-        Time.timeScale = 1;
-        pauseOverlay.style.display = DisplayStyle.None;
-    }
-
-    void ExitGame()
-    {
-        Time.timeScale = 1;
+        // Por ejemplo, volver al menú principal
         UIManager.Instance.ShowMainMenu();
     }
 }
