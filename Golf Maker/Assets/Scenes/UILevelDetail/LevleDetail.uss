@@ -1,1 +1,7 @@
-VisualElement {}
+.Navbar {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    height: 130px;
+    max-height: 130px;
+}
