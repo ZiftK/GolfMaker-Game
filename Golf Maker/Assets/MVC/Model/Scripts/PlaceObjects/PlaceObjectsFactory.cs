@@ -32,4 +32,15 @@ public class PlaceObjectsFactory : MonoBehaviour
         return val.prefab;
     }
 
+    public static int GetPlaceObjectIdByName(string name)
+    {
+        if (!map.ContainsKey(name))
+        {
+            Debug.Log($"Not exist an object with name: {name}");
+        }
+
+        map.TryGetValue(name, out PlaceObjectConfig val);
+        return val.id;
+    }
+
 }
