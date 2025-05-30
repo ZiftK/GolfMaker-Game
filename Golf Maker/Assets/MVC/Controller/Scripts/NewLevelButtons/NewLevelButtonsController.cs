@@ -65,6 +65,7 @@ public class NewLevelButtonsController : MonoBehaviour
             dificultad = difficultEnum.value.ToString()
         };
         EnvDataHandler.Instance.SetLevelInEditionData(level);
+        UIManager.Instance.DeacTiveAll();
         SceneManager.LoadScene("LevelCreator");
     }
 
