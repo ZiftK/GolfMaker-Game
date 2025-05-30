@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameLevelHandler : MonoBehaviour
 {
+
 
     #region Repository
     private ILevelRepository levelRepository;
@@ -15,6 +17,8 @@ public class GameLevelHandler : MonoBehaviour
 
     private int hits;
     private int resets;
+
+    private int coins;
 
     #endregion Properties
 
@@ -35,6 +39,10 @@ public class GameLevelHandler : MonoBehaviour
         GameLevelEvents.SetBallInitialPositionEvent += SetInitialBallPosition;
         GameLevelEvents.OnHitBallEvent += AddHit;
         GameLevelEvents.OnResetBallEvent += AddReset;
+        GameLevelEvents.OnTakeCoin += TakeCoin;
+        GameLevelEvents.OnResetCoins += ResetCoins;
+
+        levelRepository = ServerLevelRepository.GetInstance();
 
 
         GridFacade.Instance.ActivateVisualGrid(false);
@@ -65,6 +73,15 @@ public class GameLevelHandler : MonoBehaviour
 
         // // Activate the visual grid
         // Grid2D.Instance.ActivateVisualGrid(false);
+        _ = AsyncLoadLevel(levelId);
+    }
+
+    async Task AsyncLoadLevel(int levelId)
+    {
+        var levelData = await levelRepository.GetById(levelId);
+        EnvDataHandler.Instance.SetLevelToPlayData(levelData);
+
+        GameLevelEvents.TriggerOnSetLevelStruct(levelData.estructura_nivel);
     }
 
     public void SetInitialBallPosition(Vector3 position)
@@ -92,5 +109,8 @@ public class GameLevelHandler : MonoBehaviour
             resets--;
         }
     }
+
+    public void TakeCoin() => coins++;
+    public void ResetCoins() => coins = 0;
     #endregion Controls
 }

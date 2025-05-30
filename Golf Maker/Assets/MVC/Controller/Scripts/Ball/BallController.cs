@@ -179,8 +179,15 @@ public class BallController : MonoBehaviour
 
         if (other.CompareTag("fall"))
         {
-            Debug.Log("Win!!!");            
-        }     
+            Debug.Log("Win!!!");
+        }
+
+        if (other.CompareTag("coin"))
+        {
+            EffectsEvents.ThrowEffect("TakeCoin", other.transform.position);
+            GameLevelEvents.TriggerTakeCoin();
+            other.gameObject.SetActive(false);
+        }
     }
 
     #endregion Event Methods

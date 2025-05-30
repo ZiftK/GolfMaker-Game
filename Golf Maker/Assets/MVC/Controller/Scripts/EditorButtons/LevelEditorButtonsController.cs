@@ -17,7 +17,7 @@ public class LevelEditorButtonsController : MonoBehaviour
 
     private VisualElement root;
 
-    public void Awake()
+    public void OnEnable()
     {
         editorLevelEvents = EditorLevelEvents.GetInstance();
 
@@ -38,7 +38,8 @@ public class LevelEditorButtonsController : MonoBehaviour
         leaveButton = root.Q<Button>("leave-tool");
         leaveButton.RegisterCallback<ClickEvent>(_ =>
         {
-            SceneManager.LoadScene("Root");
+            UIManager.Instance.ShowPlayDesignMenu();
+            SceneManager.LoadScene("SampleScene");
         });
     }
 
@@ -77,7 +78,7 @@ public class LevelEditorButtonsController : MonoBehaviour
 
     void LoadLevel()
     {
-        editorLevelEvents.OnLoadLevel(EnvDataHandler.Instance.GetCurrentLevelIdToLoad());
+        editorLevelEvents.OnLoadLevel(EnvDataHandler.Instance.GetCurrentLevelToPlay().id_nivel);
     }
 
     void SaveMiddleData()

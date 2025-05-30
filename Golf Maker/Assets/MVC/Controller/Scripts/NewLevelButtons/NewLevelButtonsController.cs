@@ -14,7 +14,9 @@ public class NewLevelButtonsController : MonoBehaviour
 
     private Button createButton;
 
-    void Awake()
+    private Button backButton;
+
+    void OnEnable()
     {
         var root = uIDocument.rootVisualElement;
 
@@ -22,6 +24,7 @@ public class NewLevelButtonsController : MonoBehaviour
         descriptionTextBox = root.Q<TextField>("description");
         difficultEnum = root.Q<EnumField>("dificult");
         createButton = root.Q<Button>("create-button");
+        backButton = root.Q<Button>("backButton");
 
         createButton.RegisterCallback<ClickEvent>(_ =>
             {
@@ -29,6 +32,11 @@ public class NewLevelButtonsController : MonoBehaviour
             }
         );
 
+        backButton.RegisterCallback<ClickEvent>(_ =>
+            {
+                SwitchToPlayDesign();
+            }
+        );
     }
 
     public void CreateLevel()
@@ -57,6 +65,16 @@ public class NewLevelButtonsController : MonoBehaviour
             dificultad = difficultEnum.value.ToString()
         };
         EnvDataHandler.Instance.SetLevelInEditionData(level);
+        UIManager.Instance.DeacTiveAll();
         SceneManager.LoadScene("LevelCreator");
+    }
+
+    public void SwitchToPlayDesign()
+    {
+        Debug.Log("Se presiono");
+        // clear
+        nameTextBox.value = "";
+        descriptionTextBox.value = "";
+        UIManager.Instance.ShowPlayDesignMenu();
     }
 }
