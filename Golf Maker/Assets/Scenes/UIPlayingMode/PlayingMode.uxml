@@ -1,20 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    <engine:VisualElement name="GameUI" class="game-ui">
-    <engine:Button name="PauseButton" text="⏸" class="pause-button" />
-    <engine:VisualElement name="PauseOverlay" class="pause-overlay" style="display: none;">
-
-        <engine:VisualElement name="PauseMenu" class="pause-menu">
-            <engine:Button name="ResumeButton" text="Reanudar" />
-            <engine:Button name="ExitButton" text="Salir" />
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scenes/UIPlayingMode/PlayingMode.uss?fileID=7433441132597879392&amp;guid=fdb0e1307f9deff4cadba7ff3147b3af&amp;type=3#PlayingMode" />
+    <engine:VisualElement name="GameUI" class="game-ui" style="width: 100%; height: 100%;">
+        <engine:Button name="PauseButton" text="⏸" class="pause-button" style="font-size: 114px; color: rgb(27, 27, 27);" />
+        <engine:VisualElement name="PauseOverlay" class="pause-overlay" style="display: none;">
+            <engine:VisualElement class="pause-menu" style="height: auto; width: 400px;">
+                <engine:Button name="ResumeButton" text="Reanudar" style="font-size: 38px;" />
+                <engine:Button name="ExitButton" text="Salir" style="font-size: 38px;" />
+            </engine:VisualElement>
         </engine:VisualElement>
-        
     </engine:VisualElement>
-
-</engine:VisualElement>
 </engine:UXML>
