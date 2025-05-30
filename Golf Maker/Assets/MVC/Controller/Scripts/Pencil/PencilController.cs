@@ -10,7 +10,9 @@ public class PencilController : MonoBehaviour
 
     public float temporalTileOpacity = 0.5f;
 
-    private int tileId = 0;
+    private int id = 0;
+
+    private PencilSetType pencilSetType;
 
     private EditorLevelEvents editorLevelHandler;
 
@@ -35,7 +37,8 @@ public class PencilController : MonoBehaviour
             currentUpdateState.Update(
             new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                tileId
+                id,
+                pencilSetType
                 )
                 );
         }
@@ -43,7 +46,17 @@ public class PencilController : MonoBehaviour
 
     public void OnSelectBlock(object sender, SelectBlockArgs args)
     {
-        tileId = TileMapsFactory.GetTileIdByName(args.blockName);
+        if (args.pencilSetType == PencilSetType.Tile)
+        {
+            id = TileMapsFactory.GetTileIdByName(args.blockName);
+        }
+
+        if (args.pencilSetType == PencilSetType.PlaceObject)
+        {
+            id = PlaceObjectsFactory.GetPlaceObjectIdByName(args.blockName);
+        }
+
+        pencilSetType = args.pencilSetType;
     }
 
     public void OnSelectPencil(object sender, SelectPencilArgs args)
@@ -83,7 +96,8 @@ public class PencilController : MonoBehaviour
             currentState.OnLeftClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                tileId
+                id,
+                pencilSetType
                 )
                 );
         }
@@ -93,7 +107,8 @@ public class PencilController : MonoBehaviour
             currentState.OnLeftUnClikc(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                tileId
+                id,
+                pencilSetType
                 )
             );
         }
@@ -104,7 +119,8 @@ public class PencilController : MonoBehaviour
             currentState.OnRightClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                tileId
+                id,
+                pencilSetType
                 )
             );
         }
@@ -113,7 +129,8 @@ public class PencilController : MonoBehaviour
             currentState.OnRightUnClick(
                 new PencilContext(
                 Vector3Int.RoundToInt(transform.position),
-                tileId
+                id,
+                pencilSetType
                 )
             );
         }
