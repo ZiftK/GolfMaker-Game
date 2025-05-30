@@ -5,5 +5,11 @@
     xmlns:editor="UnityEditor.UIElements"
     xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
 >
-    
+    <engine:VisualElement name="GameUI" class="game-ui">
+    <engine:Button name="PauseButton" text="⏸" class="pause-button" />
+    <engine:VisualElement name="PauseMenu" class="pause-menu" style="display: none;">
+        <engine:Button name="ResumeButton" text="Reanudar" />
+        <engine:Button name="ExitButton" text="Salir" />
+    </engine:VisualElement>
+</engine:VisualElement>
 </engine:UXML>
