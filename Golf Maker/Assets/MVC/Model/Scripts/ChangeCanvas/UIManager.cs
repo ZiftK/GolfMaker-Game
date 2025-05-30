@@ -35,16 +35,22 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void SwitchCanvas(int id)
+    public void DeacTiveAll()
     {
-
         loginCanvas.gameObject.SetActive(false);
         mainCanvas.gameObject.SetActive(false);
         playOrDesignCanvas.gameObject.SetActive(false);
         levelList.gameObject.SetActive(false);
+        newLevelCanvas.gameObject.SetActive(false);
         //todo: add levels canvas
         // myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
         // levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
+    }
+
+    public void SwitchCanvas(int id)
+    {
+
+        DeacTiveAll();
 
         switch (id)
         {

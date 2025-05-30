@@ -38,7 +38,7 @@ public class LevelEditorButtonsController : MonoBehaviour
         leaveButton = root.Q<Button>("leave-tool");
         leaveButton.RegisterCallback<ClickEvent>(_ =>
         {
-            SceneManager.LoadScene("Root");
+            SceneManager.LoadScene("SampleScene");
         });
     }
 
