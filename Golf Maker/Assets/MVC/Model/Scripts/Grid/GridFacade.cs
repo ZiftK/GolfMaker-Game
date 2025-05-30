@@ -83,6 +83,14 @@ public class GridFacade : MonoBehaviour
         idStorage = gameObject.GetComponent<GridIdStorage>();
         objectsPlacer = gameObject.GetComponent<GridObjectsPlacer>();
     }
+
+    private void InitComponents()
+    {
+        gridRenderer.InitVisualGrid(levelWidth, levelHeight, globalTilingId);
+        tilesRenderer.InitVisualGridTiles(tileBaseWidth);
+        idStorage.InitGridIdStorage(levelWidth, levelHeight);
+        objectsPlacer.InitGridObjectsPlacer(tileBaseWidth);
+    }
     private void SuscribeEvents()
     {
         PencilEventsHandler pencilEventsHandler = PencilEventsHandler.GetInstance();
@@ -217,7 +225,7 @@ public class GridFacade : MonoBehaviour
 
     #endregion Alter tiles
 
-    public void LoadLevelFromParseLevel(int[,] levelIds)
+    public void LoadTilesFromParseLevel(int[,] levelIds)
     {
 
         ClearAllTiles();
@@ -315,6 +323,8 @@ public class GridFacade : MonoBehaviour
         {
             throw new Exception("No split structure");
         }
+
+        ClearAllTiles();
 
         idStorage.SetFromParsedStructure(structures[0]);
         objectsPlacer.SetFromParsedStructure(structures[1]);

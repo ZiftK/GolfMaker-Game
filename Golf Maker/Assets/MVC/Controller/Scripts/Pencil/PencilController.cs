@@ -31,7 +31,6 @@ public class PencilController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(currentUpdateState);
         if (currentUpdateState is not null)
         {
             currentUpdateState.Update(

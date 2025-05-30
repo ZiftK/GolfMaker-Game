@@ -27,6 +27,7 @@ public class GridIdStorage : MonoBehaviour
             }
         }
     }
+    
 
 
 
@@ -57,6 +58,8 @@ public class GridIdStorage : MonoBehaviour
 
     public void SetFromParsedStructure(string serializedStruct)
     {
-        levelIds = LevelParser.DeSerializeLevelIds(serializedStruct);
+        int[,] newLevelIds = LevelParser.DeSerializeLevelIds(serializedStruct);
+
+        GridFacade.Instance.LoadTilesFromParseLevel(newLevelIds);
     }
 }
