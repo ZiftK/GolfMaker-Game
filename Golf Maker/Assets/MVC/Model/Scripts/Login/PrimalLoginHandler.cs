@@ -10,20 +10,6 @@ public class PrimalLoginHandler : MonoBehaviour
     private VisualElement root;
     private VisualElement formContainer;
 
-    [Header("Main menu")]
-    public Canvas mainCanvas;
-
-    [Header("Canvas Play or Design")]
-    public Canvas playOrDesignCanvas;
-
-    [Header("My Levesl Canvas")]
-    public UIDocument myLevelsCanvas;
-
-    [Header("Leves design Canvas")]
-    public UIDocument levelDesignCanvas;
-
-    [Header("Level list canvas")]
-    public UIDocument levelList;
     public GameObject content;
     public GameObject buttonPrefab;
 
@@ -37,7 +23,7 @@ public class PrimalLoginHandler : MonoBehaviour
 
         if (EnvDataHandler.Instance.HasData())
         {
-            SwitchCanvas(1);
+            UIManager.Instance.ShowMainMenu(); // ✅ Más claro
         }
     }
 
@@ -57,23 +43,35 @@ public class PrimalLoginHandler : MonoBehaviour
         passwordField.AddToClassList("inputField");
         formContainer.Add(passwordField);
 
-        var buttonRow = new VisualElement();
-        buttonRow.style.flexDirection = FlexDirection.RowReverse;
-        buttonRow.style.justifyContent = Justify.SpaceBetween;
-        buttonRow.style.alignItems = Align.FlexEnd;
-        buttonRow.style.alignSelf = Align.Center;
-        buttonRow.style.width = 828;
-        buttonRow.style.flexGrow = 1;
+        var buttonRow = new VisualElement
+        {
+            style =
+            {
+                flexDirection = FlexDirection.RowReverse,
+                justifyContent = Justify.SpaceBetween,
+                alignItems = Align.FlexEnd,
+                alignSelf = Align.Center,
+                width = 828,
+                flexGrow = 1
+            }
+        };
 
-        var loginBtn = new Button(OnLoginButtonClickEvent) { name = "loginButton", text = "Iniciar" };
+        var loginBtn = new Button(OnLoginButtonClickEvent)
+        {
+            name = "loginButton",
+            text = "Iniciar"
+        };
         loginBtn.AddToClassList("btnLogin");
 
-        var signInBtn = new Button(LoadRegisterForm) { name = "signInButton", text = "Registrate" };
+        var signInBtn = new Button(LoadRegisterForm)
+        {
+            name = "signInButton",
+            text = "Registrate"
+        };
         signInBtn.AddToClassList("btnLogin");
 
         buttonRow.Add(signInBtn);
         buttonRow.Add(loginBtn);
-
         formContainer.Add(buttonRow);
     }
 
@@ -99,7 +97,7 @@ public class PrimalLoginHandler : MonoBehaviour
 
         var registerBtn = new Button(async () =>
         {
-            UserEntity user = new UserEntity
+            var user = new UserEntity
             {
                 id_usuario = -1,
                 nombre_usuario = usernameField.value,
@@ -113,32 +111,40 @@ public class PrimalLoginHandler : MonoBehaviour
 
             await RegisterNewUser(user);
         })
-
-
-
-        { text = "Registrar" };
+        {
+            text = "Registrar"
+        };
         registerBtn.AddToClassList("btnLogin");
 
-        var backBtn = new Button(LoadLoginForm) { text = "Volver" };
+        var backBtn = new Button(LoadLoginForm)
+        {
+            text = "Volver"
+        };
         backBtn.AddToClassList("btnLogin");
 
-        var buttonRow = new VisualElement();
-        buttonRow.style.flexDirection = FlexDirection.RowReverse;
-        buttonRow.style.justifyContent = Justify.SpaceBetween;
-        buttonRow.style.alignItems = Align.FlexEnd;
-        buttonRow.style.alignSelf = Align.Center;
-        buttonRow.style.width = 828;
-        buttonRow.style.flexGrow = 1;
+        var buttonRow = new VisualElement
+        {
+            style =
+            {
+                flexDirection = FlexDirection.RowReverse,
+                justifyContent = Justify.SpaceBetween,
+                alignItems = Align.FlexEnd,
+                alignSelf = Align.Center,
+                width = 828,
+                flexGrow = 1
+            }
+        };
 
         buttonRow.Add(backBtn);
         buttonRow.Add(registerBtn);
+        formContainer.Add(buttonRow);
     }
 
     public async Task RegisterNewUser(UserEntity user)
     {
         IUserRepository userRepository = ServerUserRepository.GetInstance();
-
         var existing = await userRepository.GetByUsername(user.nombre_usuario);
+
         if (existing != null)
         {
             Debug.LogError("Usuario ya existe");
@@ -148,7 +154,7 @@ public class PrimalLoginHandler : MonoBehaviour
         await userRepository.Create(user);
         EnvDataHandler.Instance.SetUserData(user);
         Debug.Log("Usuario registrado y logueado");
-        SwitchCanvas(1);
+        UIManager.Instance.ShowMainMenu(); // ✅ Usando el UIManager
     }
 
     public async void OnLoginButtonClickEvent()
@@ -166,7 +172,7 @@ public class PrimalLoginHandler : MonoBehaviour
         }
 
         IUserRepository userRepository = ServerUserRepository.GetInstance();
-        UserEntity user = await userRepository.GetByUsername(username);
+        var user = await userRepository.GetByUsername(username);
 
         if (user == null || user.contrasenna != password)
         {
@@ -175,7 +181,7 @@ public class PrimalLoginHandler : MonoBehaviour
         }
 
         EnvDataHandler.Instance.SetUserData(user);
-        SwitchCanvas(1);
+        UIManager.Instance.ShowMainMenu(); // ✅ Cambio limpio
     }
 
     public void OnCreateLevelButtonClickEvent()
@@ -185,41 +191,19 @@ public class PrimalLoginHandler : MonoBehaviour
 
     public void OnLevelListButtonClickEvent()
     {
-        SwitchCanvas(2);
+        UIManager.Instance.ShowLevelList(); // ✅ Cambio limpio
+
         foreach (Transform child in content.transform)
         {
             Destroy(child.gameObject);
         }
+
         _ = ShowLevelsList();
     }
 
     public void OnReturnFromLevelListClickEvent()
     {
-        SwitchCanvas(1);
-    }
-
-    public void SwitchCanvas(int id)
-    {
-        mainCanvas.gameObject.SetActive(false);
-        levelList.gameObject.SetActive(false);
-        playOrDesignCanvas.gameObject.SetActive(false);
-        myLevelsCanvas.rootVisualElement.style.display = DisplayStyle.None;
-        levelDesignCanvas.rootVisualElement.style.display = DisplayStyle.None;
-
-
-        switch (id)
-        {
-            case 1:
-                mainCanvas.gameObject.SetActive(true);
-                break;
-            case 2:
-                playOrDesignCanvas.gameObject.SetActive(true);
-                break;
-            case 3:
-                levelList.gameObject.SetActive(true);
-                break;
-
-        }
+        UIManager.Instance.ShowMainMenu();
     }
 
     public async Task ShowLevelsList()
