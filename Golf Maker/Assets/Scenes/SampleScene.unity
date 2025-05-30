@@ -1082,6 +1082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961204448}
   - component: {fileID: 961204449}
+  - component: {fileID: 961204450}
   m_Layer: 0
   m_Name: UINewLevel
   m_TagString: Untagged
@@ -1123,6 +1124,19 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &961204450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961204447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fef02f95fe077deba7b7be2f7be7687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIDocument: {fileID: 961204449}
 --- !u!1 &1161717712
 GameObject:
   m_ObjectHideFlags: 0
