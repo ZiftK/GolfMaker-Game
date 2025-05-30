@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class RepositoryManager : MonoBehaviour
@@ -8,25 +9,70 @@ public class RepositoryManager : MonoBehaviour
     private VisualElement saveButton;
     private VisualElement resetButton;
 
+    private VisualElement leaveButton;
+
     private EditorLevelEvents editorLevelEvents;
 
+    private VisualElement root;
 
     public void Awake()
     {
         editorLevelEvents = EditorLevelEvents.GetInstance();
 
-        var root = uIDocument.rootVisualElement;
-        
+        root = uIDocument.rootVisualElement;
+
         saveButton = root.Q<Button>("save-tool");
         saveButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelEvents.OnSaveLevel();
+            SaveLevel();
         });
 
         resetButton = root.Q<Button>("reset-tool");
         resetButton.RegisterCallback<ClickEvent>(_ =>
         {
-            editorLevelEvents.OnLoadLevel();
+
         });
+
+        leaveButton = root.Q<Button>("leave-tool");
+        leaveButton.RegisterCallback<ClickEvent>(_ =>
+        {
+            SceneManager.LoadScene("Root");
+        });
+    }
+
+    void SaveLevel()
+    {
+        string levelName = root.Q<TextField>().value;
+
+        if (string.IsNullOrWhiteSpace(levelName))
+        {
+            Debug.LogError("Level name empty");
+            return;
+        }
+
+        LevelEntity levelData = new LevelEntity
+        {
+            id_nivel = EnvDataHandler.Instance.GetCurrentLevelInEditionId(),
+            id_usuario = EnvDataHandler.Instance.GetCurrentUserId(), // Example user ID
+            nombre = levelName,
+            fecha_creacion = "",
+            dificultad = Dificultad.Medio.ToString(),
+            descripcion = "A challenging level with obstacles.",
+            rating_promedio = 0f,
+            jugado_veces = 0,
+            completado_veces = 0,
+            cantidad_monedas = 0,
+            alto_nivel = GridFacade.Instance.GetLevelHeight(),
+            ancho_nivel = GridFacade.Instance.GetLevelWidth(),
+            estructura_nivel = LevelParser.SerializeLevelIds(GridFacade.Instance.GetLevelIds()),
+        };
+
+        editorLevelEvents.OnSaveLevel(levelData);
+    }
+
+    void LoadLevel()
+    {
+
+        editorLevelEvents.OnLoadLevel();
     }
 }

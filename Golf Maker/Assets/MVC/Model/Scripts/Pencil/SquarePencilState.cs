@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class SquarePencilState : PencilState
+public class SquarePencilState : PencilState, IUpdatePencilState
 {
 
     private static SquarePencilState instance;
-    public static PencilState GetInstance(){
+    public static SquarePencilState GetInstance(){
         if (instance == null){
             instance = new SquarePencilState();
         }
@@ -68,7 +68,7 @@ public class SquarePencilState : PencilState
         
     }
 
-    public override void Update(PencilContext context)
+    public void Update(PencilContext context)
     {
         if (this.IsDrawing && lastPosition != context.position)
         {

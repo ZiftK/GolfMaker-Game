@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Niveles (
     jugado_veces INT DEFAULT 0,
     completado_veces INT DEFAULT 0,
     estructura_nivel TEXT,
-    cantidad_moneas INT DEFAULT 0,
+    cantidad_monedas INT DEFAULT 0,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
 

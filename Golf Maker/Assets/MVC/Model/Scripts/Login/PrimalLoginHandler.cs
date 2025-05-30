@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Security.Cryptography;
@@ -8,100 +12,85 @@ using System.Text;
 
 public class PrimalLoginHandler : MonoBehaviour
 {
-    [Header("UI References")]
+
+    [Header("Login form")]
+    public Canvas loginCanvas;
     public TMP_InputField usernameInputField;
     public TMP_InputField passwordInputField;
-    public TMP_InputField confirmPasswordInputField; // Para registro
 
-    [Header("UI Buttons")]
-    public Button loginButton;
-    public Button switchModeButton;
+    [Header("Main form")]
+    public Canvas mainCanvas;
 
-    [Header("UI Labels")]
-    public TMP_Text titleLabel;
-    public TMP_Text loginButtonText;
-    public TMP_Text switchButtonText;
-    public TMP_Text errorMessageText; // Para mostrar errores
+    [Header("Level list canvas")]
+    public Canvas levelList;
+    public GameObject content;
+    public GameObject buttonPrefab;
 
-    [Header("Settings")]
-    public bool startInLoginMode = true;
-    public string successSceneName = "LevelCreator";
 
-    private bool isLoginMode;
-
-    private void Start()
+    void Awake()
     {
-        isLoginMode = startInLoginMode;
-        SetupUI();
-        UpdateUIForCurrentMode();
-    }
-
-    private void SetupUI()
-    {
-        // Configurar eventos de botones
-        if (loginButton != null)
-            loginButton.onClick.AddListener(() => _ = OnMainButtonClick());
-
-        if (switchModeButton != null)
-            switchModeButton.onClick.AddListener(SwitchMode);
-
-        // Ocultar campo de confirmación inicialmente
-        if (confirmPasswordInputField != null)
-            confirmPasswordInputField.gameObject.SetActive(false);
-
-        // Ocultar mensaje de error inicialmente
-        if (errorMessageText != null)
-            errorMessageText.gameObject.SetActive(false);
-    }
-
-    public void OnButtonClickEvent()
-    {
-        _ = OnMainButtonClick();
-    }
-
-    public async Task OnMainButtonClick()
-    {
-        if (isLoginMode)
+        if (EnvDataHandler.Instance.HasData())
         {
-            await TryLogin();
+            SwitchCambas(1);
         }
-        else
-        {
-            await TryRegister();
-        }
+
     }
 
-    public void SwitchMode()
+    public void OnLoginButtonClickEvent()
     {
-        isLoginMode = !isLoginMode;
-        UpdateUIForCurrentMode();
-        ClearFields();
-        HideErrorMessage();
+        _ = TryLogin();
     }
 
-    private void UpdateUIForCurrentMode()
+    public void OnCreateLevelButtonClickEvent()
     {
-        if (isLoginMode)
+        SceneManager.LoadScene("LevelCreator");
+    }
+
+
+    public void OnLevelListButtonClickEvent()
+    {
+        SwitchCambas(2);
+        foreach (Transform child in content.transform)
         {
-            // Modo Login
-            if (titleLabel != null) titleLabel.text = "Inicia Sesión";
-            if (loginButtonText != null) loginButtonText.text = "Iniciar Sesión";
-            if (switchButtonText != null) switchButtonText.text = "Crear Cuenta";
-            if (confirmPasswordInputField != null) confirmPasswordInputField.gameObject.SetActive(false);
+            Destroy(child.gameObject);
         }
-        else
+        _ = ShowLevelsList();
+    }
+
+    public void OnReturnFromLevelListClickEvent()
+    {
+        SwitchCambas(1);
+    }
+
+    public void SwitchCambas(int id)
+    {
+        mainCanvas.gameObject.SetActive(false);
+        loginCanvas.gameObject.SetActive(false);
+        levelList.gameObject.SetActive(false);
+
+        switch (id)
         {
-            // Modo Registro
-            if (titleLabel != null) titleLabel.text = "Crear Cuenta";
-            if (loginButtonText != null) loginButtonText.text = "Registrarse";
-            if (switchButtonText != null) switchButtonText.text = "Ya tengo cuenta";
-            if (confirmPasswordInputField != null) confirmPasswordInputField.gameObject.SetActive(true);
+            case 0:
+
+                loginCanvas.gameObject.SetActive(true);
+                break;
+            case 1:
+                mainCanvas.gameObject.SetActive(true);
+                break;
+
+            case 2:
+                levelList.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+
         }
     }
 
     public async Task TryLogin()
     {
-        string username = usernameInputField.text.Trim();
+
+        string username = usernameInputField.text;
         string password = passwordInputField.text;
 
         // Validaciones básicas
@@ -267,52 +256,36 @@ public class PrimalLoginHandler : MonoBehaviour
     private async Task OnLoginSuccess(UserEntity user)
     {
         EnvDataHandler.Instance.SetUserData(user);
-        ShowSuccessMessage("Iniciando sesión...");
-        await Task.Delay(1000); // Breve pausa para mostrar el mensaje
-        SceneManager.LoadScene(successSceneName);
-        ClearFields();
+        // Reset input fields after submission
+        usernameInputField.text = string.Empty;
+        passwordInputField.text = string.Empty;
+        SwitchCambas(1);
+
     }
 
-    private void SwitchToLoginMode()
+    public async Task ShowLevelsList()
     {
-        isLoginMode = true;
-        UpdateUIForCurrentMode();
-        ClearFields();
-        HideErrorMessage();
-    }
-
-    private void ClearFields()
-    {
-        if (usernameInputField != null) usernameInputField.text = string.Empty;
-        if (passwordInputField != null) passwordInputField.text = string.Empty;
-        if (confirmPasswordInputField != null) confirmPasswordInputField.text = string.Empty;
-    }
-
-    private void ShowErrorMessage(string message)
-    {
-        Debug.LogError(message);
-        if (errorMessageText != null)
+        try
         {
-            errorMessageText.text = message;
-            errorMessageText.color = Color.red;
-            errorMessageText.gameObject.SetActive(true);
+            ILevelRepository levelRepository = ServerLevelRepository.GetInstance();
+            List<LevelEntity> levels = await levelRepository.GetAll();
+
+            if (levels == null || levels.Count == 0)
+            {
+                Debug.Log("Sin niveles");
+                return;
+            }
+
+            foreach (LevelEntity level in levels)
+            {
+                GameObject button = Instantiate(buttonPrefab, content.transform);
+                button.GetComponent<LevelButton>().Customize(level);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error al obtener la lista de niveles: {ex.Message}");
         }
     }
 
-    private void ShowSuccessMessage(string message)
-    {
-        Debug.Log(message);
-        if (errorMessageText != null)
-        {
-            errorMessageText.text = message;
-            errorMessageText.color = Color.green;
-            errorMessageText.gameObject.SetActive(true);
-        }
-    }
-
-    private void HideErrorMessage()
-    {
-        if (errorMessageText != null)
-            errorMessageText.gameObject.SetActive(false);
-    }
 }

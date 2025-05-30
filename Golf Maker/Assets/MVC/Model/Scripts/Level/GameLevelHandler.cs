@@ -37,34 +37,34 @@ public class GameLevelHandler : MonoBehaviour
         GameLevelEvents.OnResetBallEvent += AddReset;
 
 
-        Grid2D.Instance.ActivateVisualGrid(false);
+        GridFacade.Instance.ActivateVisualGrid(false);
         OnLoadLevel(1); // Load the default level with ID 1
 
     }
 
     public void OnLoadLevel(int levelId)
     {
-        levelRepository = new PrimalLevelRepository();
-        LevelEntity level = levelRepository.LoadLevelRecord(levelId);
+        // levelRepository = new PrimalLevelRepository();
+        // LevelEntity level = levelRepository.LoadLevelRecord(levelId);
 
-        if (level == null)
-        {
-            Debug.LogError($"Level with ID {levelId} not found.");
-            return;
-        }
+        // if (level == null)
+        // {
+        //     Debug.LogError($"Level with ID {levelId} not found.");
+        //     return;
+        // }
 
-        // set level dimensions
-        Grid2D.Instance.SetLevelHeight((int)level.AltoNivel);
-        Grid2D.Instance.SetLevelWidth((int)level.AnchoNivel);
+        // // set level dimensions
+        // Grid2D.Instance.SetLevelHeight((int)level.AltoNivel);
+        // Grid2D.Instance.SetLevelWidth((int)level.AnchoNivel);
 
-        // deserialize the level structure
-        int[,] levelStructure = LevelParser.DeSerializeLevelIds(level.EstructuraNivel);
+        // // deserialize the level structure
+        // int[,] levelStructure = LevelParser.DeSerializeLevelIds(level.EstructuraNivel);
 
-        // Load the level structure into the grid
-        Grid2D.Instance.LoadLevelFromParseLevel(levelStructure);
+        // // Load the level structure into the grid
+        // Grid2D.Instance.LoadLevelFromParseLevel(levelStructure);
 
-        // Activate the visual grid
-        Grid2D.Instance.ActivateVisualGrid(false);
+        // // Activate the visual grid
+        // Grid2D.Instance.ActivateVisualGrid(false);
     }
 
     public void SetInitialBallPosition(Vector3 position)

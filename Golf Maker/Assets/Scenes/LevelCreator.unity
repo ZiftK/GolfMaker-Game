@@ -174,7 +174,6 @@ GameObject:
   m_Component:
   - component: {fileID: 431469978}
   - component: {fileID: 431469977}
-  - component: {fileID: 431469976}
   - component: {fileID: 431469979}
   m_Layer: 0
   m_Name: Global
@@ -183,18 +182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &431469976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431469975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddff8fc89259f0002b6f3f5df0d3b68f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &431469977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,10 +984,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1893831420}
-  - component: {fileID: 1893831418}
-  - component: {fileID: 1893831422}
   - component: {fileID: 1893831421}
   - component: {fileID: 1893831423}
+  - component: {fileID: 1893831426}
+  - component: {fileID: 1893831425}
+  - component: {fileID: 1893831422}
+  - component: {fileID: 1893831424}
+  - component: {fileID: 1893831427}
   m_Layer: 0
   m_Name: Gird2D
   m_TagString: Untagged
@@ -1008,22 +998,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1893831418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893831417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250b03d20ced0fc4ead4760f9294789d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelWidth: 20
-  levelHeight: 20
-  visualGrid: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
-  tileBaseWidth: 0.5
 --- !u!4 &1893831420
 Transform:
   m_ObjectHideFlags: 0
@@ -1102,6 +1076,59 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1893831424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893831417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250b03d20ced0fc4ead4760f9294789d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelWidth: 10
+  levelHeight: 10
+  globalTilingId: 0
+  tileBaseWidth: 0.5
+--- !u!114 &1893831425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893831417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1711997e0d3722157af2c29dde23ee34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1893831426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893831417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e34731324fa84989959bea19964ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualGridPrefab: {fileID: 5315831881274630861, guid: 199496108b31640478ca0701316818ca, type: 3}
+--- !u!114 &1893831427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893831417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c550e2d16b96ee444b104a296bf7e733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

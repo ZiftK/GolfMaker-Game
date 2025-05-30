@@ -18,8 +18,10 @@
                         <ui:VisualElement name="ruler-icon" class="tool-icon ruler-icon" />
                     </ui:Button>
                 </ui:VisualElement>
-                <ui:Button text="Save" name="save-tool" style="transform-origin: center; translate: 0 20px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/PixelifySans-VariableFont_wght.ttf?fileID=12800000&amp;guid=93d4877224e13864aa557d09ab856f87&amp;type=3#PixelifySans-VariableFont_wght&quot;); font-size: 20px; -unity-text-align: lower-center;" />
-                <ui:Button text="Reset" name="reset-tool" style="transform-origin: center; translate: 0 20px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/PixelifySans-VariableFont_wght.ttf?fileID=12800000&amp;guid=93d4877224e13864aa557d09ab856f87&amp;type=3#PixelifySans-VariableFont_wght&quot;); font-size: 20px; -unity-text-align: lower-center;" />
+                <ui:TextField placeholder-text="Level name" name="name-tool" password="false" style="justify-content: flex-start; align-self: stretch;" />
+                <ui:Button text="Save" name="save-tool" style="transform-origin: center; translate: 0 20px;" />
+                <ui:Button text="Reset" name="reset-tool" style="transform-origin: center; translate: 0 20px;" />
+                <ui:Button text="Leave" name="leave-tool" style="transform-origin: center; translate: 0 20px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="blocks-panel" class="blocks-panel" style="background-color: rgb(101, 119, 101);">

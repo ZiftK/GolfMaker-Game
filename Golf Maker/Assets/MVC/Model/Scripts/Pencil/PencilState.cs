@@ -1,15 +1,23 @@
 
 using UnityEngine;
 
-public struct PencilContext{
 
-    
-    public PencilContext(Vector3Int position, int tileId){
+public struct PencilContext
+{
+
+
+    public PencilContext(Vector3Int position, int tileId)
+    {
         this.position = position;
         this.tileId = tileId;
     }
     public Vector3Int position;
     public int tileId;
+}
+
+public interface IUpdatePencilState
+{
+    public void Update(PencilContext context);
 }
 
 public abstract class PencilState
@@ -19,27 +27,30 @@ public abstract class PencilState
 
     private bool drawing, borrowing;
 
-    public PencilState(){
+    public PencilState()
+    {
         pencilEventsHandler = PencilEventsHandler.GetInstance();
     }
 
-    public bool IsDrawing {
+    public bool IsDrawing
+    {
         get { return drawing; }
-        protected set {
+        protected set
+        {
             if (value && borrowing) return;
             drawing = value;
         }
     }
 
-    public bool IsBorrowing {
+    public bool IsBorrowing
+    {
         get { return borrowing; }
-        protected set {
+        protected set
+        {
             if (value && drawing) return;
             borrowing = value;
         }
     }
-
-    public abstract void Update(PencilContext context);
 
     public abstract void OnLeftClick(PencilContext context);
 
