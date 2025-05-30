@@ -18,6 +18,8 @@ public class GameLevelHandler : MonoBehaviour
     private int hits;
     private int resets;
 
+    private int coins;
+
     #endregion Properties
 
 
@@ -37,6 +39,8 @@ public class GameLevelHandler : MonoBehaviour
         GameLevelEvents.SetBallInitialPositionEvent += SetInitialBallPosition;
         GameLevelEvents.OnHitBallEvent += AddHit;
         GameLevelEvents.OnResetBallEvent += AddReset;
+        GameLevelEvents.OnTakeCoin += TakeCoin;
+        GameLevelEvents.OnResetCoins += ResetCoins;
 
         levelRepository = ServerLevelRepository.GetInstance();
 
@@ -105,5 +109,8 @@ public class GameLevelHandler : MonoBehaviour
             resets--;
         }
     }
+
+    public void TakeCoin() => coins++;
+    public void ResetCoins() => coins = 0;
     #endregion Controls
 }

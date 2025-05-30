@@ -27,6 +27,18 @@ public class GameLevelEvents
         OnHitBallEvent?.Invoke();
     }
 
+    public static event NoArgsDelegate OnTakeCoin;
+    public static void TriggerTakeCoin()
+    {
+        OnTakeCoin?.Invoke();
+    }
+
+    public static event NoArgsDelegate OnResetCoins;
+    public static void TriggerResetCoins()
+    {
+        OnResetCoins?.Invoke();
+    }
+
     public static event NoArgsDelegate OnResetBallEvent;
     public static void TriggerResetBall()
     {
