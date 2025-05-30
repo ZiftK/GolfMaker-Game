@@ -24,7 +24,7 @@ public class FillLevels : MonoBehaviour
         }
 
         var root = uIDocument.rootVisualElement;
-        levelsGrid = root.Q<VisualElement>("card-container");
+        levelsGrid = root.Q<VisualElement>("ScrollView_Father");
 
         await LoadUserLevelsAsync();
     }
@@ -52,7 +52,6 @@ public class FillLevels : MonoBehaviour
             var card = blockLevelCardTemplate.CloneTree();
             var levelName = card.Q<Label>("LevelName");
             var levelIdLabel = card.Q<Label>("LevelIdLabel");
-            var creatorLabel = card.Q<Label>("CreatorLabel");
             var playButton = card.Q<Button>("PlayButton");
 
             if (levelName != null)
@@ -61,27 +60,45 @@ public class FillLevels : MonoBehaviour
             if (levelIdLabel != null)
                 levelIdLabel.text = $"ID: {level.id_nivel}";
 
-            if (creatorLabel != null)
-                creatorLabel.text = $"Creator: {level.id_usuario}";
-
             if (playButton != null)
             {
                 int levelId = level.id_nivel;
                 playButton.RegisterCallback<ClickEvent>(_ =>
                 {
-                    Debug.Log("Play level: " + level.nombre + " id " + levelId);
+                    Debug.Log($"Playing level: {level.nombre} (ID: {levelId})");
+                    
+                    // Guardar los datos del nivel para usar después
                     EnvDataHandler.Instance.SetLevelToPlayData(level);
-                    GameLevelEvents.TriggerLoadLevel(levelId);
-                    GameLevelEvents.TriggerOnSetLevelStruct(level.estructura_nivel);
+                    
+                    // Cargar la escena Game
                     SceneManager.LoadScene("Game");
-                    UIManager.Instance.DeacTiveAll();
+                    
+                    // Una vez que la escena esté cargada, configurar el nivel
+                    SceneManager.sceneLoaded += (scene, mode) =>
+                    {
+                        if (scene.name == "Game")
+                        {
+                            // Obtener la instancia de GridFacade
+                            GridFacade gridFacade = GridFacade.Instance;
+                            if (gridFacade != null)
+                            {
+                                // Cargar la estructura del nivel en el GridFacade
+                                gridFacade.SetStructure(level.estructura_nivel);
+                                
+                                // Configurar el ID del nivel
+                                GameLevelEvents.TriggerLoadLevel(levelId);
+                                
+                                // Desactivar la UI
+                                UIManager.Instance.DeacTiveAll();
+                            }
+                            else
+                            {
+                                Debug.LogError("GridFacade instance not found in Game scene");
+                            }
+                        }
+                    };
                 });
             }
-
-            card.RegisterCallback<ClickEvent>(_ =>
-            {
-                Debug.Log("Level clicked: " + level.nombre + " id " + level.id_nivel);
-            });
 
             levelsGrid.Add(card);
         }
