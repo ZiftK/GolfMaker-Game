@@ -21,7 +21,7 @@ public class PlaceObjectsFactory : MonoBehaviour
         }
     }
 
-    public GameObject GetPlaceObjectByName(string name)
+    public static GameObject GetPlaceObjectByName(string name)
     {
         if (!map.ContainsKey(name))
         {

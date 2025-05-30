@@ -29,7 +29,7 @@ public class GridObjectsPlacer : MonoBehaviour
 
     public void PlaceObjectAtPosition(Vector3Int position, string placeObjectName)
     {
-        GameObject prefab = placeObjectsFactory.GetPlaceObjectByName(placeObjectName);
+        GameObject prefab = PlaceObjectsFactory.GetPlaceObjectByName(placeObjectName);
         GameObject instance = Instantiate(prefab);
 
         instance.transform.position = position;
