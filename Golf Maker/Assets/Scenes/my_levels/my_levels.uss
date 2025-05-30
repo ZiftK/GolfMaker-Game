@@ -39,6 +39,15 @@
     margin: 10px;
 }
 
+
+.card-details {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8px;
+    align-self: flex-start;
+}
+
+
 .card-left {
     flex-direction: row;
     align-items: center;
@@ -65,6 +74,21 @@
 }
 
 .card-right > Button > Image {
+    width: 20px;
+    height: 20px;
+}
+
+.rating-stars {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 6px;
+    margin-left: 4px;
+    height: 24px;
+    gap: 2px;
+}
+
+.rating-stars > Image {
     width: 20px;
     height: 20px;
 }
