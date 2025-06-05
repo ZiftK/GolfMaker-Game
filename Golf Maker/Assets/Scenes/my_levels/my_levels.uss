@@ -1,0 +1,118 @@
+.navbar{
+    padding: 0 20px;
+}
+
+.navbar > Button {
+    border: none;
+    border-width: 0px;
+}
+
+.ScrollView_Father {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(109, 214, 33, 0.62);
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    max-width: 450px;
+    max-height: 250px;
+    height: 150px;
+    margin: 10px;
+}
+
+.card-top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.card-details {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8px;
+    align-self: flex-start;
+}
+
+
+.card-left {
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-left > Image {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    border-width: 30px;
+
+}
+
+.card-right {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 4px;
+}
+
+.card-right > Button {
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.card-right > Button > Image {
+    width: 20px;
+    height: 20px;
+}
+
+.level-id {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 6px;
+    margin-left: 8px;
+    align-self: flex-start;
+}
+
+
+.rating-stars {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 6px;
+    margin-left: 4px;
+    height: 24px;
+    gap: 2px;
+}
+
+.rating-stars > Image {
+    width: 20px;
+    height: 20px;
+}
+
+.divider {
+    width: 3px;
+    height: 80%;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 0 15px;
+}

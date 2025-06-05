@@ -1,0 +1,15 @@
+Para los niveles
+- Crear un nivel
+- Eliminar un nivel por id
+- Obtener un nivel por id
+- Obtener todos los niveles
+- Obtener los comentarios de un nivel (rating)
+
+Para los usuarios
+- Crear usuario
+- Eliminar usuario por id
+- Obtener un usuario por id
+- Obtener todos los usuarios
+- Obtener niveles creados
+- Obtener niveles jugados
+

@@ -1,0 +1,26 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scenes/UILevelDetail/LevleDetail.uss?fileID=7433441132597879392&amp;guid=7642ec5664c87a344a07e38a5320c7fc&amp;type=3#LevleDetail" />
+    <engine:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/MVC/View/Front-end/assets/land.png?fileID=2800000&amp;guid=ea8a5d1c980af734fb9a4b33a3346387&amp;type=3#land&quot;); -unity-background-scale-mode: scale-and-crop;" >
+        <engine:VisualElement name="navbar" class="Navbar" style="flex-grow: 1; background-image: none; -unity-background-scale-mode: scale-and-crop; height: 162px; align-items: center; justify-content: space-between; flex-direction: row; align-self: stretch;">
+            <engine:Button style="background-image: resource(&apos;buttons/arrow_btn&apos;); background-color: rgba(87, 87, 87, 0); -unity-background-scale-mode: scale-to-fit; width: 74px; height: 70px; margin-top: 4px; margin-left: 4px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; -unity-text-align: upper-center;" />
+            <engine:Label text="Detalles" name="Label" enable-rich-text="true" class="title" style="-unity-text-align: middle-right; white-space: pre-wrap; text-overflow: clip; justify-content: flex-end; align-self: center; align-content: flex-start; align-items: flex-end; -unity-font-definition: resource(&apos;Fonts/PixelifySans-VariableFont_wght&apos;); font-size: 65px; height: 82px; color: rgb(255, 255, 255); margin-left: 824px;" />
+        </engine:VisualElement>
+
+        <engine:VisualElement class="content-container" style="flex-grow: 1; flex-direction: column; align-items: center; padding: 30px; justify-content: flex-start; gap: 20px;">
+
+            <!-- LEVEL INFO -->
+            <engine:VisualElement name="LevelInfo" style="width: 90%; padding: 20px; background-color: rgba(0, 0, 0, 0.4); border-radius: 8px; flex-direction: column; gap: 10px;">
+                <engine:Label name="LevelNameLabel" text="Level Name: N/A" style="font-size: 32px; color: white;" />
+                <engine:Label name="AuthorLabel" text="Author: N/A" style="font-size: 24px; color: white;" />
+                <engine:Label name="LevelIdLabel" text="ID: 0000" style="font-size: 20px; color: white;" />
+                <engine:Label name="AverageRatingLabel" text="Average Rating: 0.0 ★" style="font-size: 24px; color: yellow;" />
+            </engine:VisualElement>
+
+            <!-- COMMENTS SECTION -->
+            <engine:ScrollView name="CommentsContainer" style="width: 90%; height: 400px; background-color: rgba(0, 0, 0, 0.3); padding: 10px; border-radius: 6px;">
+                <!-- Comments will be added dynamically here -->
+            </engine:ScrollView>
+
+        </engine:VisualElement>
+    </engine:VisualElement>    
+</engine:UXML>

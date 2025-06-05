@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 10410d86ae44956469b5794d39355a80
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - blockLevelCardTemplate: {fileID: 9197481963319205126, guid: b04ffca25d931474c845c8b4a5619889, type: 3}
+  - uIDocument: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
